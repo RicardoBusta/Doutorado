@@ -1,4 +1,4 @@
-#---------------------------------------------------------------------------#
+/*--------------------------------------------------------------------------#
 #  Copyright (C) 2015  Ricardo Bustamante de Queiroz (ricardo@busta.com.br) #
 #                                                                           #
 #  This program is free software: you can redistribute it and/or modify     #
@@ -13,31 +13,12 @@
 #                                                                           #
 #  You should have received a copy of the GNU General Public License        #
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.    #
-#---------------------------------------------------------------------------#
+#--------------------------------------------------------------------------*/
 
-lessThan(QT_MAJOR_VERSION,5){
-  error(Must have at least Qt 5)
+#include "matrix.h"
+
+Matrix::Matrix()
+{
+
 }
-
-QT += core gui widgets
-
-TARGET = Matrix
-TEMPLATE = app
-CONFIG += c++11
-
-
-
-SOURCES += main.cpp \
-    matrix_interface.cpp \
-    matrix.cpp \
-    mainwindow.cpp
-
-HEADERS += \
-    common.h \
-    matrix_interface.h \
-    matrix.h \
-    mainwindow.h
-
-FORMS += \
-    mainwindow.ui
 
