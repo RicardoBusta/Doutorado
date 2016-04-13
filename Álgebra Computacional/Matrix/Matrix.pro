@@ -33,7 +33,6 @@ SOURCES += main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    common.h \
     matrix_interface.h \
     matrix.h \
     mainwindow.h
