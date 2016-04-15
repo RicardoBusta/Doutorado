@@ -16,3 +16,18 @@
 #--------------------------------------------------------------------------*/
 
 #include "matrix_interface.h"
+
+QSize MatrixInterface::size() const
+{
+    return QSize(w_,h_);
+}
+
+int MatrixInterface::w() const
+{
+    return w_;
+}
+
+int MatrixInterface::h() const
+{
+    return h_;
+}

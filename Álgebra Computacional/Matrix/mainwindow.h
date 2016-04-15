@@ -27,6 +27,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class MatrixWidget;
+
 class MainWindow : public QMainWindow
 {
   Q_OBJECT
@@ -41,6 +43,9 @@ private:
   QMap<QString,MatrixInterface*> matrix_map_;
 private slots:
   void GenerateMatrix();
+  void ExecuteGauss();
+  MatrixWidget *AddMatrix(const QString &name, const QSize &size);
+  void ShowMatrix(QString matrix_name);
 };
 
 #endif // MAINWINDOW_H

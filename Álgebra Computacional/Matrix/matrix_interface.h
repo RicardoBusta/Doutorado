@@ -18,11 +18,29 @@
 #ifndef MATRIX_INTERFACE_H
 #define MATRIX_INTERFACE_H
 
+#include <QSize>
 
 class MatrixInterface
 {
 public:
   MatrixInterface(){}
+
+  QSize size() const;
+  int w() const;
+  int h() const;
+
+  virtual double data(int i, int j)=0;
+  virtual double setData(int i, int j, double value)=0;
+
+  virtual void set(double * data) = 0;
+
+  virtual void Randomize()=0;
+
+  virtual MatrixInterface * GaussianElimination(bool horz_pivot, bool vert_pivot) = 0;
+
+protected:
+  int w_;
+  int h_;
 };
 
 #endif // MATRIX_INTERFACE_H

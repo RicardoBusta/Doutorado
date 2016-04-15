@@ -18,13 +18,23 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include <QSize>
+
 #include "matrix_interface.h"
 
 class Matrix : public MatrixInterface
 {
 public:
-  Matrix(int w, int h);
+  Matrix(const QSize &size);
 
+  virtual double data(int i, int j);
+  virtual double setData(int i, int j, double value);
+
+  virtual void Randomize();
+
+  virtual void set(double * data);
+
+  virtual MatrixInterface * GaussianElimination(bool horz_pivot, bool vert_pivot);
 private:
   double *data_;
 };

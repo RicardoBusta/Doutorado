@@ -25,21 +25,22 @@ TARGET = Matrix
 TEMPLATE = app
 CONFIG += c++11
 
-
-
 SOURCES += main.cpp \
     matrix_interface.cpp \
     matrix.cpp \
     mainwindow.cpp \
-    matrix_widget.cpp
+    matrix_widget.cpp \
+    show_matrix_dialog.cpp
 
 HEADERS += \
     matrix_interface.h \
     matrix.h \
     mainwindow.h \
-    matrix_widget.h
+    matrix_widget.h \
+    show_matrix_dialog.h
 
 FORMS += \
     mainwindow.ui \
-    matrix_widget.ui
+    matrix_widget.ui \
+    show_matrix_dialog.ui
 

@@ -16,15 +16,56 @@
 #--------------------------------------------------------------------------*/
 
 #include "matrix.h"
+#include <QDebug>
 
-Matrix::Matrix(int w, int h)
+Matrix::Matrix(const QSize &size)
 {
-    data_ = new double[w*h];
+    w_ = size.width();
+    h_ = size.height();
+    data_ = new double[w_*h_];
+    std::fill(data_,data_+(w_*h_),0);
+}
 
-    for(int i=0;i<h;i++){
-        for(int i=0;i<w;i++){
+double Matrix::data(int i, int j)
+{
+    return data_[i*w_+j];
+}
 
+double Matrix::setData(int i, int j, double value)
+{
+    data_[i*w_+j] = value;
+}
+
+void Matrix::Randomize()
+{
+    for(int i=0;i<h_;i++){
+        for(int j=0;j<w_;j++){
+            data_[i*w_+j] = qrand()%100;
         }
     }
 }
 
+void Matrix::set(double *data)
+{
+    memcpy(data_,data,sizeof(double)*w_*h_);
+}
+
+MatrixInterface *Matrix::GaussianElimination(bool horz_pivot, bool vert_pivot)
+{
+    MatrixInterface * output = new Matrix(size());
+    output->set(data_);
+    // Coluna atual
+    for(int j=0;j<w_;j++){
+        // Linha que vai ser zerada
+        for(int i=j+1;i<h_;i++){
+            // Elemento que será zerado dividido pelo pivot
+            double alpha = data(i,j)/data(j,j);
+            for(int k=j+1;k<w_;k++){
+                double val = data(i,k);
+                val -= alpha*data(j,k);
+                setData(i,k,val);
+            }
+        }
+    }
+    return output;
+}
