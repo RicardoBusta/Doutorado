@@ -17,8 +17,14 @@
 
 #include "matrix.h"
 
-Matrix::Matrix()
+Matrix::Matrix(int w, int h)
 {
+    data_ = new double[w*h];
 
+    for(int i=0;i<h;i++){
+        for(int i=0;i<w;i++){
+
+        }
+    }
 }
 

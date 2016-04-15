@@ -30,13 +30,16 @@ CONFIG += c++11
 SOURCES += main.cpp \
     matrix_interface.cpp \
     matrix.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    matrix_widget.cpp
 
 HEADERS += \
     matrix_interface.h \
     matrix.h \
-    mainwindow.h
+    mainwindow.h \
+    matrix_widget.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    matrix_widget.ui
 

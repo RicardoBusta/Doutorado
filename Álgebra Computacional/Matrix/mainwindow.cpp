@@ -18,6 +18,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "matrix_widget.h"
+#include "matrix.h"
+
+#include <QDebug>
+
+static int matrix_index = 0;
+
 MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::MainWindow)
@@ -32,7 +39,33 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+QString MatrixNameFromInt(int i){
+    qDebug() << "Test";
+    QString out;
+    int v = i;
+    do{
+        QChar c = (char)(v%26 + (int)'A');
+        qDebug() << c;
+        out.push_front(c);
+        v = v/26;
+        qDebug() << v;
+    }while(float(v)/26.0f > 0);
+        return out;
+}
+
 void MainWindow::GenerateMatrix()
 {
+    QString name = MatrixNameFromInt(matrix_index++);
+    QListWidgetItem * item = new QListWidgetItem;
+    MatrixWidget * widget = new MatrixWidget(
+                name,
+                QSize(ui->row_spinBox->value(),ui->col_spinBox->value()),
+                QSize(ui->block_row_spinBox->value(),ui->block_col_spinBox->value()));
+    ui->matrix_listWidget->addItem(item);
+    ui->matrix_listWidget->setItemWidget(item,widget);
+    item->setSizeHint(widget->size());
 
+    Matrix *m = new Matrix();
+
+    matrix_map_.insert(name,);
 }

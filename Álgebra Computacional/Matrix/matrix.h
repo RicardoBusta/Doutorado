@@ -23,7 +23,10 @@
 class Matrix : public MatrixInterface
 {
 public:
-  Matrix();
+  Matrix(int w, int h);
+
+private:
+  double *data_;
 };
 
 #endif // MATRIX_H

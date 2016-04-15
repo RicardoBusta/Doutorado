@@ -19,6 +19,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMap>
+
+#include "matrix_interface.h"
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +38,7 @@ public:
 private:
   Ui::MainWindow *ui;
 
+  QMap<QString,MatrixInterface*> matrix_map_;
 private slots:
   void GenerateMatrix();
 };
