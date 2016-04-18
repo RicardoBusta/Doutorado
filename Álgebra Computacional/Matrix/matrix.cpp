@@ -50,6 +50,39 @@ void Matrix::set(double *data)
     memcpy(data_,data,sizeof(double)*w_*h_);
 }
 
+MatrixInterface *Matrix::Multiply(MatrixInterface *B)
+{
+    MatrixInterface * A = this;
+
+    if(!(A->w() == B->w() && A->h() == B->h())){
+        qWarning() << "Matrizes incompatíveis";
+    }
+
+    MatrixInterface * R = new Matrix(A->size());
+
+    for(int i=0;i<A->h();i++){
+
+    }
+}
+
+MatrixInterface *Matrix::Add(MatrixInterface *B)
+{
+    MatrixInterface * A = this;
+
+    if(!(A->w() == B->w() && A->h() == B->h())){
+        qWarning() << "Matrizes incompatíveis";
+    }
+
+    MatrixInterface * R = new Matrix(A->size());
+
+    for(int i=0;i<A->h();i++){
+        for(int j=0;j<A->w();j++){
+            R->setData(i,j,A->data(i,j)+B->data(i,j));
+        }
+    }
+    return R;
+}
+
 MatrixInterface *Matrix::GaussianElimination(bool horz_pivot, bool vert_pivot)
 {
     MatrixInterface * output = new Matrix(size());

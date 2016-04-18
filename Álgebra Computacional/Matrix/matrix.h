@@ -34,6 +34,8 @@ public:
 
   virtual void set(double * data);
 
+  virtual MatrixInterface * Add(MatrixInterface* B);
+  virtual MatrixInterface * Multiply(MatrixInterface* B);
   virtual MatrixInterface * GaussianElimination(bool horz_pivot, bool vert_pivot);
 private:
   double *data_;

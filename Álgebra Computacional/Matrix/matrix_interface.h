@@ -36,6 +36,8 @@ public:
 
   virtual void Randomize()=0;
 
+  virtual MatrixInterface * Add(MatrixInterface* B)=0;
+  virtual MatrixInterface * Multiply(MatrixInterface* B)=0;
   virtual MatrixInterface * GaussianElimination(bool horz_pivot, bool vert_pivot) = 0;
 
 protected:

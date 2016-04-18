@@ -33,7 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->setupUi(this);
 
   connect(ui->generate_pushButton,SIGNAL(clicked(bool)),this,SLOT(GenerateMatrix()));
-  connect(ui->exec_gauss_pushButton, SIGNAL(clicked(bool)),this,SLOT(ExecuteGauss()));
+  connect(ui->exec_gauss_pushButton, SIGNAL(clicked(bool)),this,SLOT(GaussExecute()));
+
+  // Ops
+  connect(ui->ops_refresh_pushButton,SIGNAL(clicked(bool)),this,SLOT(OpsRefreshClicked()));
+  // Gauss
+  connect(ui->gauss_refresh_pushButton,SIGNAL(clicked(bool)),this,SLOT(GaussRefreshClicked()));
 }
 
 MainWindow::~MainWindow()
@@ -66,20 +71,6 @@ void MainWindow::GenerateMatrix()
     AddMatrix(name,matrix_size);
 }
 
-void MainWindow::ExecuteGauss() {
-    qDebug() << "Executing gauss";
-    if(!matrix_map_.contains("A")){
-        qWarning() << "Selecione matriz existente";
-        return;
-    }
-    MatrixInterface * result = matrix_map_["A"]->GaussianElimination(false,false);
-    qDebug() << "got result";
-    QString result_name = "Gauss(A)";
-    matrix_map_.insert(result_name,result);
-
-    AddMatrix(result_name,result->size());
-}
-
 MatrixWidget* MainWindow::AddMatrix(const QString &name, const QSize &matrix_size)
 {
     QListWidgetItem * item = new QListWidgetItem;
@@ -99,4 +90,48 @@ void MainWindow::ShowMatrix(QString matrix_name) {
     }
     ShowMatrixDialog  matrix_dialog(matrix_map_[matrix_name]);
     matrix_dialog.exec();
+}
+
+void MainWindow::OpsRefreshClicked()
+{
+    qDebug() << "refreshing";
+    ui->ops_1_comboBox->clear();
+    ui->ops_2_comboBox->clear();
+    ui->ops_1_comboBox->addItems(matrix_map_.keys());
+    ui->ops_2_comboBox->addItems(matrix_map_.keys());
+}
+
+void MainWindow::OpsExecute()
+{
+    QString op1_name = ui->ops_1_comboBox->currentText();
+    QString op2_name = ui->ops_2_comboBox->currentText();
+
+    if(!(matrix_map_.contains(op1_name) && matrix_map_.contains(op2_name))){
+        qWarning() << "Escolha uma matriz existente";
+    }
+
+    if(ui->op_comboBox->currentIndex() == 0){
+
+    }else{
+        matrix_map_[op1_name]->Add(matrix_map_[op2_name]);
+    }
+}
+
+void MainWindow::GaussRefreshClicked()
+{
+
+}
+
+void MainWindow::GaussExecute() {
+    qDebug() << "Executing gauss";
+    if(!matrix_map_.contains("A")){
+        qWarning() << "Selecione matriz existente";
+        return;
+    }
+    MatrixInterface * result = matrix_map_["A"]->GaussianElimination(false,false);
+    qDebug() << "got result";
+    QString result_name = "Gauss(A)";
+    matrix_map_.insert(result_name,result);
+
+    AddMatrix(result_name,result->size());
 }

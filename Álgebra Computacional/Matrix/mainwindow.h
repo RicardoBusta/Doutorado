@@ -43,9 +43,15 @@ private:
   QMap<QString,MatrixInterface*> matrix_map_;
 private slots:
   void GenerateMatrix();
-  void ExecuteGauss();
   MatrixWidget *AddMatrix(const QString &name, const QSize &size);
   void ShowMatrix(QString matrix_name);
+
+  // Ops
+  void OpsRefreshClicked();
+  void OpsExecute();
+  // Gauss
+  void GaussRefreshClicked();
+  void GaussExecute();
 };
 
 #endif // MAINWINDOW_H
