@@ -20,118 +20,122 @@
 
 #include "matrix_widget.h"
 #include "matrix.h"
-#include "show_matrix_dialog.h"
 
 #include <QDebug>
 
 static int matrix_index = 0;
 
-MainWindow::MainWindow(QWidget *parent) :
-  QMainWindow(parent),
-  ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
+                                          ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  connect(ui->generate_pushButton,SIGNAL(clicked(bool)),this,SLOT(GenerateMatrix()));
-  connect(ui->exec_gauss_pushButton, SIGNAL(clicked(bool)),this,SLOT(GaussExecute()));
-
-  // Ops
-  connect(ui->ops_refresh_pushButton,SIGNAL(clicked(bool)),this,SLOT(OpsRefreshClicked()));
-  // Gauss
-  connect(ui->gauss_refresh_pushButton,SIGNAL(clicked(bool)),this,SLOT(GaussRefreshClicked()));
+  connect(ui->generate_pushButton, SIGNAL(clicked(bool)), this, SLOT(GenerateMatrix()));
+  connect(ui->exec_gauss_pushButton, SIGNAL(clicked(bool)), this, SLOT(GaussExecute()));
+  connect(ui->op_exec_pushButton, SIGNAL(clicked(bool)), this, SLOT(OpsExecute()));
+  connect(ui->matrix_listWidget, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(SelectMatrix(QListWidgetItem *, QListWidgetItem *)));
+  ui->tabWidget->setCurrentWidget(ui->generate_tab);
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
   delete ui;
 }
 
-QString MatrixNameFromInt(int i){
-    qDebug() << "Test";
-    QString out;
-    int v = i;
-    do{
-        QChar c = (char)(v%26 + (int)'A');
-        qDebug() << c;
-        out.push_front(c);
-        v = v/26;
-        qDebug() << v;
-    }while(float(v)/26.0f > 0);
-        return out;
+QString MatrixNameFromInt(int i) {
+  QString out;
+  int v = i;
+  do {
+    QChar c = (char)(v % 26 + (int)'A');
+    out.push_front(c);
+    v = v / 26;
+  } while (float(v) / 26.0f > 0);
+  return out;
 }
 
-void MainWindow::GenerateMatrix()
-{
-    QString name = MatrixNameFromInt(matrix_index++);
-    QSize matrix_size = QSize(ui->row_spinBox->value(),ui->col_spinBox->value());
-    Matrix *m = new Matrix(matrix_size);
-    m->Randomize();
-    matrix_map_.insert(name,m);
+void MainWindow::GenerateMatrix() {
+  QString name = MatrixNameFromInt(matrix_index++);
+  MatrixSize matrix_size(ui->row_spinBox->value(), ui->col_spinBox->value());
+  Matrix *m = new Matrix(matrix_size);
+  m->Randomize();
+  matrix_map_.insert(name, m);
 
-    AddMatrix(name,matrix_size);
+  AddMatrix(name, m);
 }
 
-MatrixWidget* MainWindow::AddMatrix(const QString &name, const QSize &matrix_size)
-{
-    QListWidgetItem * item = new QListWidgetItem;
-    MatrixWidget * widget = new MatrixWidget(
-                name,
-                matrix_size);
-    QObject::connect(widget,SIGNAL(ShowMatrixRequested(QString)),this,SLOT(ShowMatrix(QString)));
-    ui->matrix_listWidget->addItem(item);
-    ui->matrix_listWidget->setItemWidget(item,widget);
-    item->setSizeHint(widget->size());
+MatrixWidget *MainWindow::AddMatrix(const QString &name, MatrixInterface *matrix) {
+  if (matrix == nullptr) {
+    qWarning() << "Tentando adicionar uma matriz nula";
+    return nullptr;
+  }
+  QListWidgetItem *item = new QListWidgetItem;
+  MatrixWidget *widget = new MatrixWidget(
+      name,
+      matrix->size());
+  ui->matrix_listWidget->addItem(item);
+  ui->matrix_listWidget->setItemWidget(item, widget);
+  item->setSizeHint(widget->size());
+  matrix_map_.insert(name, matrix);
+  Refresh();
+  ui->matrix_listWidget->setCurrentItem(item);
 }
 
 void MainWindow::ShowMatrix(QString matrix_name) {
-    if(!matrix_map_.contains(matrix_name)){
-        qWarning() << "Não tem essa matriz";
-        return;
+  if (!matrix_map_.contains(matrix_name)) {
+    qWarning() << "Não tem essa matriz";
+    return;
+  }
+
+  MatrixInterface *matrix = matrix_map_[matrix_name];
+
+  ui->tableWidget->setColumnCount(matrix->cols());
+  ui->tableWidget->setRowCount(matrix->rows());
+
+  for (int i = 0; i < matrix->rows(); i++) {
+    for (int j = 0; j < matrix->cols(); j++) {
+      QTableWidgetItem *item = new QTableWidgetItem(QString::number(matrix->data(i, j)));
+      ui->tableWidget->setItem(i, j, item);
     }
-    ShowMatrixDialog  matrix_dialog(matrix_map_[matrix_name]);
-    matrix_dialog.exec();
+  }
 }
 
-void MainWindow::OpsRefreshClicked()
-{
-    qDebug() << "refreshing";
-    ui->ops_1_comboBox->clear();
-    ui->ops_2_comboBox->clear();
-    ui->ops_1_comboBox->addItems(matrix_map_.keys());
-    ui->ops_2_comboBox->addItems(matrix_map_.keys());
+void MainWindow::Refresh() {
+  ui->ops_1_comboBox->clear();
+  ui->ops_2_comboBox->clear();
+  ui->ops_1_comboBox->addItems(matrix_map_.keys());
+  ui->ops_2_comboBox->addItems(matrix_map_.keys());
 }
 
-void MainWindow::OpsExecute()
-{
-    QString op1_name = ui->ops_1_comboBox->currentText();
-    QString op2_name = ui->ops_2_comboBox->currentText();
-
-    if(!(matrix_map_.contains(op1_name) && matrix_map_.contains(op2_name))){
-        qWarning() << "Escolha uma matriz existente";
-    }
-
-    if(ui->op_comboBox->currentIndex() == 0){
-
-    }else{
-        matrix_map_[op1_name]->Add(matrix_map_[op2_name]);
-    }
+void MainWindow::SelectMatrix(QListWidgetItem *to, QListWidgetItem *from) {
+  MatrixWidget *widget = dynamic_cast<MatrixWidget *>(ui->matrix_listWidget->itemWidget(to));
+  if (widget != nullptr) {
+    ShowMatrix(widget->name());
+    qDebug() << "selecting matrix" << widget->name();
+  }
 }
 
-void MainWindow::GaussRefreshClicked()
-{
+void MainWindow::OpsExecute() {
+  QString op1_name = ui->ops_1_comboBox->currentText();
+  QString op2_name = ui->ops_2_comboBox->currentText();
 
+  if (!(matrix_map_.contains(op1_name) && matrix_map_.contains(op2_name))) {
+    qWarning() << "Escolha uma matriz existente";
+  }
+
+  if (ui->op_comboBox->currentIndex() == 0) {
+    MatrixInterface *res = matrix_map_[op1_name]->Multiply(matrix_map_[op2_name]);
+    AddMatrix(QString("(%1+%2)").arg(op1_name).arg(op2_name), res);
+  } else {
+    MatrixInterface *res = matrix_map_[op1_name]->Add(matrix_map_[op2_name]);
+    AddMatrix(QString("(%1+%2)").arg(op1_name).arg(op2_name), res);
+  }
 }
 
 void MainWindow::GaussExecute() {
-    qDebug() << "Executing gauss";
-    if(!matrix_map_.contains("A")){
-        qWarning() << "Selecione matriz existente";
-        return;
-    }
-    MatrixInterface * result = matrix_map_["A"]->GaussianElimination(false,false);
-    qDebug() << "got result";
-    QString result_name = "Gauss(A)";
-    matrix_map_.insert(result_name,result);
+  if (!matrix_map_.contains("A")) {
+    qWarning() << "Selecione matriz existente";
+    return;
+  }
+  MatrixInterface *result = matrix_map_["A"]->GaussianElimination(false, false);
+  QString result_name = "Gauss(A)";
 
-    AddMatrix(result_name,result->size());
+  AddMatrix(result_name, result);
 }

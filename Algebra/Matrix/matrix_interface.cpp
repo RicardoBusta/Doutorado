@@ -17,17 +17,19 @@
 
 #include "matrix_interface.h"
 
-QSize MatrixInterface::size() const
+MatrixInterface::MatrixInterface(const MatrixSize &size)
 {
-    return QSize(w_,h_);
+    size_ = size;
 }
 
-int MatrixInterface::w() const
-{
-    return w_;
+MatrixSize MatrixInterface::size() const {
+  return size_;
 }
 
-int MatrixInterface::h() const
-{
-    return h_;
+int MatrixInterface::cols() const {
+  return size_.cols();
+}
+
+int MatrixInterface::rows() const {
+  return size_.rows();
 }

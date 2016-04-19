@@ -28,30 +28,33 @@ class MainWindow;
 }
 
 class MatrixWidget;
+class QListWidgetItem;
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
   Q_OBJECT
 
-public:
+ public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
-private:
+ private:
   Ui::MainWindow *ui;
 
-  QMap<QString,MatrixInterface*> matrix_map_;
-private slots:
-  void GenerateMatrix();
-  MatrixWidget *AddMatrix(const QString &name, const QSize &size);
+  QMap<QString, MatrixInterface *> matrix_map_;
+
   void ShowMatrix(QString matrix_name);
+ private slots:
+  void GenerateMatrix();
+  MatrixWidget *AddMatrix(const QString &name, MatrixInterface *matrix);
+
+  void Refresh();
+
+  void SelectMatrix(QListWidgetItem *to, QListWidgetItem *from);
 
   // Ops
-  void OpsRefreshClicked();
   void OpsExecute();
   // Gauss
-  void GaussRefreshClicked();
   void GaussExecute();
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

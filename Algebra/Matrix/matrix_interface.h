@@ -18,31 +18,29 @@
 #ifndef MATRIX_INTERFACE_H
 #define MATRIX_INTERFACE_H
 
-#include <QSize>
+#include "matrix_size.h"
 
-class MatrixInterface
-{
-public:
-  MatrixInterface(){}
+class MatrixInterface {
+ public:
+  explicit MatrixInterface(const MatrixSize &size);
 
-  QSize size() const;
-  int w() const;
-  int h() const;
+  MatrixSize size() const;
+  int cols() const;
+  int rows() const;
 
-  virtual double data(int i, int j)=0;
-  virtual double setData(int i, int j, double value)=0;
+  virtual double data(int i, int j) = 0;
+  virtual void setData(int i, int j, double value) = 0;
 
-  virtual void set(double * data) = 0;
+  virtual void set(double* data) = 0;
 
-  virtual void Randomize()=0;
+  virtual void Randomize() = 0;
 
-  virtual MatrixInterface * Add(MatrixInterface* B)=0;
-  virtual MatrixInterface * Multiply(MatrixInterface* B)=0;
-  virtual MatrixInterface * GaussianElimination(bool horz_pivot, bool vert_pivot) = 0;
+  virtual MatrixInterface* Add(MatrixInterface* B) = 0;
+  virtual MatrixInterface* Multiply(MatrixInterface* B) = 0;
+  virtual MatrixInterface* GaussianElimination(bool horz_pivot, bool vert_pivot) = 0;
 
-protected:
-  int w_;
-  int h_;
+ protected:
+  MatrixSize size_;
 };
 
-#endif // MATRIX_INTERFACE_H
+#endif  // MATRIX_INTERFACE_H

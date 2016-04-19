@@ -22,23 +22,23 @@
 
 #include "matrix_interface.h"
 
-class Matrix : public MatrixInterface
-{
-public:
-  Matrix(const QSize &size);
+class Matrix : public MatrixInterface {
+ public:
+  Matrix(const MatrixSize &size);
 
   virtual double data(int i, int j);
-  virtual double setData(int i, int j, double value);
+  virtual void setData(int i, int j, double value);
 
   virtual void Randomize();
 
-  virtual void set(double * data);
+  virtual void set(double* data);
 
-  virtual MatrixInterface * Add(MatrixInterface* B);
-  virtual MatrixInterface * Multiply(MatrixInterface* B);
-  virtual MatrixInterface * GaussianElimination(bool horz_pivot, bool vert_pivot);
-private:
-  double *data_;
+  virtual MatrixInterface* Add(MatrixInterface* B);
+  virtual MatrixInterface* Multiply(MatrixInterface* B);
+  virtual MatrixInterface* GaussianElimination(bool horz_pivot, bool vert_pivot);
+
+ private:
+  double* data_;
 };
 
-#endif // MATRIX_H
+#endif  // MATRIX_H

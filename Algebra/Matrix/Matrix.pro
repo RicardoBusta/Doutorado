@@ -30,17 +30,16 @@ SOURCES += main.cpp \
     matrix.cpp \
     mainwindow.cpp \
     matrix_widget.cpp \
-    show_matrix_dialog.cpp
+    matrix_size.cpp
 
 HEADERS += \
     matrix_interface.h \
     matrix.h \
     mainwindow.h \
     matrix_widget.h \
-    show_matrix_dialog.h
+    matrix_size.h
 
 FORMS += \
     mainwindow.ui \
-    matrix_widget.ui \
-    show_matrix_dialog.ui
+    matrix_widget.ui
 

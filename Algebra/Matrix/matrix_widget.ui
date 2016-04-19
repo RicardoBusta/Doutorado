@@ -51,28 +51,6 @@ color: #00B;</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="view_pushButton">
-          <property name="minimumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: #fff;</string>
-          </property>
-          <property name="text">
-           <string>V</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>

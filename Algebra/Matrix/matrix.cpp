@@ -18,87 +18,86 @@
 #include "matrix.h"
 #include <QDebug>
 
-Matrix::Matrix(const QSize &size)
-{
-    w_ = size.width();
-    h_ = size.height();
-    data_ = new double[w_*h_];
-    std::fill(data_,data_+(w_*h_),0);
+Matrix::Matrix(const MatrixSize &size): MatrixInterface(size) {
+  data_ = new double[size_.cols() * size_.rows()];
+  std::fill(data_, data_ + (size.cols() * size.rows()), 0);
 }
 
-double Matrix::data(int i, int j)
-{
-    return data_[i*w_+j];
+double Matrix::data(int i, int j) {
+  return data_[i * size_.cols() + j];
 }
 
-double Matrix::setData(int i, int j, double value)
-{
-    data_[i*w_+j] = value;
+void Matrix::setData(int i, int j, double value) {
+  data_[i * size_.cols() + j] = value;
 }
 
-void Matrix::Randomize()
-{
-    for(int i=0;i<h_;i++){
-        for(int j=0;j<w_;j++){
-            data_[i*w_+j] = qrand()%100;
-        }
+void Matrix::Randomize() {
+  for (int i = 0; i < size_.rows(); i++) {
+    for (int j = 0; j < size_.cols(); j++) {
+      data_[i * size_.cols() + j] = qrand() % 100;
     }
+  }
 }
 
-void Matrix::set(double *data)
-{
-    memcpy(data_,data,sizeof(double)*w_*h_);
+void Matrix::set(double *data) {
+  memcpy(data_, data, sizeof(double) * size_.cols() * size_.rows());
 }
 
-MatrixInterface *Matrix::Multiply(MatrixInterface *B)
-{
-    MatrixInterface * A = this;
+MatrixInterface *Matrix::Multiply(MatrixInterface *B) {
+  MatrixInterface *A = this;
 
-    if(!(A->w() == B->w() && A->h() == B->h())){
-        qWarning() << "Matrizes incompatíveis";
+  if (!(A->cols() == B->rows())) {
+    qWarning() << "Matrizes incompatíveis";
+    return nullptr;
+  }
+
+  MatrixInterface *R = new Matrix(A->size());
+
+  for (int i = 0; i < A->rows(); i++) {
+    for (int j = 0; j < B->cols(); j++) {
+      double val = 0;
+      for (int k = 0; k < A->cols(); k++) {
+        val += A->data(i, k) * B->data(k, j);
+      }
+      R->setData(i, j, val);
     }
+  }
 
-    MatrixInterface * R = new Matrix(A->size());
-
-    for(int i=0;i<A->h();i++){
-
-    }
+  return R;
 }
 
-MatrixInterface *Matrix::Add(MatrixInterface *B)
-{
-    MatrixInterface * A = this;
+MatrixInterface *Matrix::Add(MatrixInterface *B) {
+  MatrixInterface *A = this;
 
-    if(!(A->w() == B->w() && A->h() == B->h())){
-        qWarning() << "Matrizes incompatíveis";
+  if (!(A->rows() == B->rows() && A->cols() == B->cols())) {
+    qWarning() << "Matrizes incompatíveis";
+  }
+
+  MatrixInterface *R = new Matrix(A->size());
+
+  for (int i = 0; i < A->rows(); i++) {
+    for (int j = 0; j < A->cols(); j++) {
+      R->setData(i, j, A->data(i, j) + B->data(i, j));
     }
-
-    MatrixInterface * R = new Matrix(A->size());
-
-    for(int i=0;i<A->h();i++){
-        for(int j=0;j<A->w();j++){
-            R->setData(i,j,A->data(i,j)+B->data(i,j));
-        }
-    }
-    return R;
+  }
+  return R;
 }
 
-MatrixInterface *Matrix::GaussianElimination(bool horz_pivot, bool vert_pivot)
-{
-    MatrixInterface * output = new Matrix(size());
-    output->set(data_);
-    // Coluna atual
-    for(int j=0;j<w_;j++){
-        // Linha que vai ser zerada
-        for(int i=j+1;i<h_;i++){
-            // Elemento que será zerado dividido pelo pivot
-            double alpha = data(i,j)/data(j,j);
-            for(int k=j+1;k<w_;k++){
-                double val = data(i,k);
-                val -= alpha*data(j,k);
-                setData(i,k,val);
-            }
-        }
+MatrixInterface *Matrix::GaussianElimination(bool horz_pivot, bool vert_pivot) {
+  MatrixInterface *output = new Matrix(size());
+  output->set(data_);
+  // Coluna atual
+  for (int j = 0; j < size_.cols(); j++) {
+    // Linha que vai ser zerada
+    for (int i = j + 1; i < size_.rows(); i++) {
+      // Elemento que será zerado dividido pelo pivot
+      double alpha = data(i, j) / data(j, j);
+      for (int k = j + 1; k < size_.cols(); k++) {
+        double val = data(i, k);
+        val -= alpha * data(j, k);
+        setData(i, k, val);
+      }
     }
-    return output;
+  }
+  return output;
 }
