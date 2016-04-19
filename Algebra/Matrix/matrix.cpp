@@ -18,7 +18,9 @@
 #include "matrix.h"
 #include <QDebug>
 
-Matrix::Matrix(const MatrixSize &size): MatrixInterface(size) {
+const double kZeroPrecision = 0.00001;
+
+Matrix::Matrix(const MatrixSize &size) : MatrixInterface(size) {
   data_ = new double[size_.cols() * size_.rows()];
   std::fill(data_, data_ + (size.cols() * size.rows()), 0);
 }
@@ -47,7 +49,7 @@ MatrixInterface *Matrix::Multiply(MatrixInterface *B) {
   MatrixInterface *A = this;
 
   if (!(A->cols() == B->rows())) {
-    qWarning() << "Matrizes incompatíveis";
+    error_message_ = "As matrizes escolhidas possuem tamanhos incompatíveis.";
     return nullptr;
   }
 
@@ -69,8 +71,10 @@ MatrixInterface *Matrix::Multiply(MatrixInterface *B) {
 MatrixInterface *Matrix::Add(MatrixInterface *B) {
   MatrixInterface *A = this;
 
-  if (!(A->rows() == B->rows() && A->cols() == B->cols())) {
-    qWarning() << "Matrizes incompatíveis";
+  if (A->rows() != B->rows() || A->cols() != B->cols()) {
+      qDebug() << A->cols() << B->cols();
+    error_message_ = "As matrizes escolhidas possuem tamanhos incompatíveis.";
+    return nullptr;
   }
 
   MatrixInterface *R = new Matrix(A->size());
@@ -87,15 +91,20 @@ MatrixInterface *Matrix::GaussianElimination(bool horz_pivot, bool vert_pivot) {
   MatrixInterface *output = new Matrix(size());
   output->set(data_);
   // Coluna atual
-  for (int j = 0; j < size_.cols(); j++) {
+  for (int j = 0; j < 2 /*size_.cols()*/; j++) {
     // Linha que vai ser zerada
     for (int i = j + 1; i < size_.rows(); i++) {
       // Elemento que será zerado dividido pelo pivot
-      double alpha = data(i, j) / data(j, j);
-      for (int k = j + 1; k < size_.cols(); k++) {
-        double val = data(i, k);
-        val -= alpha * data(j, k);
-        setData(i, k, val);
+      if (output->data(j, j) == 0) {
+        error_message_ = "O pivot deu zero!";
+        delete output;
+        return nullptr;
+      }
+      double alpha = output->data(i, j) / output->data(j, j);
+      for (int k = j; k < size_.cols(); k++) {
+        double val = output->data(i, k);
+        val -= alpha * output->data(j, k);
+        output->setData(i, k, val < kZeroPrecision ? 0 : val);
       }
     }
   }

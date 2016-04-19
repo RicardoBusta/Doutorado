@@ -28,7 +28,11 @@
            <enum>Qt::Vertical</enum>
           </property>
           <widget class="QListWidget" name="matrix_listWidget"/>
-          <widget class="QTableWidget" name="tableWidget"/>
+          <widget class="QTableWidget" name="tableWidget">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -131,7 +135,14 @@
                <item row="4" column="1">
                 <widget class="QPushButton" name="generate_pushButton">
                  <property name="text">
-                  <string>Generate Matrix</string>
+                  <string>Generate Random Matrix</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="5" column="1">
+                <widget class="QPushButton" name="gen_spec_pushButton">
+                 <property name="text">
+                  <string>Generate Specific Matrix</string>
                  </property>
                 </widget>
                </item>

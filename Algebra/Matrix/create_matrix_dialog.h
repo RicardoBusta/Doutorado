@@ -15,39 +15,31 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.    #
 #--------------------------------------------------------------------------*/
 
-#include <QApplication>
-#include <QDateTime>
-#include "mainwindow.h"
+#ifndef CREATE_MATRIX_DIALOG_H
+#define CREATE_MATRIX_DIALOG_H
 
-void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg) {
-  QByteArray localMsg = msg.toLocal8Bit();
-  switch (type) {
-    case QtDebugMsg:
-      fprintf(stderr, "(%s:%u) %s\n", context.file, context.line, localMsg.constData());
-      break;
-    case QtInfoMsg:
-      fprintf(stderr, "Info: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-      break;
-    case QtWarningMsg:
-      fprintf(stderr, "Warning: (%s:%u) %s\n", context.file, context.line, localMsg.constData());
-      break;
-    case QtCriticalMsg:
-      fprintf(stderr, "Critical: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-      break;
-    case QtFatalMsg:
-      fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function);
-      abort();
-  }
+#include <QDialog>
+
+class MatrixInterface;
+
+namespace Ui {
+class CreateMatrixDialog;
 }
+class QTableWidget;
 
-int main(int argc, char *argv[]) {
-  qInstallMessageHandler(myMessageOutput);
-  QApplication a(argc, argv);
+class CreateMatrixDialog : public QDialog {
+  Q_OBJECT
 
-  qsrand(QDateTime::currentMSecsSinceEpoch());
+ public:
+  explicit CreateMatrixDialog(MatrixInterface *matrix, QWidget *parent = 0);
+  ~CreateMatrixDialog();
 
-  MainWindow *w = new MainWindow();
-  w->show();
+ QTableWidget * table();
 
-  return a.exec();
-}
+ private:
+  Ui::CreateMatrixDialog *ui;
+
+  MatrixInterface *matrix_;
+};
+
+#endif  // CREATE_MATRIX_DIALOG_H

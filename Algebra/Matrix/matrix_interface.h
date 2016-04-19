@@ -20,9 +20,11 @@
 
 #include "matrix_size.h"
 
+#include <QString>
+
 class MatrixInterface {
  public:
-  explicit MatrixInterface(const MatrixSize &size);
+  explicit MatrixInterface(const MatrixSize& size);
 
   MatrixSize size() const;
   int cols() const;
@@ -39,8 +41,11 @@ class MatrixInterface {
   virtual MatrixInterface* Multiply(MatrixInterface* B) = 0;
   virtual MatrixInterface* GaussianElimination(bool horz_pivot, bool vert_pivot) = 0;
 
+  QString error_message();
+
  protected:
   MatrixSize size_;
+    QString error_message_;
 };
 
 #endif  // MATRIX_INTERFACE_H

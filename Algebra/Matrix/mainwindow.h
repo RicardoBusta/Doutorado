@@ -45,16 +45,17 @@ class MainWindow : public QMainWindow {
   void ShowMatrix(QString matrix_name);
  private slots:
   void GenerateMatrix();
+  void GenerateSpecificMatrix();
   MatrixWidget *AddMatrix(const QString &name, MatrixInterface *matrix);
-
   void Refresh();
-
   void SelectMatrix(QListWidgetItem *to, QListWidgetItem *from);
 
   // Ops
   void OpsExecute();
   // Gauss
   void GaussExecute();
+
+  void ShowErrorMessage(QString error);
 };
 
 #endif  // MAINWINDOW_H

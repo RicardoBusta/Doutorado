@@ -17,9 +17,8 @@
 
 #include "matrix_interface.h"
 
-MatrixInterface::MatrixInterface(const MatrixSize &size)
-{
-    size_ = size;
+MatrixInterface::MatrixInterface(const MatrixSize &size) {
+  size_ = size;
 }
 
 MatrixSize MatrixInterface::size() const {
@@ -32,4 +31,10 @@ int MatrixInterface::cols() const {
 
 int MatrixInterface::rows() const {
   return size_.rows();
+}
+
+QString MatrixInterface::error_message() {
+  QString error = error_message_;
+  error_message_ = "";
+  return error;
 }
