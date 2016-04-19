@@ -138,8 +138,10 @@ void MainWindow::Refresh() {
   ui->ops_1_comboBox->addItems(matrix_map_.keys());
   ui->ops_2_comboBox->clear();
   ui->ops_2_comboBox->addItems(matrix_map_.keys());
-  ui->gauss_op_comboBox->clear();
-  ui->gauss_op_comboBox->addItems(matrix_map_.keys());
+  ui->gauss_op1_comboBox->clear();
+  ui->gauss_op1_comboBox->addItems(matrix_map_.keys());
+  ui->gauss_op2_comboBox->clear();
+  ui->gauss_op2_comboBox->addItems(matrix_map_.keys());
 }
 
 void MainWindow::SelectMatrix(QListWidgetItem *to, QListWidgetItem *from) {
@@ -176,13 +178,13 @@ void MainWindow::OpsExecute() {
 }
 
 void MainWindow::GaussExecute() {
-  QString op_name = ui->gauss_op_comboBox->currentText();
+  QString op_name = ui->gauss_op1_comboBox->currentText();
 
   if (!matrix_map_.contains(op_name)) {
     ShowErrorMessage("Selecione uma matriz existente para a execução.");
     return;
   }
-  MatrixInterface *result = matrix_map_[op_name]->GaussianElimination(false, false);
+  MatrixInterface *result = matrix_map_[op_name]->GaussianElimination(ui->gauss_horz_checkBox->isChecked(), ui->gauss_vert_checkBox->isChecked());
 
   if (result == nullptr) {
       ShowErrorMessage(matrix_map_[op_name]->error_message());

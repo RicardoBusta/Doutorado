@@ -72,7 +72,7 @@ MatrixInterface *Matrix::Add(MatrixInterface *B) {
   MatrixInterface *A = this;
 
   if (A->rows() != B->rows() || A->cols() != B->cols()) {
-      qDebug() << A->cols() << B->cols();
+    qDebug() << A->cols() << B->cols();
     error_message_ = "As matrizes escolhidas possuem tamanhos incompatíveis.";
     return nullptr;
   }
@@ -96,6 +96,11 @@ MatrixInterface *Matrix::GaussianElimination(bool horz_pivot, bool vert_pivot) {
     for (int i = j + 1; i < size_.rows(); i++) {
       // Elemento que será zerado dividido pelo pivot
       if (output->data(j, j) == 0) {
+        if (vert_pivot) {
+            for(int k=i+1;k<size_.rows();k++){
+
+            }
+        }
         error_message_ = "O pivot deu zero!";
         delete output;
         return nullptr;
