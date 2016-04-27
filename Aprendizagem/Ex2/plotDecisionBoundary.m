@@ -1,9 +1,9 @@
 function z = plotDecisionBoundary(theta, X, y)
   tmp1 = find(y==1);
   tmp0 = find(y==0);
-  plot(X(tmp1,2),X(tmp1,3), 'x');
+  plot(X(tmp1,2),X(tmp1,3), 'b^','MarkerFaceColor','auto');
   hold on
-  plot(X(tmp0,2),X(tmp0,3), 'rx');
+  plot(X(tmp0,2),X(tmp0,3), 'rv','MarkerFaceColor','auto');
   if size(X, 2) <= 3 
     % Only need 2 points to define a line, so choose two endpoints
     plot_x = [min(X(:,2))-2,  max(X(:,2))+2];
