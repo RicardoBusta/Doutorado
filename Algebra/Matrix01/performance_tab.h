@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::PerformanceTab *ui;
+
+private slots:
+    void GeneratePressed();
 };
 
 #endif // PERFORMANCE_TAB_H

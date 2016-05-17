@@ -7,16 +7,15 @@ namespace Ui {
 class CholeskyTab;
 }
 
-class CholeskyTab : public QWidget
-{
-    Q_OBJECT
+class CholeskyTab : public QWidget {
+  Q_OBJECT
 
-public:
-    explicit CholeskyTab(QWidget *parent = 0);
-    ~CholeskyTab();
+ public:
+  explicit CholeskyTab(QWidget *parent = 0);
+  ~CholeskyTab();
 
-private:
-    Ui::CholeskyTab *ui;
+ private:
+  Ui::CholeskyTab *ui;
 };
 
-#endif // CHOLESKY_TAB_H
+#endif  // CHOLESKY_TAB_H
