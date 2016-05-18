@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     lu_tab.cpp \
     cholesky_tab.cpp \
     block_tab.cpp \
-    corefunctions.cpp
+    corefunctions.cpp \
+    simplematrix.cpp
 
 HEADERS  += mainwindow.h \
     performance_tab.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     lu_tab.h \
     cholesky_tab.h \
     block_tab.h \
-    corefunctions.h
+    corefunctions.h \
+    simplematrix.h
 
 FORMS    += mainwindow.ui \
     performance_tab.ui \

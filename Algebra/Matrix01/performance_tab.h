@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "simplematrix.h"
+
 namespace Ui {
 class PerformanceTab;
 }
@@ -18,8 +20,11 @@ public:
 private:
     Ui::PerformanceTab *ui;
 
+    SimpleMatrix *A=nullptr, *B=nullptr, *C=nullptr;
+
 private slots:
     void GeneratePressed();
+    void CalculatePressed();
 };
 
 #endif // PERFORMANCE_TAB_H

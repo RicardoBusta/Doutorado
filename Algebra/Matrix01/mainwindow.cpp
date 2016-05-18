@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   showMaximized();
 
   ui->tabWidget->addTab(new PerformanceTab(), QString("Desempenho"));
-  ui->tabWidget->addTab(new GaussTab(), QString("Gauss"));
   ui->tabWidget->addTab(new BlockTab(), QString("Bloco"));
+  ui->tabWidget->addTab(new GaussTab(), QString("Gauss"));
   ui->tabWidget->addTab(new LUTab(), QString("LU"));
   ui->tabWidget->addTab(new CholeskyTab(), QString("Cholesky"));
 }
