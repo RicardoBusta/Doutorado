@@ -167,14 +167,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="gen_pushButton">
           <property name="text">
            <string>Gerar</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="calc_pushButton">
           <property name="text">
            <string>Calcular</string>
           </property>

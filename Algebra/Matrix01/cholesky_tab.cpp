@@ -6,9 +6,16 @@ CholeskyTab::CholeskyTab(QWidget *parent) :
     ui(new Ui::CholeskyTab)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->gen)
 }
 
 CholeskyTab::~CholeskyTab()
 {
-    delete ui;
+  delete ui;
+}
+
+void CholeskyTab::GenerateClicked()
+{
+
 }

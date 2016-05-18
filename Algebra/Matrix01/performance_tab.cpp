@@ -51,11 +51,11 @@ void PerformanceTab::CalculatePressed() {
 
   if (ui->three_times_checkBox->isChecked()) {
     timer.start();
-    SimpleMatrix::MultiplyByRow(*A, *B, *C);
-    qint64 t12 = timer.elapsed();
-    timer.start();
     SimpleMatrix::MultiplyByCol(*A, *B, *C);
     qint64 t22 = timer.elapsed();
+    timer.start();
+    SimpleMatrix::MultiplyByRow(*A, *B, *C);
+    qint64 t12 = timer.elapsed();
     timer.start();
     SimpleMatrix::MultiplyByRow(*A, *B, *C);
     qint64 t13 = timer.elapsed();

@@ -23,3 +23,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 MainWindow::~MainWindow() {
   delete ui;
 }
+
+void MainWindow::ErrorMessage(const QString &message)
+{
+
+}

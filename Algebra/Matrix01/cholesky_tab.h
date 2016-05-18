@@ -16,6 +16,9 @@ class CholeskyTab : public QWidget {
 
  private:
   Ui::CholeskyTab *ui;
+
+ private slots:
+  void GenerateClicked();
 };
 
 #endif  // CHOLESKY_TAB_H

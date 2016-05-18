@@ -67,14 +67,14 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="gen_pushButton">
           <property name="text">
            <string>Gerar</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="deco_pushButton">
           <property name="text">
            <string>Decompor</string>
           </property>

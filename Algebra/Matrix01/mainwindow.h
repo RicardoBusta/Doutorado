@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+public slots:
+    void ErrorMessage(const QString &message);
 };
 
 #endif // MAINWINDOW_H
