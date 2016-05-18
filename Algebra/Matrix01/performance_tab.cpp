@@ -38,19 +38,45 @@ void PerformanceTab::GeneratePressed() {
 }
 
 void PerformanceTab::CalculatePressed() {
-  if(A==nullptr || B==nullptr || C==nullptr){
+  if (A == nullptr || B == nullptr || C == nullptr) {
     return;
   }
   QElapsedTimer timer;
   timer.start();
   SimpleMatrix::MultiplyByRow(*A, *B, *C);
-  qint64 t1 = timer.elapsed();
+  qint64 t11 = timer.elapsed();
   timer.start();
   SimpleMatrix::MultiplyByCol(*A, *B, *C);
-  qint64 t2 = timer.elapsed();
+  qint64 t21 = timer.elapsed();
 
+  if (ui->three_times_checkBox->isChecked()) {
+    timer.start();
+    SimpleMatrix::MultiplyByRow(*A, *B, *C);
+    qint64 t12 = timer.elapsed();
+    timer.start();
+    SimpleMatrix::MultiplyByCol(*A, *B, *C);
+    qint64 t22 = timer.elapsed();
+    timer.start();
+    SimpleMatrix::MultiplyByRow(*A, *B, *C);
+    qint64 t13 = timer.elapsed();
+    timer.start();
+    SimpleMatrix::MultiplyByCol(*A, *B, *C);
+    qint64 t23 = timer.elapsed();
+
+    ui->row2_label->setText(QString::number(t12) + "ms");
+    ui->col2_label->setText(QString::number(t22) + "ms");
+
+    ui->row3_label->setText(QString::number(t13) + "ms");
+    ui->col3_label->setText(QString::number(t23) + "ms");
+  }else{
+    ui->row2_label->setText("?ms");
+    ui->col2_label->setText("?ms");
+
+    ui->row3_label->setText("?ms");
+    ui->col3_label->setText("?ms");
+  }
+
+  ui->row_label->setText(QString::number(t11) + "ms");
+  ui->col_label->setText(QString::number(t21) + "ms");
   Core::SetMatrixToWidget(ui->C_tableWidget, *C);
-
-  ui->row_label->setText(QString::number(t1));
-  ui->col_label->setText(QString::number(t2));
 }

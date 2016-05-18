@@ -24,7 +24,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Gerar Matrizes</string>
+      <string>Geração de Matrizes</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -121,6 +121,16 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="three_times_checkBox">
+          <property name="text">
+           <string>Executar 3x</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -141,7 +151,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Resultado</string>
+      <string>Multiplicação</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="1">
@@ -289,32 +299,81 @@
      <property name="title">
       <string>Desempenho</string>
      </property>
-     <layout class="QFormLayout" name="formLayout">
-      <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="2" column="1">
+       <widget class="QLabel" name="col_label">
+        <property name="text">
+         <string>(ms)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
          <string>Por Linha</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="1" column="1">
+       <widget class="QLabel" name="row_label">
+        <property name="text">
+         <string>(ms)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>iteração 1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>iteração 2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
        <widget class="QLabel" name="label_8">
         <property name="text">
          <string>Por Coluna</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="row_label">
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_14">
         <property name="text">
-         <string>result (ms)</string>
+         <string>iteração 3</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="col_label">
+      <item row="1" column="2">
+       <widget class="QLabel" name="row2_label">
         <property name="text">
-         <string>result (ms)</string>
+         <string>(ms)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="row3_label">
+        <property name="text">
+         <string>(ms)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="col2_label">
+        <property name="text">
+         <string>(ms)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="col3_label">
+        <property name="text">
+         <string>(ms)</string>
         </property>
        </widget>
       </item>
