@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::BlockTab *ui;
+
+private slots:
+    void GeneratePressed();
+    void CalculatePressed();
 };
 
 #endif // BLOCK_TAB_H

@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include "simplematrix.h"
+#include "structures/simplematrix.h"
 
 namespace Ui {
 class PerformanceTab;

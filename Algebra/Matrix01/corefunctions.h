@@ -3,16 +3,12 @@
 
 class QTableWidget;
 
-#include "simplematrix.h"
+#include "structures/simplematrix.h"
+#include "structures/blockmatrix.h"
 
 namespace Core {
-void RandomizeMatrix(SimpleMatrix &M);
-
 void SetMatrixToWidget(QTableWidget *widget, const SimpleMatrix &m);
-
-void MultiplyByRow(SimpleMatrix &A, SimpleMatrix &B, SimpleMatrix &C);
-
-void MultiplyByCol(SimpleMatrix &A, SimpleMatrix &B, SimpleMatrix &C);
+void SetMatrixToWidget(QTableWidget *widget, const BlockMatrix &m);
 }
 
 #endif  // COREFUNCTIONS_H

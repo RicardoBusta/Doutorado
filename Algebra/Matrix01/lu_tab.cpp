@@ -6,9 +6,21 @@ LUTab::LUTab(QWidget *parent) :
     ui(new Ui::LUTab)
 {
     ui->setupUi(this);
+
+    QObject::connect(ui->gen_pushButton,SIGNAL(clicked(bool)),this,SLOT(GeneratePressed()));
 }
 
 LUTab::~LUTab()
 {
-    delete ui;
+  delete ui;
+}
+
+void LUTab::GeneratePressed()
+{
+
+}
+
+void LUTab::DecomposePressed()
+{
+
 }

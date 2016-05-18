@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::GaussTab *ui;
+
+private slots:
+    void GeneratePressed();
+    void EliminatePressed();
+    void CalculatePressed();
 };
 
 #endif // GAUSS_TAB_H

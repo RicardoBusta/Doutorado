@@ -24,7 +24,6 @@ MainWindow::~MainWindow() {
   delete ui;
 }
 
-void MainWindow::ErrorMessage(const QString &message)
-{
-
+void MainWindow::ErrorMessage(const QString &message) {
+  Q_UNUSED(message);
 }

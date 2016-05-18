@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::LUTab *ui;
+
+private slots:
+    void GeneratePressed();
+    void DecomposePressed();
 };
 
 #endif // LU_TAB_H

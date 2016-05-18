@@ -19,6 +19,7 @@ class CholeskyTab : public QWidget {
 
  private slots:
   void GenerateClicked();
+  void DecomposeClicked();
 };
 
 #endif  // CHOLESKY_TAB_H
