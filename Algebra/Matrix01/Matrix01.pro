@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     gauss_tab.cpp \
     lu_tab.cpp \
     cholesky_tab.cpp \
-    block_tab.cpp
+    block_tab.cpp \
+    corefunctions.cpp
 
 HEADERS  += mainwindow.h \
     performance_tab.h \
     gauss_tab.h \
     lu_tab.h \
     cholesky_tab.h \
-    block_tab.h
+    block_tab.h \
+    corefunctions.h
 
 FORMS    += mainwindow.ui \
     performance_tab.ui \

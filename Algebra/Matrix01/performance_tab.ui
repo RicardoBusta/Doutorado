@@ -128,6 +128,12 @@
         <property name="editTriggers">
          <set>QAbstractItemView::NoEditTriggers</set>
         </property>
+        <property name="verticalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
+        <property name="horizontalScrollMode">
+         <enum>QAbstractItemView::ScrollPerPixel</enum>
+        </property>
         <property name="rowCount">
          <number>0</number>
         </property>
@@ -135,13 +141,19 @@
          <number>0</number>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>30</number>
+         <number>60</number>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>false</bool>
         </attribute>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>30</number>
+         <number>60</number>
         </attribute>
         <attribute name="verticalHeaderDefaultSectionSize">
          <number>30</number>
+        </attribute>
+        <attribute name="verticalHeaderHighlightSections">
+         <bool>false</bool>
         </attribute>
         <attribute name="verticalHeaderMinimumSectionSize">
          <number>30</number>
@@ -160,13 +172,19 @@
          <number>0</number>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>30</number>
+         <number>60</number>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>false</bool>
         </attribute>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>30</number>
+         <number>60</number>
         </attribute>
         <attribute name="verticalHeaderDefaultSectionSize">
          <number>30</number>
+        </attribute>
+        <attribute name="verticalHeaderHighlightSections">
+         <bool>false</bool>
         </attribute>
         <attribute name="verticalHeaderMinimumSectionSize">
          <number>30</number>
@@ -192,13 +210,19 @@
          <number>0</number>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>30</number>
+         <number>60</number>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>false</bool>
         </attribute>
         <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>30</number>
+         <number>60</number>
         </attribute>
         <attribute name="verticalHeaderDefaultSectionSize">
          <number>30</number>
+        </attribute>
+        <attribute name="verticalHeaderHighlightSections">
+         <bool>false</bool>
         </attribute>
         <attribute name="verticalHeaderMinimumSectionSize">
          <number>30</number>
@@ -274,19 +298,6 @@
       </item>
      </layout>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
