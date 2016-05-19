@@ -37,17 +37,17 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>n</string>
+         <widget class="QSpinBox" name="m_spinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>9999</number>
+          </property>
+          <property name="value">
+           <number>10</number>
           </property>
          </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="spinBox_2"/>
         </item>
         <item>
          <spacer name="horizontalSpacer">
@@ -70,6 +70,13 @@
          <widget class="QPushButton" name="gen_pushButton">
           <property name="text">
            <string>Gerar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="example_pushButton">
+          <property name="text">
+           <string>PushButton</string>
           </property>
          </widget>
         </item>
@@ -112,7 +119,17 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget"/>
+       <widget class="QTableWidget" name="A_tableWidget">
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>60</number>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>60</number>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>30</number>
+        </attribute>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
@@ -122,7 +139,30 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_2"/>
+       <widget class="QTableWidget" name="B_tableWidget">
+        <property name="autoScroll">
+         <bool>false</bool>
+        </property>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>60</number>
+        </attribute>
+        <attribute name="horizontalHeaderMinimumSectionSize">
+         <number>60</number>
+        </attribute>
+        <attribute name="verticalHeaderMinimumSectionSize">
+         <number>30</number>
+        </attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>x</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="C_tableWidget"/>
       </item>
      </layout>
     </widget>

@@ -15,13 +15,17 @@ public:
   void addData(int i, int j, double value);
 
   void Randomize();
+  void Zero();
+  void Identity();
+
+  void Copy(SimpleMatrix *M);
+  void CopyTransposed(SimpleMatrix *M);
 
   static void MultiplyByRow(const SimpleMatrix &A, const SimpleMatrix &B, SimpleMatrix &C);
   static void MultiplyByCol(const SimpleMatrix &A, const SimpleMatrix &B, SimpleMatrix &C);
 
   static void CreateMatrix(int r, int c, SimpleMatrix **M);
 
-private:
   double **data;
 };
 

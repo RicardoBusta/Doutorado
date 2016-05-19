@@ -131,6 +131,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="read_checkBox">
+          <property name="text">
+           <string>Ler Input</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -163,9 +170,6 @@
       </item>
       <item row="0" column="0">
        <widget class="QTableWidget" name="A_tableWidget">
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
         <property name="rowCount">
          <number>0</number>
         </property>
@@ -232,9 +236,6 @@
       </item>
       <item row="0" column="2">
        <widget class="QTableWidget" name="B_tableWidget">
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
         <property name="rowCount">
          <number>0</number>
         </property>

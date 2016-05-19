@@ -8,6 +8,7 @@ class QTableWidget;
 
 namespace Core {
 void SetMatrixToWidget(QTableWidget *widget, const SimpleMatrix &m);
+void GetMatrixFromWidget(QTableWidget *widget, SimpleMatrix &m, bool *ok);
 void SetMatrixToWidget(QTableWidget *widget, const BlockMatrix &m);
 }
 

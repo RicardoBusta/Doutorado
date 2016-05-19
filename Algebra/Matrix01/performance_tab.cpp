@@ -5,13 +5,18 @@
 #include <QElapsedTimer>
 
 #include "corefunctions.h"
+#include "mainwindow.h"
 
-PerformanceTab::PerformanceTab(QWidget *parent) : QWidget(parent),
-                                                  ui(new Ui::PerformanceTab) {
+PerformanceTab::PerformanceTab(MainWindow *w, QWidget *parent) : QWidget(parent),
+                                                  ui(new Ui::PerformanceTab),
+                                                  A(nullptr), B(nullptr), C(nullptr) {
   ui->setupUi(this);
 
   QObject::connect(ui->generate_pushButton, SIGNAL(clicked(bool)), this, SLOT(GeneratePressed()));
   QObject::connect(ui->calculate_pushButton, SIGNAL(clicked(bool)), this, SLOT(CalculatePressed()));
+  QObject::connect(this,SIGNAL(Error(QString)),w,SLOT(ErrorMessage(QString)));
+
+  ui->calculate_pushButton->setEnabled(false);
 }
 
 PerformanceTab::~PerformanceTab() {
@@ -35,12 +40,31 @@ void PerformanceTab::GeneratePressed() {
   ui->C_tableWidget->clear();
   ui->C_tableWidget->setRowCount(0);
   ui->C_tableWidget->setColumnCount(0);
+
+  ui->calculate_pushButton->setEnabled(true);
 }
 
 void PerformanceTab::CalculatePressed() {
   if (A == nullptr || B == nullptr || C == nullptr) {
+    emit Error("Matrizes nulas");
     return;
   }
+
+
+  if(ui->read_checkBox->isChecked()){
+    bool ok;
+    Core::GetMatrixFromWidget(ui->A_tableWidget,*A,&ok);
+    if(!ok){
+      emit Error("Matriz A inválida");
+      return;
+    }
+    Core::GetMatrixFromWidget(ui->B_tableWidget,*B,&ok);
+    if(!ok){
+      emit Error("Matriz B inválida");
+      return;
+    }
+  }
+
   QElapsedTimer timer;
   timer.start();
   SimpleMatrix::MultiplyByRow(*A, *B, *C);
@@ -68,7 +92,7 @@ void PerformanceTab::CalculatePressed() {
 
     ui->row3_label->setText(QString::number(t13) + "ms");
     ui->col3_label->setText(QString::number(t23) + "ms");
-  }else{
+  } else {
     ui->row2_label->setText("?ms");
     ui->col2_label->setText("?ms");
 

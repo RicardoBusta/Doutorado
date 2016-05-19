@@ -37,7 +37,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
+         <widget class="QSpinBox" name="m_spinBox"/>
         </item>
         <item>
          <widget class="QLabel" name="label_7">
@@ -47,7 +47,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_2"/>
+         <widget class="QSpinBox" name="n_spinBox"/>
         </item>
         <item>
          <spacer name="horizontalSpacer">
@@ -108,7 +108,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_2"/>
+       <widget class="QTableWidget" name="tableWidget_2">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
@@ -140,7 +144,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_6"/>
+       <widget class="QTableWidget" name="tableWidget_6">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
@@ -162,7 +170,11 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QListWidget" name="listWidget">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

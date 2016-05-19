@@ -7,20 +7,24 @@ namespace Ui {
 class BlockTab;
 }
 
-class BlockTab : public QWidget
-{
-    Q_OBJECT
+class MainWindow;
+
+class BlockTab : public QWidget {
+  Q_OBJECT
 
 public:
-    explicit BlockTab(QWidget *parent = 0);
-    ~BlockTab();
+  explicit BlockTab(MainWindow *w, QWidget *parent = 0);
+  ~BlockTab();
 
 private:
-    Ui::BlockTab *ui;
+  Ui::BlockTab *ui;
 
 private slots:
-    void GeneratePressed();
-    void CalculatePressed();
+  void GeneratePressed();
+  void CalculatePressed();
+
+signals:
+  void Error(QString msg);
 };
 
 #endif // BLOCK_TAB_H

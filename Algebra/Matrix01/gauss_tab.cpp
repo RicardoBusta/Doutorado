@@ -1,31 +1,28 @@
 #include "gauss_tab.h"
 #include "ui_gauss_tab.h"
 
-GaussTab::GaussTab(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::GaussTab)
-{
-    ui->setupUi(this);
+#include "mainwindow.h"
 
-    QObject::connect(ui->gen_pushButton,SIGNAL(clicked(bool)),this,SLOT(GeneratePressed()));
+GaussTab::GaussTab(MainWindow *w, QWidget *parent) : QWidget(parent),
+                                      ui(new Ui::GaussTab) {
+  ui->setupUi(this);
+
+  QObject::connect(ui->gen_pushButton, SIGNAL(clicked(bool)), this, SLOT(GeneratePressed()));
+  QObject::connect(this,SIGNAL(Error(QString)),w,SLOT(ErrorMessage(QString)));
 }
 
-GaussTab::~GaussTab()
-{
+GaussTab::~GaussTab() {
   delete ui;
 }
 
-void GaussTab::GeneratePressed()
-{
-
+void GaussTab::GeneratePressed() {
+  emit Error("Não Implementado");
 }
 
-void GaussTab::EliminatePressed()
-{
-
+void GaussTab::EliminatePressed() {
+  emit Error("Não Implementado");
 }
 
-void GaussTab::CalculatePressed()
-{
-
+void GaussTab::CalculatePressed() {
+  emit Error("Não Implementado");
 }
