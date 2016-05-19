@@ -11,10 +11,14 @@ public:
 
   SimpleMatrix * getData(int i, int j) const;
 
+  void Randomize();
+  void Zero();
+
   int rows,cols;
   int rr,cc;
   int mm,nn;
 
+  static void CreateMatrix(int m, int n, int r, int s, BlockMatrix **M);
 private:
   SimpleMatrix ***data;
 };

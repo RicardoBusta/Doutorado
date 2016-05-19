@@ -8,6 +8,7 @@ class BlockTab;
 }
 
 class MainWindow;
+class BlockMatrix;
 
 class BlockTab : public QWidget {
   Q_OBJECT
@@ -19,6 +20,7 @@ public:
 private:
   Ui::BlockTab *ui;
 
+  BlockMatrix *A,*B,*C;
 private slots:
   void GeneratePressed();
   void CalculatePressed();

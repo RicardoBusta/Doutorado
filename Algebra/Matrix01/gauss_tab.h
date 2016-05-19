@@ -2,12 +2,15 @@
 #define GAUSS_TAB_H
 
 #include <QWidget>
+#include <QVector>
+#include <QString>
 
 namespace Ui {
 class GaussTab;
 }
 
 class MainWindow;
+class SimpleMatrix;
 
 class GaussTab : public QWidget
 {
@@ -19,6 +22,12 @@ public:
 
 private:
     Ui::GaussTab *ui;
+
+    SimpleMatrix *A1, *C1;
+    SimpleMatrix *A2, *C2;
+
+    QVector<QString> keys;
+    QVector<double> solution;
 
 private slots:
     void GeneratePressed();

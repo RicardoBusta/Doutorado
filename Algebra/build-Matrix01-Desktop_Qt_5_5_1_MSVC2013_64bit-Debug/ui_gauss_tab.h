@@ -13,11 +13,11 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
@@ -37,29 +37,31 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_6;
     QSpinBox *m_spinBox;
-    QLabel *label_7;
-    QSpinBox *n_spinBox;
+    QCheckBox *vert_checkBox;
+    QCheckBox *horz_checkBox;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *gen_pushButton;
+    QPushButton *eli_pushButton;
+    QPushButton *sol_pushButton;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout;
-    QTableWidget *tableWidget;
+    QTableWidget *A1_tableWidget;
     QLabel *label_3;
-    QTableWidget *tableWidget_2;
+    QTableWidget *B1_tableWidget;
     QLabel *label_2;
-    QTableWidget *tableWidget_3;
+    QTableWidget *C1_tableWidget;
     QGroupBox *groupBox_4;
     QHBoxLayout *horizontalLayout_2;
-    QTableWidget *tableWidget_4;
+    QTableWidget *A2_tableWidget;
     QLabel *label_4;
-    QTableWidget *tableWidget_6;
+    QTableWidget *B2_tableWidget;
     QLabel *label_5;
-    QTableWidget *tableWidget_5;
+    QTableWidget *C2_tableWidget;
     QGroupBox *groupBox_3;
     QVBoxLayout *verticalLayout_2;
-    QListWidget *listWidget;
+    QTableWidget *sol_tableWidget;
 
     void setupUi(QWidget *GaussTab)
     {
@@ -86,18 +88,21 @@ public:
 
         m_spinBox = new QSpinBox(groupBox);
         m_spinBox->setObjectName(QStringLiteral("m_spinBox"));
+        m_spinBox->setMinimum(1);
+        m_spinBox->setMaximum(9999);
+        m_spinBox->setValue(5);
 
         horizontalLayout_3->addWidget(m_spinBox);
 
-        label_7 = new QLabel(groupBox);
-        label_7->setObjectName(QStringLiteral("label_7"));
+        vert_checkBox = new QCheckBox(groupBox);
+        vert_checkBox->setObjectName(QStringLiteral("vert_checkBox"));
 
-        horizontalLayout_3->addWidget(label_7);
+        horizontalLayout_3->addWidget(vert_checkBox);
 
-        n_spinBox = new QSpinBox(groupBox);
-        n_spinBox->setObjectName(QStringLiteral("n_spinBox"));
+        horz_checkBox = new QCheckBox(groupBox);
+        horz_checkBox->setObjectName(QStringLiteral("horz_checkBox"));
 
-        horizontalLayout_3->addWidget(n_spinBox);
+        horizontalLayout_3->addWidget(horz_checkBox);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -113,6 +118,16 @@ public:
 
         horizontalLayout_4->addWidget(gen_pushButton);
 
+        eli_pushButton = new QPushButton(groupBox);
+        eli_pushButton->setObjectName(QStringLiteral("eli_pushButton"));
+
+        horizontalLayout_4->addWidget(eli_pushButton);
+
+        sol_pushButton = new QPushButton(groupBox);
+        sol_pushButton->setObjectName(QStringLiteral("sol_pushButton"));
+
+        horizontalLayout_4->addWidget(sol_pushButton);
+
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
@@ -127,31 +142,31 @@ public:
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
         horizontalLayout = new QHBoxLayout(groupBox_2);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        tableWidget = new QTableWidget(groupBox_2);
-        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        A1_tableWidget = new QTableWidget(groupBox_2);
+        A1_tableWidget->setObjectName(QStringLiteral("A1_tableWidget"));
 
-        horizontalLayout->addWidget(tableWidget);
+        horizontalLayout->addWidget(A1_tableWidget);
 
         label_3 = new QLabel(groupBox_2);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         horizontalLayout->addWidget(label_3);
 
-        tableWidget_2 = new QTableWidget(groupBox_2);
-        tableWidget_2->setObjectName(QStringLiteral("tableWidget_2"));
-        tableWidget_2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        B1_tableWidget = new QTableWidget(groupBox_2);
+        B1_tableWidget->setObjectName(QStringLiteral("B1_tableWidget"));
+        B1_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-        horizontalLayout->addWidget(tableWidget_2);
+        horizontalLayout->addWidget(B1_tableWidget);
 
         label_2 = new QLabel(groupBox_2);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout->addWidget(label_2);
 
-        tableWidget_3 = new QTableWidget(groupBox_2);
-        tableWidget_3->setObjectName(QStringLiteral("tableWidget_3"));
+        C1_tableWidget = new QTableWidget(groupBox_2);
+        C1_tableWidget->setObjectName(QStringLiteral("C1_tableWidget"));
 
-        horizontalLayout->addWidget(tableWidget_3);
+        horizontalLayout->addWidget(C1_tableWidget);
 
         horizontalLayout->setStretch(0, 10);
         horizontalLayout->setStretch(2, 1);
@@ -163,31 +178,31 @@ public:
         groupBox_4->setObjectName(QStringLiteral("groupBox_4"));
         horizontalLayout_2 = new QHBoxLayout(groupBox_4);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        tableWidget_4 = new QTableWidget(groupBox_4);
-        tableWidget_4->setObjectName(QStringLiteral("tableWidget_4"));
+        A2_tableWidget = new QTableWidget(groupBox_4);
+        A2_tableWidget->setObjectName(QStringLiteral("A2_tableWidget"));
 
-        horizontalLayout_2->addWidget(tableWidget_4);
+        horizontalLayout_2->addWidget(A2_tableWidget);
 
         label_4 = new QLabel(groupBox_4);
         label_4->setObjectName(QStringLiteral("label_4"));
 
         horizontalLayout_2->addWidget(label_4);
 
-        tableWidget_6 = new QTableWidget(groupBox_4);
-        tableWidget_6->setObjectName(QStringLiteral("tableWidget_6"));
-        tableWidget_6->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        B2_tableWidget = new QTableWidget(groupBox_4);
+        B2_tableWidget->setObjectName(QStringLiteral("B2_tableWidget"));
+        B2_tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-        horizontalLayout_2->addWidget(tableWidget_6);
+        horizontalLayout_2->addWidget(B2_tableWidget);
 
         label_5 = new QLabel(groupBox_4);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         horizontalLayout_2->addWidget(label_5);
 
-        tableWidget_5 = new QTableWidget(groupBox_4);
-        tableWidget_5->setObjectName(QStringLiteral("tableWidget_5"));
+        C2_tableWidget = new QTableWidget(groupBox_4);
+        C2_tableWidget->setObjectName(QStringLiteral("C2_tableWidget"));
 
-        horizontalLayout_2->addWidget(tableWidget_5);
+        horizontalLayout_2->addWidget(C2_tableWidget);
 
         horizontalLayout_2->setStretch(0, 10);
         horizontalLayout_2->setStretch(2, 1);
@@ -199,11 +214,10 @@ public:
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
         verticalLayout_2 = new QVBoxLayout(groupBox_3);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        listWidget = new QListWidget(groupBox_3);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-        listWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        sol_tableWidget = new QTableWidget(groupBox_3);
+        sol_tableWidget->setObjectName(QStringLiteral("sol_tableWidget"));
 
-        verticalLayout_2->addWidget(listWidget);
+        verticalLayout_2->addWidget(sol_tableWidget);
 
 
         verticalLayout->addWidget(groupBox_3);
@@ -223,8 +237,11 @@ public:
         label->setText(QApplication::translate("GaussTab", "Sistema com Elimina\303\247\303\243o de Gauss", 0));
         groupBox->setTitle(QApplication::translate("GaussTab", "Dimens\303\265es do Sistema", 0));
         label_6->setText(QApplication::translate("GaussTab", "m", 0));
-        label_7->setText(QApplication::translate("GaussTab", "n", 0));
-        gen_pushButton->setText(QApplication::translate("GaussTab", "Generate", 0));
+        vert_checkBox->setText(QApplication::translate("GaussTab", "Pivota\303\247\303\243o Vertical", 0));
+        horz_checkBox->setText(QApplication::translate("GaussTab", "Pivota\303\247\303\243o Horizontal", 0));
+        gen_pushButton->setText(QApplication::translate("GaussTab", "Gerar", 0));
+        eli_pushButton->setText(QApplication::translate("GaussTab", "Eliminar", 0));
+        sol_pushButton->setText(QApplication::translate("GaussTab", "Resolver", 0));
         groupBox_2->setTitle(QApplication::translate("GaussTab", "Sistema", 0));
         label_3->setText(QApplication::translate("GaussTab", "x", 0));
         label_2->setText(QApplication::translate("GaussTab", "=", 0));

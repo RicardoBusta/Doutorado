@@ -68,6 +68,15 @@ void SimpleMatrix::CopyTransposed(SimpleMatrix *M)
   }
 }
 
+void SimpleMatrix::Increment(SimpleMatrix *M)
+{
+  for(int i=0;i<rows;i++){
+    for(int j=0;j<cols;j++){
+      data[i][j]+=M->data[i][j];
+    }
+  }
+}
+
 void SimpleMatrix::MultiplyByRow(const SimpleMatrix &A, const SimpleMatrix &B, SimpleMatrix &C) {
   if (A.cols != B.rows) {
     qFatal("Wrong matrix sizes");

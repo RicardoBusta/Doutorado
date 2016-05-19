@@ -20,6 +20,7 @@ public:
 
   void Copy(SimpleMatrix *M);
   void CopyTransposed(SimpleMatrix *M);
+  void Increment(SimpleMatrix *M);
 
   static void MultiplyByRow(const SimpleMatrix &A, const SimpleMatrix &B, SimpleMatrix &C);
   static void MultiplyByCol(const SimpleMatrix &A, const SimpleMatrix &B, SimpleMatrix &C);
