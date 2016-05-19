@@ -44,6 +44,8 @@ public:
     QPushButton *gen_pushButton;
     QPushButton *eli_pushButton;
     QPushButton *sol_pushButton;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout;
@@ -67,7 +69,7 @@ public:
     {
         if (GaussTab->objectName().isEmpty())
             GaussTab->setObjectName(QStringLiteral("GaussTab"));
-        GaussTab->resize(400, 494);
+        GaussTab->resize(748, 494);
         verticalLayout = new QVBoxLayout(GaussTab);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         label = new QLabel(GaussTab);
@@ -127,6 +129,18 @@ public:
         sol_pushButton->setObjectName(QStringLiteral("sol_pushButton"));
 
         horizontalLayout_4->addWidget(sol_pushButton);
+
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setEnabled(false);
+
+        horizontalLayout_4->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setEnabled(false);
+
+        horizontalLayout_4->addWidget(pushButton_2);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -242,6 +256,8 @@ public:
         gen_pushButton->setText(QApplication::translate("GaussTab", "Gerar", 0));
         eli_pushButton->setText(QApplication::translate("GaussTab", "Eliminar", 0));
         sol_pushButton->setText(QApplication::translate("GaussTab", "Resolver", 0));
+        pushButton->setText(QApplication::translate("GaussTab", "Carregar Matriz", 0));
+        pushButton_2->setText(QApplication::translate("GaussTab", "Exportar Matlab", 0));
         groupBox_2->setTitle(QApplication::translate("GaussTab", "Sistema", 0));
         label_3->setText(QApplication::translate("GaussTab", "x", 0));
         label_2->setText(QApplication::translate("GaussTab", "=", 0));

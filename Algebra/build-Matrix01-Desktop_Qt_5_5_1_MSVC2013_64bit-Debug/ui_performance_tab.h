@@ -48,6 +48,8 @@ public:
     QPushButton *calculate_pushButton;
     QCheckBox *three_times_checkBox;
     QCheckBox *read_checkBox;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout;
@@ -160,6 +162,18 @@ public:
         read_checkBox->setObjectName(QStringLiteral("read_checkBox"));
 
         horizontalLayout->addWidget(read_checkBox);
+
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setEnabled(false);
+
+        horizontalLayout->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setEnabled(false);
+
+        horizontalLayout->addWidget(pushButton_2);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -330,6 +344,8 @@ public:
         calculate_pushButton->setText(QApplication::translate("PerformanceTab", "Calcular", 0));
         three_times_checkBox->setText(QApplication::translate("PerformanceTab", "Executar 3x", 0));
         read_checkBox->setText(QApplication::translate("PerformanceTab", "Ler Input", 0));
+        pushButton->setText(QApplication::translate("PerformanceTab", "Carregar Matriz", 0));
+        pushButton_2->setText(QApplication::translate("PerformanceTab", "Exportar Matlab", 0));
         groupBox_2->setTitle(QApplication::translate("PerformanceTab", "Multiplica\303\247\303\243o", 0));
         label_5->setText(QApplication::translate("PerformanceTab", "x", 0));
         label_6->setText(QApplication::translate("PerformanceTab", "=", 0));

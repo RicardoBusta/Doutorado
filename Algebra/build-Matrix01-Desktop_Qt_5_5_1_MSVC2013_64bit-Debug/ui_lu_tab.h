@@ -40,6 +40,8 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *gen_pushButton;
     QPushButton *deco_pushButton;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout_2;
@@ -99,6 +101,18 @@ public:
         deco_pushButton->setObjectName(QStringLiteral("deco_pushButton"));
 
         horizontalLayout_3->addWidget(deco_pushButton);
+
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setEnabled(false);
+
+        horizontalLayout_3->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setEnabled(false);
+
+        horizontalLayout_3->addWidget(pushButton_2);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -172,6 +186,8 @@ public:
         label_2->setText(QApplication::translate("LUTab", "m", 0));
         gen_pushButton->setText(QApplication::translate("LUTab", "Gerar", 0));
         deco_pushButton->setText(QApplication::translate("LUTab", "Decompor", 0));
+        pushButton->setText(QApplication::translate("LUTab", "Carregar Matriz", 0));
+        pushButton_2->setText(QApplication::translate("LUTab", "Exportar Matlab", 0));
         groupBox_2->setTitle(QApplication::translate("LUTab", "Decomposi\303\247\303\243o", 0));
         label_4->setText(QApplication::translate("LUTab", "LU(", 0));
         label_5->setText(QApplication::translate("LUTab", ") =", 0));

@@ -41,6 +41,8 @@ public:
     QPushButton *gen_pushButton;
     QPushButton *example_pushButton;
     QPushButton *deco_pushButton;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
     QHBoxLayout *horizontalLayout;
@@ -55,7 +57,7 @@ public:
     {
         if (CholeskyTab->objectName().isEmpty())
             CholeskyTab->setObjectName(QStringLiteral("CholeskyTab"));
-        CholeskyTab->resize(400, 300);
+        CholeskyTab->resize(463, 300);
         verticalLayout = new QVBoxLayout(CholeskyTab);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         label = new QLabel(CholeskyTab);
@@ -105,6 +107,18 @@ public:
         deco_pushButton->setObjectName(QStringLiteral("deco_pushButton"));
 
         horizontalLayout_3->addWidget(deco_pushButton);
+
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setEnabled(false);
+
+        horizontalLayout_3->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setEnabled(false);
+
+        horizontalLayout_3->addWidget(pushButton_2);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -175,6 +189,8 @@ public:
         gen_pushButton->setText(QApplication::translate("CholeskyTab", "Gerar", 0));
         example_pushButton->setText(QApplication::translate("CholeskyTab", "PushButton", 0));
         deco_pushButton->setText(QApplication::translate("CholeskyTab", "Decompor", 0));
+        pushButton->setText(QApplication::translate("CholeskyTab", "Carregar Matriz", 0));
+        pushButton_2->setText(QApplication::translate("CholeskyTab", "Exportar Matlab", 0));
         groupBox_2->setTitle(QApplication::translate("CholeskyTab", "Decomposi\303\247\303\243o", 0));
         label_2->setText(QApplication::translate("CholeskyTab", "Cho(", 0));
         label_3->setText(QApplication::translate("CholeskyTab", ") =", 0));

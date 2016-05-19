@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>748</width>
     <height>494</height>
    </rect>
   </property>
@@ -98,6 +98,26 @@
          <widget class="QPushButton" name="sol_pushButton">
           <property name="text">
            <string>Resolver</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Carregar Matriz</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Exportar Matlab</string>
           </property>
          </widget>
         </item>

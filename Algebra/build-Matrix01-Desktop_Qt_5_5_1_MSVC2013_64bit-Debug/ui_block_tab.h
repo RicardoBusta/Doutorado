@@ -51,6 +51,8 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *gen_pushButton;
     QPushButton *calc_pushButton;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QSpacerItem *horizontalSpacer_2;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout;
@@ -181,6 +183,18 @@ public:
 
         horizontalLayout->addWidget(calc_pushButton);
 
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setEnabled(false);
+
+        horizontalLayout->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setEnabled(false);
+
+        horizontalLayout->addWidget(pushButton_2);
+
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer_2);
@@ -281,6 +295,8 @@ public:
         label_5->setText(QApplication::translate("BlockTab", "n", 0));
         gen_pushButton->setText(QApplication::translate("BlockTab", "Gerar", 0));
         calc_pushButton->setText(QApplication::translate("BlockTab", "Calcular", 0));
+        pushButton->setText(QApplication::translate("BlockTab", "Carregar Matriz", 0));
+        pushButton_2->setText(QApplication::translate("BlockTab", "Exportar Matlab", 0));
         groupBox_2->setTitle(QApplication::translate("BlockTab", "Multiplica\303\247\303\243o", 0));
         label_10->setText(QApplication::translate("BlockTab", "mxn", 0));
         label_9->setText(QApplication::translate("BlockTab", "=", 0));
