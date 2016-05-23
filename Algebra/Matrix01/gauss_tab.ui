@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>748</width>
     <height>494</height>
    </rect>
   </property>
@@ -37,17 +37,31 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>n</string>
+         <widget class="QSpinBox" name="m_spinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>9999</number>
+          </property>
+          <property name="value">
+           <number>5</number>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox_2"/>
+         <widget class="QCheckBox" name="vert_checkBox">
+          <property name="text">
+           <string>Pivotação Vertical</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="horz_checkBox">
+          <property name="text">
+           <string>Pivotação Horizontal</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer">
@@ -69,7 +83,41 @@
         <item>
          <widget class="QPushButton" name="gen_pushButton">
           <property name="text">
-           <string>Generate</string>
+           <string>Gerar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="eli_pushButton">
+          <property name="text">
+           <string>Eliminar</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sol_pushButton">
+          <property name="text">
+           <string>Resolver</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Carregar Matriz</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Exportar Matlab</string>
           </property>
          </widget>
         </item>
@@ -98,7 +146,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,0,1,0,1">
       <item>
-       <widget class="QTableWidget" name="tableWidget"/>
+       <widget class="QTableWidget" name="A1_tableWidget"/>
       </item>
       <item>
        <widget class="QLabel" name="label_3">
@@ -108,7 +156,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_2"/>
+       <widget class="QTableWidget" name="B1_tableWidget">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_2">
@@ -118,7 +170,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_3"/>
+       <widget class="QTableWidget" name="C1_tableWidget"/>
       </item>
      </layout>
     </widget>
@@ -130,7 +182,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="10,0,1,0,1">
       <item>
-       <widget class="QTableWidget" name="tableWidget_4"/>
+       <widget class="QTableWidget" name="A2_tableWidget"/>
       </item>
       <item>
        <widget class="QLabel" name="label_4">
@@ -140,7 +192,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_6"/>
+       <widget class="QTableWidget" name="B2_tableWidget">
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_5">
@@ -150,7 +206,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="tableWidget_5"/>
+       <widget class="QTableWidget" name="C2_tableWidget"/>
       </item>
      </layout>
     </widget>
@@ -162,7 +218,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QTableWidget" name="sol_tableWidget"/>
       </item>
      </layout>
     </widget>

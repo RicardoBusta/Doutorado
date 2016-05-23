@@ -15,6 +15,19 @@ void SetMatrixToWidget(QTableWidget *widget, const SimpleMatrix &m) {
       item->setText(QString::number(m.getData(i, j)));
     }
   }
+  widget->resizeColumnsToContents();
+}
+
+void GetMatrixFromWidget(QTableWidget *widget, SimpleMatrix &m, bool *ok){
+  (*ok)=true;
+  for (int i = 0; i < m.rows; i++) {
+    for (int j = 0; j < m.cols; j++) {
+      m.setData(i,j,widget->item(i,j)->text().toDouble(ok));
+      if(!(*ok)){
+        return;
+      }
+    }
+  }
 }
 
 void SetMatrixToWidget(QTableWidget *widget, const BlockMatrix &m) {
@@ -31,14 +44,15 @@ void SetMatrixToWidget(QTableWidget *widget, const BlockMatrix &m) {
           QTableWidgetItem *item = new QTableWidgetItem();
           widget->setItem(ci+ii,cj+jj,item);
           if((i+j)%2==0){
-            item->setBackgroundColor(((ii+jj)%2)==0?(Qt::darkRed):(Qt::red));
+            item->setBackgroundColor(QColor(0xddddff));
           }else{
-            item->setBackgroundColor(((ii+jj)%2)==0?(Qt::white):(Qt::gray));
+            item->setBackgroundColor(Qt::white);
           }
           item->setText(QString::number(mm->getData(ii,jj)));
         }
       }
     }
   }
+  widget->resizeColumnsToContents();
 }
 }

@@ -9,22 +9,26 @@ namespace Ui {
 class PerformanceTab;
 }
 
-class PerformanceTab : public QWidget
-{
-    Q_OBJECT
+class MainWindow;
+
+class PerformanceTab : public QWidget {
+  Q_OBJECT
 
 public:
-    explicit PerformanceTab(QWidget *parent = 0);
-    ~PerformanceTab();
+  explicit PerformanceTab(MainWindow *w, QWidget *parent = 0);
+  ~PerformanceTab();
 
 private:
-    Ui::PerformanceTab *ui;
+  Ui::PerformanceTab *ui;
 
-    SimpleMatrix *A=nullptr, *B=nullptr, *C=nullptr;
+  SimpleMatrix *A, *B, *C;
 
 private slots:
-    void GeneratePressed();
-    void CalculatePressed();
+  void GeneratePressed();
+  void CalculatePressed();
+
+signals:
+  void Error(QString msg);
 };
 
 #endif // PERFORMANCE_TAB_H
