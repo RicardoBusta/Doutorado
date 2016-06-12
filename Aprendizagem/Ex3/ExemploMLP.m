@@ -3,7 +3,7 @@ close all
 clc
 
 
-% geração dos dados
+% geraï¿½ï¿½o dos dados
 % A = gendatb([500 500]); [C,D] = gendat(A,0.2);
 % xn = A.data;
 % Maximo = max(xn);
@@ -15,7 +15,7 @@ clc
 % y = [repmat([0 1],500,1) ;repmat([1 0],500,1)]';
 
 load('DadosExemplo.mat')
- %Parâmetros
+ %Parï¿½metros
 Dn=x';
 
 [LinD ColD]=size(x');
@@ -128,7 +128,7 @@ end
 Tx_OK=100*(count_OK/cQ)
 
 
-% Gera a figura da superfície de decisão
+% Gera a figura da superfï¿½cie de decisï¿½o
 xc = 0:0.01:1;
 yc = 0:0.01:1;
 
@@ -158,6 +158,6 @@ for i = 1:length(xc)
 end
 hold on
 mesh(ResultIdxX,ResultIdxY,Result)
-plot(x(1:500,1),x(1:500,2),'x')
 hold on
+plot(x(1:500,1),x(1:500,2),'x')
 plot(x(501:1000,1),x(501:1000,2),'rx')
