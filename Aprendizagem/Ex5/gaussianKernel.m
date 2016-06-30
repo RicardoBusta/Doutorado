@@ -1,4 +1,4 @@
-function sim = gaussianKernel(x1, x2, sigma)
+function sim = gaussianKernel(x1, x2, s)
 %RBFKERNEL returns a radial basis function kernel between x1 and x2
 %   sim = gaussianKernel(x1, x2) returns a gaussian kernel between x1 and x2
 %   and returns the value in sim
@@ -7,7 +7,7 @@ function sim = gaussianKernel(x1, x2, sigma)
 x1 = x1(:); x2 = x2(:);
 
 % You need to return the following variables correctly.
-sim = exp(-(x1-x2)'*(x1-x2)/(2*sigma^2));
+sim = exp(-(x1-x2)'*(x1-x2)/(2*s^2));
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return the similarity between x1

@@ -1,5 +1,5 @@
 function [model] = svmTrain(X, Y, C, kernelFunction, ...
-                            tol, max_passes)
+                            s, tol, max_passes)
 %SVMTRAIN Trains an SVM classifier using a simplified version of the SMO 
 %algorithm. 
 %   [model] = SVMTRAIN(X, Y, C, kernelFunction, tol, max_passes) trains an
@@ -60,9 +60,10 @@ if strcmp(func2str(kernelFunction), 'linearKernel')
 elseif strfind(func2str(kernelFunction), 'gaussianKernel')
     % Vectorized RBF Kernel
     % This is equivalent to computing the kernel on every pair of examples
+    txt = "executing gaussian kernel"
     X2 = sum(X.^2, 2);
     K = bsxfun(@plus, X2, bsxfun(@plus, X2', - 2 * (X * X')));
-    K = kernelFunction(1, 0) .^ K;
+    K = gaussianKernel(1, 0, s) .^ K;
 else
     % Pre-compute the Kernel Matrix
     % The following can be slow due to the lack of vectorization

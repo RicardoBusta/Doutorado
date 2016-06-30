@@ -1,4 +1,4 @@
-function pred = svmPredict(model, X)
+function pred = svmPredict(model, X, s)
 %SVMPREDICT returns a vector of predictions using a trained SVM model
 %(svmTrain). 
 %   pred = SVMPREDICT(model, X) returns a vector of predictions using a 
@@ -29,7 +29,7 @@ elseif strfind(func2str(model.kernelFunction), 'gaussianKernel')
     X1 = sum(X.^2, 2);
     X2 = sum(model.X.^2, 2)';
     K = bsxfun(@plus, X1, bsxfun(@plus, X2, - 2 * X * model.X'));
-    K = model.kernelFunction(1, 0) .^ K;
+    K = model.kernelFunction(1, 0, s) .^ K;
     K = bsxfun(@times, model.y', K);
     K = bsxfun(@times, model.alphas', K);
     p = sum(K, 2);
