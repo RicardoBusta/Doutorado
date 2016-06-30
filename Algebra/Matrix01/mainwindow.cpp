@@ -7,6 +7,10 @@
 #include "T1/lu_tab.h"
 #include "T1/performance_tab.h"
 
+#include "T2/matrix_norm_tab.h"
+#include "T2/vector_norm_tab.h"
+#include "T2/qr_tab.h"
+
 #include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
@@ -21,7 +25,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   ui->tabWidget->addTab(new CholeskyTab(this), QString("T1 Cholesky"));
 
   // T2 Tabs
-  //ui->tabWidget->addTab()
+  ui->tabWidget->addTab(new VectorNormTab(this), QString("T2 Vector"));
+  ui->tabWidget->addTab(new MatrixNormTab(this), QString("T2 Matrix"));
+  ui->tabWidget->addTab(new QRTab(this), QString("T2 QR"));
 
   showMaximized();
 }

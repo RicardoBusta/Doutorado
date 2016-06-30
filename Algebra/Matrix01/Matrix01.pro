@@ -22,7 +22,10 @@ SOURCES += \
     T1/block_tab.cpp \
     corefunctions.cpp \
     structures/simplematrix.cpp \
-    structures/blockmatrix.cpp
+    structures/blockmatrix.cpp \
+    T2/qr_tab.cpp \
+    T2/vector_norm_tab.cpp \
+    T2/matrix_norm_tab.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -33,7 +36,10 @@ HEADERS  += \
     T1/block_tab.h \
     corefunctions.h \
     structures/simplematrix.h \
-    structures/blockmatrix.h
+    structures/blockmatrix.h \
+    T2/qr_tab.h \
+    T2/vector_norm_tab.h \
+    T2/matrix_norm_tab.h
 
 FORMS    += \
     mainwindow.ui \
@@ -41,4 +47,7 @@ FORMS    += \
     T1/gauss_tab.ui \
     T1/lu_tab.ui \
     T1/cholesky_tab.ui \
-    T1/block_tab.ui
+    T1/block_tab.ui \
+    T2/qr_tab.ui \
+    T2/vector_norm_tab.ui \
+    T2/matrix_norm_tab.ui
