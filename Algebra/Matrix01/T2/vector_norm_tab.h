@@ -7,16 +7,19 @@ namespace Ui {
 class VectorNormTab;
 }
 
-class VectorNormTab : public QWidget
-{
+class VectorNormTab : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   explicit VectorNormTab(QWidget *parent = 0);
   ~VectorNormTab();
 
-private:
+ private:
   Ui::VectorNormTab *ui;
+
+ private slots:
+  void GenerateVector();
+  void Calculate();
 };
 
-#endif // VECTOR_NORM_TAB_H
+#endif  // VECTOR_NORM_TAB_H

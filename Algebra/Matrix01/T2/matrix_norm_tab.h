@@ -7,16 +7,15 @@ namespace Ui {
 class MatrixNormTab;
 }
 
-class MatrixNormTab : public QWidget
-{
+class MatrixNormTab : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   explicit MatrixNormTab(QWidget *parent = 0);
   ~MatrixNormTab();
 
-private:
+ private:
   Ui::MatrixNormTab *ui;
 };
 
-#endif // MATRIX_NORM_TAB_H
+#endif  // MATRIX_NORM_TAB_H
