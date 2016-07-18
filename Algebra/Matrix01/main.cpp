@@ -24,13 +24,12 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
   }
 }
 
-int main(int argc, char *argv[])
-{
-    qInstallMessageHandler(myMessageOutput);
-    qsrand(QDateTime::currentMSecsSinceEpoch());
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+int main(int argc, char *argv[]) {
+  qInstallMessageHandler(myMessageOutput);
+  qsrand(QDateTime::currentMSecsSinceEpoch());
+  QApplication a(argc, argv);
+  MainWindow w;
+  w.show();
 
-    return a.exec();
+  return a.exec();
 }

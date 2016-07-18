@@ -12,30 +12,29 @@ class GaussTab;
 class MainWindow;
 class SimpleMatrix;
 
-class GaussTab : public QWidget
-{
-    Q_OBJECT
+class GaussTab : public QWidget {
+  Q_OBJECT
 
-public:
-    explicit GaussTab(MainWindow *w, QWidget *parent = 0);
-    ~GaussTab();
+ public:
+  explicit GaussTab(MainWindow *w, QWidget *parent = 0);
+  ~GaussTab();
 
-private:
-    Ui::GaussTab *ui;
+ private:
+  Ui::GaussTab *ui;
 
-    SimpleMatrix *A1, *C1;
-    SimpleMatrix *A2, *C2;
+  SimpleMatrix *A1, *C1;
+  SimpleMatrix *A2, *C2;
 
-    QVector<QString> keys;
-    QVector<double> solution;
+  QVector<QString> keys;
+  QVector<double> solution;
 
-private slots:
-    void GeneratePressed();
-    void EliminatePressed();
-    void CalculatePressed();
+ private slots:
+  void GeneratePressed();
+  void EliminatePressed();
+  void CalculatePressed();
 
-signals:
+ signals:
   void Error(QString msg);
 };
 
-#endif // GAUSS_TAB_H
+#endif  // GAUSS_TAB_H

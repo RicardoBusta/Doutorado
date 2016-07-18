@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>355</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,10 +30,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
+         <widget class="QSpinBox" name="vsize_spinBox">
+          <property name="value">
+           <number>3</number>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="generate_pushButton">
+         <widget class="QPushButton" name="gen_pushButton">
           <property name="text">
            <string>Gerar</string>
           </property>
@@ -71,7 +75,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="A_tableWidget">
+         <widget class="QTableWidget" name="V_tableWidget">
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
           </attribute>
@@ -98,7 +102,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="A_tableWidget_2">
+         <widget class="QTableWidget" name="A_tableWidget">
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
           </attribute>
@@ -124,7 +128,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="calc_pushButton">
           <property name="text">
            <string>Calcular</string>
           </property>
@@ -177,42 +181,42 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="norm1_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLabel" name="label_11">
+         <widget class="QLabel" name="norm2_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="label_12">
+         <widget class="QLabel" name="norm3_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLabel" name="label_13">
+         <widget class="QLabel" name="norm4_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLabel" name="label_14">
+         <widget class="QLabel" name="normInf_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QLabel" name="label_15">
+         <widget class="QLabel" name="normA_label">
           <property name="text">
            <string>TextLabel</string>
           </property>

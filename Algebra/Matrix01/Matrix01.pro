@@ -25,7 +25,9 @@ SOURCES += \
     structures/blockmatrix.cpp \
     T2/qr_tab.cpp \
     T2/vector_norm_tab.cpp \
-    T2/matrix_norm_tab.cpp
+    T2/matrix_norm_tab.cpp \
+    T2/svd_tab.cpp \
+    T2/least_square_tab.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -39,7 +41,9 @@ HEADERS  += \
     structures/blockmatrix.h \
     T2/qr_tab.h \
     T2/vector_norm_tab.h \
-    T2/matrix_norm_tab.h
+    T2/matrix_norm_tab.h \
+    T2/svd_tab.h \
+    T2/least_square_tab.h
 
 FORMS    += \
     mainwindow.ui \
@@ -50,4 +54,6 @@ FORMS    += \
     T1/block_tab.ui \
     T2/qr_tab.ui \
     T2/vector_norm_tab.ui \
-    T2/matrix_norm_tab.ui
+    T2/matrix_norm_tab.ui \
+    T2/svd_tab.ui \
+    T2/least_square_tab.ui

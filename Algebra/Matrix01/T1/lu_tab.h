@@ -13,23 +13,23 @@ class SimpleMatrix;
 class LUTab : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   explicit LUTab(MainWindow *w, QWidget *parent = 0);
   ~LUTab();
 
-private:
+ private:
   Ui::LUTab *ui;
 
   SimpleMatrix *A;
   SimpleMatrix *B;
   SimpleMatrix *C;
 
-private slots:
+ private slots:
   void GeneratePressed();
   void DecomposePressed();
 
-signals:
+ signals:
   void Error(QString msg);
 };
 
-#endif // LU_TAB_H
+#endif  // LU_TAB_H

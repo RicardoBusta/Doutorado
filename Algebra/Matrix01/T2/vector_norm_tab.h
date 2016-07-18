@@ -7,16 +7,28 @@ namespace Ui {
 class VectorNormTab;
 }
 
-class VectorNormTab : public QWidget
-{
+class SimpleMatrix;
+
+class VectorNormTab : public QWidget {
   Q_OBJECT
 
-public:
+ public:
   explicit VectorNormTab(QWidget *parent = 0);
   ~VectorNormTab();
 
-private:
+ private:
   Ui::VectorNormTab *ui;
+
+  SimpleMatrix *V;
+  SimpleMatrix *A;
+
+  double CalcVectorPNorm(SimpleMatrix &x, int p);
+  double CalcVectorInfNorm(SimpleMatrix &x);
+  double CalcVectorANorm(SimpleMatrix &x, SimpleMatrix &A);
+
+ private slots:
+  void GenerateVector();
+  void Calculate();
 };
 
-#endif // VECTOR_NORM_TAB_H
+#endif  // VECTOR_NORM_TAB_H

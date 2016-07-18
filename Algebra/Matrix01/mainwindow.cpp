@@ -10,6 +10,8 @@
 #include "T2/matrix_norm_tab.h"
 #include "T2/vector_norm_tab.h"
 #include "T2/qr_tab.h"
+#include "T2/svd_tab.h"
+#include "T2/least_square_tab.h"
 
 #include <QMessageBox>
 
@@ -28,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   ui->tabWidget->addTab(new VectorNormTab(this), QString("T2 Vector"));
   ui->tabWidget->addTab(new MatrixNormTab(this), QString("T2 Matrix"));
   ui->tabWidget->addTab(new QRTab(this), QString("T2 QR"));
+  ui->tabWidget->addTab(new SVDTab(this), QString("T2 SVD"));
+  ui->tabWidget->addTab(new LeastSquareTab(this), QString("T2 Least²"));
 
   showMaximized();
 }

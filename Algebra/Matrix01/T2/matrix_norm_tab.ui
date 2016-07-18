@@ -25,19 +25,56 @@
         <item>
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Tamanho:</string>
+           <string>Tamanho: m:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="spinBox"/>
+         <widget class="QSpinBox" name="m_spinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>3</number>
+          </property>
+         </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>n:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="n_spinBox">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="gen_pushButton">
           <property name="text">
            <string>Gerar</string>
           </property>
          </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </item>
@@ -51,7 +88,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="A_tableWidget_2">
+         <widget class="QTableWidget" name="M_tableWidget">
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>60</number>
           </attribute>
@@ -77,7 +114,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="calc_pushButton">
           <property name="text">
            <string>Calcular</string>
           </property>
@@ -90,12 +127,12 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Manhattan (1-n)</string>
+           <string>Forbenius</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="normForb_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -104,12 +141,12 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Euclidiana (2-n)</string>
+           <string>1-Norm</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLabel" name="label_11">
+         <widget class="QLabel" name="norm1_label">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -118,12 +155,12 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>p-norm (3-n)</string>
+           <string>Infinita</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="label_12">
+         <widget class="QLabel" name="normInf_label">
           <property name="text">
            <string>TextLabel</string>
           </property>

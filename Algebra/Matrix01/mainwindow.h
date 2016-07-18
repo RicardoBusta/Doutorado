@@ -7,19 +7,18 @@ namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
-{
-    Q_OBJECT
+class MainWindow : public QMainWindow {
+  Q_OBJECT
 
-public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+ public:
+  explicit MainWindow(QWidget *parent = 0);
+  ~MainWindow();
 
-private:
-    Ui::MainWindow *ui;
+ private:
+  Ui::MainWindow *ui;
 
-public slots:
-    void ErrorMessage(const QString &message);
+ public slots:
+  void ErrorMessage(const QString &message);
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H
