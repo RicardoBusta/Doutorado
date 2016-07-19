@@ -35,7 +35,7 @@ double VectorNormTab::CalcVectorInfNorm(SimpleMatrix &x) {
   double maxVal = -9999;
   for (int i = 0; i < x.rows; i++) {
     double d = abs(x.getData(i, 0));
-    if(d>maxVal){
+    if (d > maxVal) {
       maxVal = d;
     }
   }
@@ -45,11 +45,11 @@ double VectorNormTab::CalcVectorInfNorm(SimpleMatrix &x) {
 }
 
 double VectorNormTab::CalcVectorANorm(SimpleMatrix &x, SimpleMatrix &A) {
-  SimpleMatrix xt(x.cols,x.rows);
+  SimpleMatrix xt(x.cols, x.rows);
   xt.CopyTransposed(&x);
-  SimpleMatrix::MultiplyByCol(xt,A,xt);
-  SimpleMatrix::MultiplyByCol(xt,x,xt);
-  double d = xt.getData(0,0);
+  SimpleMatrix::MultiplyByCol(xt, A, xt);
+  SimpleMatrix::MultiplyByCol(xt, x, xt);
+  double d = xt.getData(0, 0);
   d = sqrt(d);
   return d;
 }
@@ -65,6 +65,8 @@ void VectorNormTab::GenerateVector() {
 }
 
 void VectorNormTab::Calculate() {
+  if (V == nullptr || A == nullptr)
+    return;
   ui->norm1_label->setText(QString::number((CalcVectorPNorm(*V, 1))));
   ui->norm2_label->setText(QString::number((CalcVectorPNorm(*V, 2))));
   ui->norm3_label->setText(QString::number((CalcVectorPNorm(*V, 3))));

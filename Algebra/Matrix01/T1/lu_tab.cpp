@@ -59,7 +59,7 @@ void LUTab::DecomposePressed() {
           sum -= B->getData(i, k) * C->getData(k, j);
         }
         sum = sum / C->getData(j, j);
-        if(qAbs(sum)<thresh){
+        if (qAbs(sum) < thresh) {
           sum = 0;
         }
         B->setData(i, j, sum);
@@ -70,7 +70,7 @@ void LUTab::DecomposePressed() {
           sum -= B->getData(i, k) * C->getData(k, j);
           qDebug() << sum << i << j;
         }
-        if(qAbs(sum)<thresh){
+        if (qAbs(sum) < thresh) {
           sum = 0;
         }
         C->setData(i, j, sum);

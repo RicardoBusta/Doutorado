@@ -1,9 +1,9 @@
 #ifndef GAUSS_TAB_H
 #define GAUSS_TAB_H
 
-#include <QWidget>
-#include <QVector>
 #include <QString>
+#include <QVector>
+#include <QWidget>
 
 namespace Ui {
 class GaussTab;
@@ -15,11 +15,11 @@ class SimpleMatrix;
 class GaussTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit GaussTab(MainWindow *w, QWidget *parent = 0);
   ~GaussTab();
 
- private:
+private:
   Ui::GaussTab *ui;
 
   SimpleMatrix *A1, *C1;
@@ -28,13 +28,13 @@ class GaussTab : public QWidget {
   QVector<QString> keys;
   QVector<double> solution;
 
- private slots:
+private slots:
   void GeneratePressed();
   void EliminatePressed();
   void CalculatePressed();
 
- signals:
+signals:
   void Error(QString msg);
 };
 
-#endif  // GAUSS_TAB_H
+#endif // GAUSS_TAB_H

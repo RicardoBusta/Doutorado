@@ -7,14 +7,15 @@
 #include "corefunctions.h"
 #include "mainwindow.h"
 
-PerformanceTab::PerformanceTab(MainWindow *w, QWidget *parent) : QWidget(parent),
-                                                  ui(new Ui::PerformanceTab),
-                                                  A(nullptr), B(nullptr), C(nullptr) {
+PerformanceTab::PerformanceTab(MainWindow *w, QWidget *parent)
+    : QWidget(parent),
+      ui(new Ui::PerformanceTab),
+      A(nullptr), B(nullptr), C(nullptr) {
   ui->setupUi(this);
 
   QObject::connect(ui->generate_pushButton, SIGNAL(clicked(bool)), this, SLOT(GeneratePressed()));
   QObject::connect(ui->calculate_pushButton, SIGNAL(clicked(bool)), this, SLOT(CalculatePressed()));
-  QObject::connect(this,SIGNAL(Error(QString)),w,SLOT(ErrorMessage(QString)));
+  QObject::connect(this, SIGNAL(Error(QString)), w, SLOT(ErrorMessage(QString)));
 
   ui->calculate_pushButton->setEnabled(false);
 }
@@ -50,16 +51,15 @@ void PerformanceTab::CalculatePressed() {
     return;
   }
 
-
-  if(ui->read_checkBox->isChecked()){
+  if (ui->read_checkBox->isChecked()) {
     bool ok;
-    Core::GetMatrixFromWidget(ui->A_tableWidget,*A,&ok);
-    if(!ok){
+    Core::GetMatrixFromWidget(ui->A_tableWidget, *A, &ok);
+    if (!ok) {
       emit Error("Matriz A inválida");
       return;
     }
-    Core::GetMatrixFromWidget(ui->B_tableWidget,*B,&ok);
-    if(!ok){
+    Core::GetMatrixFromWidget(ui->B_tableWidget, *B, &ok);
+    if (!ok) {
       emit Error("Matriz B inválida");
       return;
     }

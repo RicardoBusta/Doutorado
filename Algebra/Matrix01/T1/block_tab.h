@@ -13,20 +13,20 @@ class BlockMatrix;
 class BlockTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit BlockTab(MainWindow *w, QWidget *parent = 0);
   ~BlockTab();
 
- private:
+private:
   Ui::BlockTab *ui;
 
   BlockMatrix *A, *B, *C;
- private slots:
+private slots:
   void GeneratePressed();
   void CalculatePressed();
 
- signals:
+signals:
   void Error(QString msg);
 };
 
-#endif  // BLOCK_TAB_H
+#endif // BLOCK_TAB_H

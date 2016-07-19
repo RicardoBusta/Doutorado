@@ -1,14 +1,12 @@
 #ifndef SIMPLEMATRIX_H
 #define SIMPLEMATRIX_H
 
-
-class SimpleMatrix
-{
+class SimpleMatrix {
 public:
   SimpleMatrix(int r, int c);
   ~SimpleMatrix();
 
-  int rows,cols;
+  int rows, cols;
 
   double getData(int i, int j) const;
   void setData(int i, int j, double value);

@@ -13,11 +13,11 @@ class SimpleMatrix;
 class CholeskyTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit CholeskyTab(MainWindow *w, QWidget *parent = 0);
   ~CholeskyTab();
 
- private:
+private:
   Ui::CholeskyTab *ui;
 
   SimpleMatrix *A;
@@ -26,13 +26,13 @@ class CholeskyTab : public QWidget {
 
   void FillCholesky(SimpleMatrix *M);
 
- private slots:
+private slots:
   void GenerateClicked();
   void LoadExample();
   void DecomposeClicked();
 
- signals:
+signals:
   void Error(QString msg);
 };
 
-#endif  // CHOLESKY_TAB_H
+#endif // CHOLESKY_TAB_H

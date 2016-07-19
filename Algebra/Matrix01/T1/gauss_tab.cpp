@@ -112,17 +112,17 @@ void GaussTab::CalculatePressed() {
   solution.resize(keys.size());
   solution.fill(0);
   for (int i = A2->rows - 1; i >= 0; i--) {
-    solution[i] = C2->getData(i, 0) / A2->getData(i,i);
-    qDebug() << solution[i] << C2->getData(i, 0) << A2->getData(i,i);
+    solution[i] = C2->getData(i, 0) / A2->getData(i, i);
+    qDebug() << solution[i] << C2->getData(i, 0) << A2->getData(i, i);
     for (int j = i + 1; j < A2->cols; j++) {
-      solution[i]-= A2->getData(i,j)*solution[j];
+      solution[i] -= A2->getData(i, j) * solution[j];
     }
   }
 
   ui->sol_tableWidget->clear();
   ui->sol_tableWidget->setRowCount(1);
   ui->sol_tableWidget->setColumnCount(solution.size());
-  for(int i=0;i<solution.size();i++){
-    ui->sol_tableWidget->setItem(0,i,new QTableWidgetItem(QString("%1 = %2").arg(keys[i]).arg(solution[i])));
+  for (int i = 0; i < solution.size(); i++) {
+    ui->sol_tableWidget->setItem(0, i, new QTableWidgetItem(QString("%1 = %2").arg(keys[i]).arg(solution[i])));
   }
 }

@@ -12,11 +12,11 @@ class SimpleMatrix;
 class MatrixNormTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit MatrixNormTab(QWidget *parent = 0);
   ~MatrixNormTab();
 
- private:
+private:
   Ui::MatrixNormTab *ui;
 
   SimpleMatrix *M;
@@ -29,4 +29,4 @@ private slots:
   void Calculate();
 };
 
-#endif  // MATRIX_NORM_TAB_H
+#endif // MATRIX_NORM_TAB_H

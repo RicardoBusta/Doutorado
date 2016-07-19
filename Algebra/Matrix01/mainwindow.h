@@ -10,15 +10,15 @@ class MainWindow;
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
- public:
+public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
 
- private:
+private:
   Ui::MainWindow *ui;
 
- public slots:
+public slots:
   void ErrorMessage(const QString &message);
 };
 
-#endif  // MAINWINDOW_H
+#endif // MAINWINDOW_H

@@ -18,7 +18,15 @@ MatrixNormTab::~MatrixNormTab() {
 }
 
 double MatrixNormTab::CalcMatrixForbNorm(SimpleMatrix &x) {
-  return 0;
+  double sum = 0;
+  for (int c = 0; c < x.cols; c++) {
+    for (int r = 0; r < x.rows; r++) {
+      double d = x.getData(r, c);
+      sum += d * d;
+    }
+  }
+  sum = sqrt(sum);
+  return sum;
 }
 
 double MatrixNormTab::CalcMatrix1Norm(SimpleMatrix &x) {
@@ -58,6 +66,8 @@ void MatrixNormTab::GenerateMatrix() {
 }
 
 void MatrixNormTab::Calculate() {
+  if (M == nullptr)
+    return;
   ui->normInf_label->setText(QString::number((CalcMatrixInfNorm(*M))));
   ui->normForb_label->setText(QString::number((CalcMatrixForbNorm(*M))));
   ui->norm1_label->setText(QString::number((CalcMatrix1Norm(*M))));

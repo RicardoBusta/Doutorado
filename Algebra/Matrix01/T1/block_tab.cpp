@@ -3,8 +3,8 @@
 
 #include "corefunctions.h"
 #include "mainwindow.h"
-#include <structures/blockmatrix.h>
 #include <QDebug>
+#include <structures/blockmatrix.h>
 
 BlockTab::BlockTab(MainWindow *w, QWidget *parent) : QWidget(parent),
                                                      ui(new Ui::BlockTab), A(nullptr), B(nullptr), C(nullptr) {
@@ -48,15 +48,15 @@ void BlockTab::CalculatePressed() {
   for (int i = 0; i < A->rr; i++) {
     for (int j = 0; j < B->cc; i++) {
       qDebug() << i << j;
-      SimpleMatrix * c_ptr = C->getData(i,j);
+      SimpleMatrix *c_ptr = C->getData(i, j);
       SimpleMatrix accumulator(c_ptr->rows, c_ptr->cols);
       accumulator.Zero();
       c_ptr->Zero();
       for (int k = 0; k < A->cc; k++) {
         SimpleMatrix *a_ptr, *b_ptr;
-        a_ptr = A->getData(i,k);
-        b_ptr = B->getData(k,j);
-        SimpleMatrix::MultiplyByRow(*a_ptr,*b_ptr, accumulator);
+        a_ptr = A->getData(i, k);
+        b_ptr = B->getData(k, j);
+        SimpleMatrix::MultiplyByRow(*a_ptr, *b_ptr, accumulator);
         c_ptr->Increment(&accumulator);
       }
     }

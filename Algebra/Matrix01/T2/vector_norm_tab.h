@@ -12,11 +12,11 @@ class SimpleMatrix;
 class VectorNormTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit VectorNormTab(QWidget *parent = 0);
   ~VectorNormTab();
 
- private:
+private:
   Ui::VectorNormTab *ui;
 
   SimpleMatrix *V;
@@ -26,9 +26,9 @@ class VectorNormTab : public QWidget {
   double CalcVectorInfNorm(SimpleMatrix &x);
   double CalcVectorANorm(SimpleMatrix &x, SimpleMatrix &A);
 
- private slots:
+private slots:
   void GenerateVector();
   void Calculate();
 };
 
-#endif  // VECTOR_NORM_TAB_H
+#endif // VECTOR_NORM_TAB_H

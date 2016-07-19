@@ -7,8 +7,7 @@ namespace Ui {
 class LeastSquareTab;
 }
 
-class LeastSquareTab : public QWidget
-{
+class LeastSquareTab : public QWidget {
   Q_OBJECT
 
 public:

@@ -54,25 +54,22 @@ void SimpleMatrix::Identity() {
   }
 }
 
-void SimpleMatrix::Copy(SimpleMatrix *M)
-{
-  memcpy(data,M->data,M->rows*M->cols*sizeof(double));
+void SimpleMatrix::Copy(SimpleMatrix *M) {
+  memcpy(data, M->data, M->rows * M->cols * sizeof(double));
 }
 
-void SimpleMatrix::CopyTransposed(SimpleMatrix *M)
-{
-  for(int i=0;i<M->rows;i++){
-    for(int j=0;j<M->cols;j++){
+void SimpleMatrix::CopyTransposed(SimpleMatrix *M) {
+  for (int i = 0; i < M->rows; i++) {
+    for (int j = 0; j < M->cols; j++) {
       data[j][i] = M->data[i][j];
     }
   }
 }
 
-void SimpleMatrix::Increment(SimpleMatrix *M)
-{
-  for(int i=0;i<rows;i++){
-    for(int j=0;j<cols;j++){
-      data[i][j]+=M->data[i][j];
+void SimpleMatrix::Increment(SimpleMatrix *M) {
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      data[i][j] += M->data[i][j];
     }
   }
 }

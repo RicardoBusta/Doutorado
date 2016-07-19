@@ -10,12 +10,12 @@ class QRTab;
 class QRTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit QRTab(QWidget *parent = 0);
   ~QRTab();
 
- private:
+private:
   Ui::QRTab *ui;
 };
 
-#endif  // QR_TAB_H
+#endif // QR_TAB_H

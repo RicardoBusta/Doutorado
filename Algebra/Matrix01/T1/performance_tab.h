@@ -14,21 +14,21 @@ class MainWindow;
 class PerformanceTab : public QWidget {
   Q_OBJECT
 
- public:
+public:
   explicit PerformanceTab(MainWindow *w, QWidget *parent = 0);
   ~PerformanceTab();
 
- private:
+private:
   Ui::PerformanceTab *ui;
 
   SimpleMatrix *A, *B, *C;
 
- private slots:
+private slots:
   void GeneratePressed();
   void CalculatePressed();
 
- signals:
+signals:
   void Error(QString msg);
 };
 
-#endif  // PERFORMANCE_TAB_H
+#endif // PERFORMANCE_TAB_H

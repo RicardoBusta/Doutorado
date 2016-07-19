@@ -7,8 +7,7 @@ namespace Ui {
 class SVDTab;
 }
 
-class SVDTab : public QWidget
-{
+class SVDTab : public QWidget {
   Q_OBJECT
 
 public:

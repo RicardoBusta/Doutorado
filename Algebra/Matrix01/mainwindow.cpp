@@ -7,11 +7,11 @@
 #include "T1/lu_tab.h"
 #include "T1/performance_tab.h"
 
+#include "T2/least_square_tab.h"
 #include "T2/matrix_norm_tab.h"
-#include "T2/vector_norm_tab.h"
 #include "T2/qr_tab.h"
 #include "T2/svd_tab.h"
-#include "T2/least_square_tab.h"
+#include "T2/vector_norm_tab.h"
 
 #include <QMessageBox>
 

@@ -127,7 +127,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Forbenius</string>
+           <string>Forbenius (Euclidiana)</string>
           </property>
          </widget>
         </item>
@@ -141,7 +141,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>1-Norm</string>
+           <string>1-Norm (Col Sum)</string>
           </property>
          </widget>
         </item>
@@ -155,7 +155,7 @@
         <item row="2" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Infinita</string>
+           <string>Infinita (Row Sum)</string>
           </property>
          </widget>
         </item>

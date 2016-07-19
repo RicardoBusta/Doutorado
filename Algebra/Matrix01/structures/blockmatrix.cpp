@@ -53,5 +53,5 @@ void BlockMatrix::CreateMatrix(int m, int n, int r, int s, BlockMatrix **M) {
   if ((*M) != nullptr) {
     delete (*M);
   }
-  (*M) = new BlockMatrix(m,n,r,s);
+  (*M) = new BlockMatrix(m, n, r, s);
 }
