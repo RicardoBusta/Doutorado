@@ -27,7 +27,8 @@ SOURCES += \
     T2/vector_norm_tab.cpp \
     T2/matrix_norm_tab.cpp \
     T2/svd_tab.cpp \
-    T2/least_square_tab.cpp
+    T2/least_square_tab.cpp \
+    structures/matrix.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS  += \
     T2/vector_norm_tab.h \
     T2/matrix_norm_tab.h \
     T2/svd_tab.h \
-    T2/least_square_tab.h
+    T2/least_square_tab.h \
+    structures/matrix.h
 
 FORMS    += \
     mainwindow.ui \

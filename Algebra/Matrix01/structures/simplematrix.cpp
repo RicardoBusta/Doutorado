@@ -2,9 +2,10 @@
 
 #include <QDebug>
 #include <QtMath>
+#include <QGenericMatrix>
 
 SimpleMatrix::SimpleMatrix(int r, int c)
-    : rows(r), cols(c) {
+    : rows(r), cols(c), data(nullptr) {
   data = new double *[rows];
   for (int i = 0; i < rows; i++) {
     data[i] = new double[cols];
@@ -13,6 +14,7 @@ SimpleMatrix::SimpleMatrix(int r, int c)
 
 SimpleMatrix::~SimpleMatrix() {
   for (int i = 0; i < rows; i++) {
+    qDebug() << i << rows;
     delete[] data[i];
   }
   delete[] data;
@@ -70,6 +72,24 @@ void SimpleMatrix::Increment(SimpleMatrix *M) {
   for (int i = 0; i < rows; i++) {
     for (int j = 0; j < cols; j++) {
       data[i][j] += M->data[i][j];
+    }
+  }
+}
+
+void SimpleMatrix::Subtract(SimpleMatrix *M)
+{
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      data[i][j] -= M->data[i][j];
+    }
+  }
+}
+
+void SimpleMatrix::Multiply(double val)
+{
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      data[i][j] *= val;
     }
   }
 }

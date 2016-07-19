@@ -47,9 +47,11 @@ double VectorNormTab::CalcVectorInfNorm(SimpleMatrix &x) {
 double VectorNormTab::CalcVectorANorm(SimpleMatrix &x, SimpleMatrix &A) {
   SimpleMatrix xt(x.cols, x.rows);
   xt.CopyTransposed(&x);
-  SimpleMatrix::MultiplyByCol(xt, A, xt);
-  SimpleMatrix::MultiplyByCol(xt, x, xt);
-  double d = xt.getData(0, 0);
+  SimpleMatrix res1(xt.rows,A.cols);
+  SimpleMatrix::MultiplyByCol(xt, A, res1);
+  SimpleMatrix res2(res1.rows,x.cols);
+  SimpleMatrix::MultiplyByCol(res1, x, res2);
+  double d = res2.getData(0, 0);
   d = sqrt(d);
   return d;
 }
