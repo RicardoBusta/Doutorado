@@ -1,18 +1,28 @@
 clear;clc
-M = [-149 -50 -154; 537 180 546; -27 -9 -25];
+A = [-149 -50 -154; 537 180 546; -27 -9 -25];
+n = numel(A(:,1));
+I = eye(n,n);
 
-A = M;
+M = A;
 
+% 100 iterações para tentar triangularizar a matriz.
+% Poderia ter usado um critério de parada.
 for i = 1:100      
-  [Q,R] = qr(A);
-  A = R*Q;
+  [Q,R] = qr(M);
+  M = R*Q;
   if mod(i,20)==0
    i
-   Ai = A
+   Mi = M
   endif
 endfor
 
-eigA = eig(A)
-eigM = eig(M)
+MLeigA = eig(A)
+eigM = (I.*M)*[1;1;1]
 
-M
+for i = 1:n
+  C = A - I*eigM(i)
+  D = zeros(n,1)
+  X = C\D
+endfor
+
+A
