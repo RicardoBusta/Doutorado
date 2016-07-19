@@ -1,3 +1,4 @@
+clear;clc
 rows = 3;
 cols = 3;
 #M = rand(rows,cols);
@@ -8,7 +9,7 @@ Q = zeros(rows,cols);
 R = zeros(rows,cols);
 
 function p = proj(a,e)
-  p = (dot(e,a)*e)/dot(e,e)
+  p = (dot(e,a)*e)/dot(e,e);
 endfunction
 
 % U é a matriz das bases ortogonais
@@ -32,8 +33,9 @@ for i = 1:rows
   endfor 
 endfor
 
-clc
 M
 Q
 R
 QR = Q*R
+
+[MLQ,MLR] = qr(M)
