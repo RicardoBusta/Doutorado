@@ -7,7 +7,7 @@ y = data(:,2);
 w = [0;0];
 alpha = 0.001;
 eqm = [];
-numepoch = 1000;
+numepoch = 1;
 
 function y = f(x,w)
   y = w(2)*x + w(1);

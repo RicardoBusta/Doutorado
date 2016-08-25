@@ -1,6 +1,6 @@
 clear;clc
 
-#M = rand(rows,cols);
+#A = rand(rows,cols);
 A = [12 -51 4; 6 167 -68;-4 24 -41];
 
 function p = proj(a,e)
