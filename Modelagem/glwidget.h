@@ -5,6 +5,8 @@
 #include <QPoint>
 #include <QTimer>
 
+#include "octree/octree.h"
+
 class GLWidget : public QOpenGLWidget {
   Q_OBJECT
 public:
@@ -28,8 +30,14 @@ private:
 
   QTimer autoTimer;
 
+  // Octree
+  Octree *octree;
+  float octreeSpread;
+
 public slots:
   void AutoRotate();
+
+  void OctreeSpreadChange(int spread);
 };
 
 #endif // GLWIDGET_H

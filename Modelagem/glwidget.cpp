@@ -16,6 +16,9 @@ void GLWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
   glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
+
+  octree = new Octree(nullptr,0xff0000,0xffff00);
+  octree->GenSphere(1,QVector3D(0,0,0),3);
 }
 
 void GLWidget::resizeGL(int w, int h) {
@@ -54,14 +57,7 @@ void GLWidget::paintGL() {
   //  glEnd();
 
   glColor3f(1, 1, 1);
-  OctreeNode *node1 = new OctreeFull();
-  OctreeNode *node2 = new OctreeEmpty();
-  OctreePartial *root = new OctreePartial();
-  root->nodes[0] = node2;
-  root->nodes[1] = node1;
-  Octree oct(root);
-  float spread = 0.5f;
-  oct.Draw(spread);
+  octree->Draw(octreeSpread,true);
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *e) {
@@ -72,8 +68,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *e) {
   delta = e->pos() - previousPos;
   previousPos = e->pos();
 
-  rotX += delta.y();
-  rotY += delta.x();
+  rotX += delta.y()*0.5f;
+  rotY += delta.x()*0.5f;
 
   update();
 }
@@ -96,4 +92,10 @@ void GLWidget::AutoRotate() {
   rotY += delta.x() * 0.2f;
 
   update();
+}
+
+void GLWidget::OctreeSpreadChange(int spread)
+{
+    octreeSpread = spread*0.1f;
+    update();
 }
