@@ -23,18 +23,18 @@ void Octree::Draw(const float spread, bool draw_lines) const {
 
 void Octree::GenSphere(float radius, const QVector3D &center, int max_depth)
 {
-    int side = pow(2,max_depth);
+/*    int side = pow(2,max_depth);
     bool * matrix = new bool[side*side*side];
     for(int i=0;i<side;i++){
-        float fi = (float)i/(side-1);
+        float fi = (2*(float)i/(side-1))-1;
         for(int j=0;j<side;j++){
-            float fj = (float)j/(side-1);
+            float fj = (2*(float)j/(side-1))-1;
             for(int k=0;k<side;k++){
-                float fj = (float)j/(side-1);
+                float fj = (2*(float)j/(side-1))-1;
             }
         }
     }
-    delete[] matrix;
+    delete[] matrix;*/
 }
 
 void OctreeFull::DrawRec(const QVector3D &p1, const QVector3D &p2, const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
