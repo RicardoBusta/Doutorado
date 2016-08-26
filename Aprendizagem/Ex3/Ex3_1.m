@@ -27,7 +27,7 @@ TesteT = T(NumTreino+NumValid+1:end,:);
 
 
 #Número de épocas
-NumEpoch = 100;
+NumEpoch = 1;
 #Passo da aprendizagem
 Alpha = 0.01; 
 #Tamanho da rede
