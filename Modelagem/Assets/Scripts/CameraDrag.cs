@@ -20,11 +20,14 @@ public class CameraDrag : MonoBehaviour
 
   bool autoRotate = false;
 
-  void Start() {
+  void Start()
+  {
     localCamera = GetComponentInChildren<Camera>();
     cameraY = localCamera.transform.localPosition.y;
-    rotX = transform.rotation.x;
-    rotY = transform.rotation.y;
+    rotX = 25;
+    rotY = 0;
+    transform.localRotation = Quaternion.Euler(rotX, rotY, 0);
+    localCamera.transform.localPosition = new Vector3(zoom * zoomShift, cameraY, zoom);
   }
 
   void Update()
@@ -43,16 +46,16 @@ public class CameraDrag : MonoBehaviour
     }
     if (autoRotate)
     {
-      rotX -= deltaX * Time.deltaTime;
-      rotY += deltaY * Time.deltaTime;
-      transform.rotation = Quaternion.Euler(rotX * 0.4f, rotY * 0.4f, 0);
+      rotX -= deltaX * Time.deltaTime * 0.4f;
+      rotY += deltaY * Time.deltaTime * 0.4f;
+      transform.rotation = Quaternion.Euler(rotX, rotY, 0);
     }
     float wheel = Input.GetAxis("Mouse ScrollWheel");
     if (wheel != 0)
     {
       zoom += -wheel * zoom * zoomSpeed * Time.deltaTime;
       zoom = Mathf.Clamp(zoom, -35, -3);
-      localCamera.transform.localPosition = new Vector3(zoom*zoomShift, cameraY, zoom);
+      localCamera.transform.localPosition = new Vector3(zoom * zoomShift, cameraY, zoom);
     }
   }
 }
