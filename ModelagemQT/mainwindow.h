@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTreeWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +17,10 @@ public:
 
 private:
   Ui::MainWindow *ui;
+
+private slots:
+  void UpdateObjList();
+  void SelectObject(QTreeWidgetItem*, QTreeWidgetItem*previous);
 };
 
 #endif // MAINWINDOW_H

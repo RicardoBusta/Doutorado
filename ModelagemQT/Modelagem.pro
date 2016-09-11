@@ -15,11 +15,17 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     glwidget.cpp \
-    octree/octree.cpp
+    octree/octree.cpp \
+    object/object.cpp \
+    scene.cpp \
+    application.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
-    octree/octree.h
+    octree/octree.h \
+    object/object.h \
+    scene.h \
+    application.h
 
 FORMS    += mainwindow.ui
 

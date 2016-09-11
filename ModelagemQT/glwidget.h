@@ -6,11 +6,13 @@
 #include <QTimer>
 
 #include "octree/octree.h"
+#include "scene.h"
 
 class GLWidget : public QOpenGLWidget {
   Q_OBJECT
 public:
   explicit GLWidget(QWidget *parent = 0);
+  virtual ~GLWidget();
 
   void initializeGL();
   void resizeGL(int w, int h);
@@ -21,6 +23,8 @@ public:
   void mouseReleaseEvent(QMouseEvent *e);
   void wheelEvent(QWheelEvent *e);
 
+  Scene *GetScene() const;
+
 private:
   QPoint previousPos;
   float rotX;
@@ -30,14 +34,10 @@ private:
 
   QTimer autoTimer;
 
-  // Octree
-  Octree *octree;
-  float octreeSpread;
+  Scene *scene;
 
 public slots:
   void AutoRotate();
-
-  void OctreeSpreadChange(int spread);
 };
 
 #endif // GLWIDGET_H
