@@ -26,6 +26,8 @@ public slots:
   void CreateOctree();
 
   void CreateObjectGeneric(Object *obj);
+
+  void ChangeOctreeSpread(int spread);
 };
 
 #endif // SCENE_H

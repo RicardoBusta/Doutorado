@@ -20,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                    SLOT(SelectObject(QTreeWidgetItem *, QTreeWidgetItem *)));
 
   QObject::connect(s, SIGNAL(UpdateObjList()), this, SLOT(UpdateObjList()));
-  qDebug()<< "Whoa";
+
+  QObject::connect(ui->octree_spread_slider,SIGNAL(valueChanged(int)),s,SLOT(ChangeOctreeSpread(int)));
 }
 
 MainWindow::~MainWindow() {

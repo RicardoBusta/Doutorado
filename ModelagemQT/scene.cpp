@@ -1,6 +1,7 @@
 #include "scene.h"
 
 #include "octree/octree.h"
+#include <QDebug>
 
 Scene::Scene(QObject *parent)
     : QObject(parent),
@@ -26,7 +27,7 @@ void Scene::CreateObject() {
 }
 
 void Scene::CreateOctree() {
-  OctreePartial *root = new OctreePartial();
+  /*OctreePartial *root = new OctreePartial();
   root->nodes[0] = new OctreeFull();
   root->nodes[1] = new OctreeFull();
   root->nodes[2] = new OctreeFull();
@@ -34,8 +35,9 @@ void Scene::CreateOctree() {
   root->nodes[4] = new OctreeFull();
   root->nodes[5] = new OctreeFull();
   root->nodes[6] = new OctreeFull();
-  root->nodes[7] = new OctreeFull();
-  Octree * octree = new Octree(root,0xffffff,0xff0000);
+  root->nodes[7] = new OctreeFull();*/
+  Octree * octree = new Octree(nullptr,0xffffff,0xff0000);
+  octree->GenSphere(1,QVector3D(0,0,0),3);
   octree->UpdateP();
   CreateObjectGeneric(octree);
 }
@@ -48,4 +50,13 @@ void Scene::CreateObjectGeneric(Object *obj)
     objects.push_back(obj);
   }
   emit UpdateObjList();
+}
+
+void Scene::ChangeOctreeSpread(int spread)
+{   Octree* octree = dynamic_cast<Octree*>(current_object);
+    if(octree!=nullptr){
+        float s = float(spread) / 100.0f;
+        octree->SetSpread(s);
+        emit UpdateObjList();
+    }
 }

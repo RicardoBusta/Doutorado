@@ -42,12 +42,16 @@ public:
   void Draw() const;
 
   void GenSphere(float radius, const QVector3D &center, int max_depth);
-  void GenSphereRec(float radius, const QVector3D &center, int max_depth, int depth);
   void UpdateP();
+
+  void SetSpread(float spread);
 private:
+  float spread;
   QRgb line_color;
   QRgb fill_color;
   OctreeNode *root;
+
+  OctreeNode* GenSphereRec(float radius, const QVector3D &center, int max_depth, int depth, const QVector3D &p1, const QVector3D &p2);
 };
 
 #endif // OCTREE_H
