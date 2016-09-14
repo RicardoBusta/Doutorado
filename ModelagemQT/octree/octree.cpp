@@ -52,20 +52,27 @@ OctreeNode *Octree::GenSphereRec(float radius, const QVector3D &center, int max_
     OctreePartial *part = new OctreePartial();
     bool empty = false;
     bool full = false;
+    bool partial = false;
     for (int i = 0; i < 8; i++) {
       QVector3D shift = scale * kOctreeCoords[i];
       part->nodes[i] = GenSphereRec(radius, center, max_depth, depth + 1, p1 + shift, p3 + shift);
-      if(part->nodes[i]->GetType()==OctreeType::Full){
-        full = true;
-      }else if(part->nodes[i]->GetType()==OctreeType::Empty){
-        empty= true;
+      if (partial == false) {
+        if (part->nodes[i]->GetType() == OctreeType::Full) {
+          full = true;
+        } else if (part->nodes[i]->GetType() == OctreeType::Empty) {
+          empty = true;
+        } else if (part->nodes[i]->GetType() == OctreeType::Partial) {
+          partial = true;
+        }
       }
     }
     node = part;
-    if (empty == true && full == false) {
-      node = new OctreeEmpty();
-    } else if (empty == false && full == true) {
-      node = new OctreeFull();
+    if (partial == false) {
+      if (empty == true && full == false) {
+        node = new OctreeEmpty();
+      } else if (empty == false && full == true) {
+        node = new OctreeFull();
+      }
     }
   }
   return node;

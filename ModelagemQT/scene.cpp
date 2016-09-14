@@ -36,8 +36,8 @@ void Scene::CreateOctree() {
   root->nodes[5] = new OctreeFull();
   root->nodes[6] = new OctreeFull();
   root->nodes[7] = new OctreeFull();*/
-  Octree * octree = new Octree(nullptr,0xffffff,0xff0000);
-  octree->GenSphere(1.0f,QVector3D(0,0,0),6);
+  Octree * octree = new Octree(nullptr,0xffffff,0xAA0000);
+  octree->GenSphere(1.0f,QVector3D(1,0,0),5);
   octree->UpdateP();
   CreateObjectGeneric(octree);
 }
