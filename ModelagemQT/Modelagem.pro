@@ -18,14 +18,18 @@ SOURCES += main.cpp\
     octree/octree.cpp \
     object/object.cpp \
     scene.cpp \
-    application.cpp
+    application.cpp \
+    globaloptions.cpp \
+    octree/octreenode.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
     octree/octree.h \
     object/object.h \
     scene.h \
-    application.h
+    application.h \
+    globaloptions.h \
+    octree/octreenode.h
 
 FORMS    += mainwindow.ui
 

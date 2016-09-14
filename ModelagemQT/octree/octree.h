@@ -5,34 +5,7 @@
 #include <QVector3D>
 
 #include "object/object.h"
-
-class OctreeNode {
-public:
-  virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const = 0;
-  virtual void UpdatePRec(const QVector3D &np1, const QVector3D &np2);
-  void DrawBox() const;
-  QVector3D p1, p2;
-};
-
-class OctreeFull : public OctreeNode {
-public:
-  virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const;
-};
-
-class OctreeEmpty : public OctreeNode {
-public:
-  virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const;
-};
-
-class OctreePartial : public OctreeNode {
-public:
-  OctreePartial();
-  virtual ~OctreePartial();
-  virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const;
-  virtual void UpdatePRec(const QVector3D &np1, const QVector3D &np2);
-public:
-  OctreeNode *nodes[8];
-};
+#include "octreenode.h"
 
 class Octree : public Object {
 public:
