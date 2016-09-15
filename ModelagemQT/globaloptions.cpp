@@ -9,3 +9,8 @@ GlobalOptions *GlobalOptions::Instance() {
 
   return instance_;
 }
+
+GlobalOptions::GlobalOptions():
+  shape(Sphere)
+{
+}

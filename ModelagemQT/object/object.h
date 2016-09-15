@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QVector3D>
 
 class Object {
 public:
@@ -10,6 +11,10 @@ public:
 
   QString name;
   QVector<Object*> children;
+
+  QVector3D position;
+  QVector3D rotation;
+  QVector3D scale;
 
   void Render();
 protected:

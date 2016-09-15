@@ -5,8 +5,15 @@ class GlobalOptions
 {
 public:
   static GlobalOptions * Instance();
+
+  enum Shape{
+    Sphere,
+    Cylinder
+  };
+
+  enum Shape shape;
 private:
-  GlobalOptions(){}
+  GlobalOptions();
 };
 
 #endif // GLOBALOPTIONS_H

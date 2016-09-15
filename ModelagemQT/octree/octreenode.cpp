@@ -1,7 +1,8 @@
 #include "octreenode.h"
 
 #include <QtOpenGL>
-#define UB_COLOR(color) qRed(color), qGreen(color), qBlue(color)
+
+#include "commondefs.h"
 
 void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
   glPushMatrix();

@@ -18,9 +18,13 @@ public:
 private:
   Ui::MainWindow *ui;
 
+  void GetCurrentObjectTransform();
 private slots:
   void UpdateObjList();
   void SelectObject(QTreeWidgetItem*, QTreeWidgetItem*previous);
+  void SelectPrimitiveShape(bool checked);
+
+  void UpdateCurrentObjectTransform(double v);
 };
 
 #endif // MAINWINDOW_H

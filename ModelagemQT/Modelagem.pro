@@ -20,7 +20,10 @@ SOURCES += main.cpp\
     scene.cpp \
     application.cpp \
     globaloptions.cpp \
-    octree/octreenode.cpp
+    octree/octreenode.cpp \
+    octree/octreeshape.cpp \
+    octree/octreesphere.cpp \
+    octree/octreecylinder.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -29,7 +32,11 @@ HEADERS  += mainwindow.h \
     scene.h \
     application.h \
     globaloptions.h \
-    octree/octreenode.h
+    octree/octreenode.h \
+    octree/octreeshape.h \
+    octree/octreesphere.h \
+    octree/octreecylinder.h\
+    commondefs.h\
 
 FORMS    += mainwindow.ui
 

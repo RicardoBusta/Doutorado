@@ -3,6 +3,8 @@
 #include "octree/octree.h"
 #include <QDebug>
 
+#include "globaloptions.h"
+
 Scene::Scene(QObject *parent)
     : QObject(parent),
       current_object(nullptr),
@@ -27,17 +29,15 @@ void Scene::CreateObject() {
 }
 
 void Scene::CreateOctree() {
-  /*OctreePartial *root = new OctreePartial();
-  root->nodes[0] = new OctreeFull();
-  root->nodes[1] = new OctreeFull();
-  root->nodes[2] = new OctreeFull();
-  root->nodes[3] = new OctreeFull();
-  root->nodes[4] = new OctreeFull();
-  root->nodes[5] = new OctreeFull();
-  root->nodes[6] = new OctreeFull();
-  root->nodes[7] = new OctreeFull();*/
   Octree * octree = new Octree(nullptr,0xffffff,0xAA0000);
-  octree->GenSphere(1.0f,QVector3D(1,0,0),5);
+  switch(GlobalOptions::Instance()->shape){
+  case GlobalOptions::Sphere:
+      octree->GenSphere(1.0f,QVector3D(0,0,0),5);
+    break;
+  case GlobalOptions::Cylinder:
+      octree->GenCylinder(1.0f,2.0f,QVector3D(0,0,0),5);
+    break;
+  }
   octree->UpdateP();
   CreateObjectGeneric(octree);
 }

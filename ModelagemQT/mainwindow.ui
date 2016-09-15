@@ -91,25 +91,25 @@
      <item>
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="0">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+        <widget class="QDoubleSpinBox" name="pos_x"/>
        </item>
        <item row="1" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+        <widget class="QDoubleSpinBox" name="pos_y"/>
        </item>
        <item row="1" column="2">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
+        <widget class="QDoubleSpinBox" name="pos_z"/>
        </item>
        <item row="3" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_5"/>
+        <widget class="QDoubleSpinBox" name="rot_y"/>
        </item>
        <item row="5" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_8"/>
+        <widget class="QDoubleSpinBox" name="sca_y"/>
        </item>
        <item row="5" column="0">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_7"/>
+        <widget class="QDoubleSpinBox" name="sca_x"/>
        </item>
        <item row="3" column="2">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_6"/>
+        <widget class="QDoubleSpinBox" name="rot_z"/>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="label">
@@ -126,7 +126,7 @@
         </widget>
        </item>
        <item row="5" column="2">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox_9"/>
+        <widget class="QDoubleSpinBox" name="sca_z"/>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_3">
@@ -136,7 +136,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+        <widget class="QDoubleSpinBox" name="rot_x"/>
        </item>
        <item row="1" column="3">
         <spacer name="horizontalSpacer">
@@ -197,7 +197,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget_2">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -218,6 +218,32 @@
          <string>Octree</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>Shape</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_8">
+            <item>
+             <widget class="QRadioButton" name="sphere_radioButton">
+              <property name="text">
+               <string>Sphere</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QRadioButton" name="cylinder_radioButton">
+              <property name="text">
+               <string>Cylinder</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
          <item>
           <widget class="QPushButton" name="octree_create_button">
            <property name="text">

@@ -3,6 +3,8 @@
 
 #include <QDebug>
 
+#include <globaloptions.h>
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                                           ui(new Ui::MainWindow) {
   ui->setupUi(this);
@@ -21,11 +23,34 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   QObject::connect(s, SIGNAL(UpdateObjList()), this, SLOT(UpdateObjList()));
 
-  QObject::connect(ui->octree_spread_slider,SIGNAL(valueChanged(int)),s,SLOT(ChangeOctreeSpread(int)));
+  QObject::connect(ui->octree_spread_slider, SIGNAL(valueChanged(int)), s, SLOT(ChangeOctreeSpread(int)));
+
+  QObject::connect(ui->sphere_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
+  QObject::connect(ui->cylinder_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
+
+  QObject::connect(ui->pos_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->pos_y, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->pos_z, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->rot_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->rot_y, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->rot_z, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->sca_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->sca_y, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->sca_z, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
 }
 
 MainWindow::~MainWindow() {
   delete ui;
+}
+
+void MainWindow::GetCurrentObjectTransform() {
+  Object *obj = ui->glwidget->GetScene()->current_object;
+  if (obj == nullptr) {
+    return;
+  }
+  ui->pos_x->setValue(obj->position.x());
+  ui->pos_y->setValue(obj->position.y());
+  ui->pos_z->setValue(obj->position.z());
 }
 
 void AddRecItem(QTreeWidgetItem *item, Object *o) {
@@ -60,7 +85,50 @@ void MainWindow::UpdateObjList() {
 }
 
 void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previous) {
-  Object * obj = (Object*)current->data(0,Qt::UserRole).toULongLong();
+  Object *obj = (Object *)current->data(0, Qt::UserRole).toULongLong();
   ui->glwidget->GetScene()->current_object = obj;
   qDebug() << ui->glwidget->GetScene()->current_object;
+}
+
+void MainWindow::SelectPrimitiveShape(bool checked) {
+  if (!checked) {
+    return;
+  }
+  QRadioButton *rb = qobject_cast<QRadioButton *>(QObject::sender());
+  if (rb != nullptr) {
+    if (rb->text() == "Sphere") {
+      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Sphere;
+    } else if (rb->text() == "Cylinder") {
+      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Cylinder;
+    }
+  }
+  qDebug() << GlobalOptions::Instance()->shape;
+}
+
+void MainWindow::UpdateCurrentObjectTransform(double v) {
+  Object *obj = ui->glwidget->GetScene()->current_object;
+  if (obj == nullptr) {
+    return;
+  }
+  const QObject *s = QObject::sender();
+  if (s == ui->pos_x) {
+    obj->position.setX(v);
+  } else if (s == ui->pos_y) {
+    obj->position.setY(v);
+  } else if (s == ui->pos_z) {
+    obj->position.setZ(v);
+  } else if (s == ui->rot_x) {
+    obj->rotation.setX(v);
+  } else if (s == ui->rot_y) {
+    obj->rotation.setY(v);
+  } else if (s == ui->rot_z) {
+    obj->rotation.setZ(v);
+  } else if (s == ui->sca_x) {
+    obj->scale.setX(v);
+  } else if (s == ui->sca_y) {
+    obj->scale.setY(v);
+  } else if (s == ui->sca_z) {
+    obj->scale.setZ(v);
+  }
+  ui->glwidget->update();
 }
