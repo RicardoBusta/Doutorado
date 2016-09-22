@@ -20,6 +20,7 @@ private:
 
 signals:
   void UpdateObjList();
+  void UpdateDrawing();
 public slots:
   void UpdateMakeParent(bool val);
   void CreateObject();

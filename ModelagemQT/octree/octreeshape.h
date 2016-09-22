@@ -10,7 +10,7 @@ public:
   OctreeShape();
 
   virtual bool ConditionInside(const QVector3D &p)=0;
-  OctreeNode* GenRec(int max_depth, int depth, const QVector3D &p1, const QVector3D &p2);
+  OctreeNode* GenRec(int max_depth, int depth, float size, const QVector3D &p1, const QVector3D &p2);
 };
 
 #endif // OCTREESHAPE_H

@@ -18,13 +18,16 @@ public:
 private:
   Ui::MainWindow *ui;
 
-  void GetCurrentObjectTransform();
+  //void GetCurrentObjectTransform();
 private slots:
   void UpdateObjList();
+  void UpdateDrawing();
   void SelectObject(QTreeWidgetItem*, QTreeWidgetItem*previous);
   void SelectPrimitiveShape(bool checked);
 
   void UpdateCurrentObjectTransform(double v);
+  void UpdateCurrentObjectName(QString name);
+  void UpdateCurrentObjectCheck(bool value);
 };
 
 #endif // MAINWINDOW_H

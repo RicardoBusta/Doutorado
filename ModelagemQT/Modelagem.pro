@@ -23,7 +23,10 @@ SOURCES += main.cpp\
     octree/octreenode.cpp \
     octree/octreeshape.cpp \
     octree/octreesphere.cpp \
-    octree/octreecylinder.cpp
+    octree/octreecylinder.cpp \
+    octree/octreecone.cpp \
+    octree/octreebox.cpp \
+    octree/octreetorus.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -37,6 +40,9 @@ HEADERS  += mainwindow.h \
     octree/octreesphere.h \
     octree/octreecylinder.h\
     commondefs.h\
+    octree/octreecone.h \
+    octree/octreebox.h \
+    octree/octreetorus.h
 
 FORMS    += mainwindow.ui
 

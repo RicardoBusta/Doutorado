@@ -10,6 +10,8 @@ public:
   Object();
 
   QString name;
+  bool hide;
+  bool line;
   QVector<Object*> children;
 
   QVector3D position;

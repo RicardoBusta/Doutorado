@@ -2,8 +2,11 @@
 
 #include <QtOpenGL>
 
-#include "octreesphere.h"
+#include "octreebox.h"
+#include "octreecone.h"
 #include "octreecylinder.h"
+#include "octreesphere.h"
+#include "octreetorus.h"
 
 const QVector3D kP1(-1, 1, 1);
 const QVector3D kP2(1, -1, -1);
@@ -20,30 +23,61 @@ Octree::~Octree() {
 }
 
 void Octree::Draw() const {
-  bool draw_lines = false;
+  if(hide){
+    return;
+  }
+  bool draw_lines = !line;
   if (root != nullptr) {
     root->DrawRec(spread, line_color, fill_color, draw_lines);
   }
 }
 
 void Octree::GenSphere(float radius, const QVector3D &center, int max_depth) {
-  OctreeSphere sphereGen(radius,center);
-  QVector3D p1 = kP1 * radius;
-  QVector3D p2 = kP2 * radius;
-  root = sphereGen.GenRec(max_depth,0,p1,p2);
+  OctreeSphere sphereGen(radius, center);
+  p1 = kP1 * radius;
+  p2 = kP2 * radius;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = sphereGen.GenRec(max_depth, 0, size, p1, p2);
 }
 
-void Octree::GenCylinder(float radius, float height, const QVector3D &center, int max_depth)
-{
-  OctreeCylinder gen(radius,height,center);
-  float bb = qMax(radius,height/2.0f);
-  QVector3D p1 = kP1 * bb;
-  QVector3D p2 = kP2 * bb;
-  root = gen.GenRec(max_depth,0,p1,p2);
+void Octree::GenCylinder(float radius, float height, const QVector3D &center, int max_depth) {
+  OctreeCylinder gen(radius, height, center);
+  float bb = qMax(radius, height / 2.0f);
+  p1 = kP1 * bb;
+  p2 = kP2 * bb;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = gen.GenRec(max_depth, 0, size, p1, p2);
+}
+
+void Octree::GenCone(float radius, float height, const QVector3D &center, int max_depth) {
+  OctreeCone gen(radius, height, center);
+  float bb = qMax(radius, height / 2.0f);
+  p1 = kP1 * bb;
+  p2 = kP2 * bb;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = gen.GenRec(max_depth, 0, size, p1, p2);
+}
+
+void Octree::GenBox(float w, float h, float d, const QVector3D &center, int max_depth) {
+  OctreeBox gen(w, h, d, center);
+  float bb = qMax(w, qMax(h, d)) / 2;
+  p1 = kP1 * bb;
+  p2 = kP2 * bb;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = gen.GenRec(max_depth, 0, size, p1, p2);
+}
+
+void Octree::GenTorus(float r1, float r2, const QVector3D &center, int max_depth) {
+  OctreeTorus gen(r1, r2, center);
+  float bb = qMax(r1, r2 / 2.0f);
+  p1 = kP1 * bb;
+  p2 = kP2 * bb;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = gen.GenRec(max_depth, 0, size, p1, p2);
 }
 
 void Octree::UpdateP() {
-  root->UpdatePRec(kP1, kP2);
+  root->UpdatePRec(p1, p2);
 }
 
 void Octree::SetSpread(float spread) {

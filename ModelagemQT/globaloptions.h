@@ -8,7 +8,10 @@ public:
 
   enum Shape{
     Sphere,
-    Cylinder
+    Cylinder,
+    Box,
+    Cone,
+    Torus
   };
 
   enum Shape shape;
