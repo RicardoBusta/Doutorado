@@ -5,11 +5,36 @@
 
 #include "commondefs.h"
 
+QMap<QString, Object *> Object::obj_map = QMap<QString, Object *>();
+
 static int count = 0;
 
-Object::Object()
-    : scale(QVector3D(1, 1, 1)), hide(false), line(false) {
-  name = QString("Object %1").arg(count++);
+Object::Object(QString name)
+    : scale(QVector3D(1, 1, 1)),
+      hide(false),
+      line(false),
+      parent(nullptr) {
+  this->name = name + " " + QString::number(count++);
+  while (obj_map.contains(name)) {
+    this->name = name + " " + QString::number(count++);
+  }
+  obj_map.insert(this->name, this);
+}
+
+Object::~Object() {
+}
+
+QString Object::getName() const {
+  return name;
+}
+
+void Object::Rename(QString new_name) {
+  obj_map.remove(name);
+  name = new_name;
+  while (obj_map.contains(name)) {
+    name = new_name + " " + QString::number(count++);
+  }
+  obj_map.insert(name, this);
 }
 
 void Object::Render() {

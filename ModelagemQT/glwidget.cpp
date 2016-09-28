@@ -22,6 +22,7 @@ void GLWidget::initializeGL() {
   glEnable(GL_CULL_FACE);
   glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
   glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_NORMALIZE);
   //glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
 }

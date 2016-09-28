@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   QObject::connect(ui->octree_spread_slider, SIGNAL(valueChanged(int)), s, SLOT(ChangeOctreeSpread(int)));
 
-    QObject::connect(ui->pos_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+  QObject::connect(ui->pos_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->pos_y, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->pos_z, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->rot_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->hide_checkBox, SIGNAL(toggled(bool)), this, SLOT(UpdateCurrentObjectCheck(bool)));
 
   ui->obj_content->setEnabled(false);
+
+  QObject::connect(ui->object_tree, SIGNAL(ChangeParent(QString, QString)), s, SLOT(Reparent(QString, QString)));
 }
 
 MainWindow::~MainWindow() {
@@ -51,7 +53,7 @@ MainWindow::~MainWindow() {
 void AddRecItem(QTreeWidgetItem *item, Object *o) {
   for (Object *co : o->children) {
     QTreeWidgetItem *i = new QTreeWidgetItem();
-    i->setText(0, co->name);
+    i->setText(0, co->getName());
     item->addChild(i);
 
     i->setData(0, Qt::UserRole, (qulonglong)co);
@@ -66,7 +68,7 @@ void MainWindow::UpdateObjList() {
   Scene *s = ui->glwidget->GetScene();
   for (Object *o : s->objects) {
     QTreeWidgetItem *item = new QTreeWidgetItem();
-    item->setText(0, o->name);
+    item->setText(0, o->getName());
 
     item->setData(0, Qt::UserRole, (qulonglong)o);
 
@@ -102,8 +104,8 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
     ui->hide_checkBox->setChecked(obj->hide);
     ui->lines_checkBox->setChecked(obj->line);
 
-    ui->name_lineEdit->setText(obj->name);
-  }else{
+    ui->name_lineEdit->setText(obj->getName());
+  } else {
     ui->obj_content->setEnabled(false);
   }
 }
@@ -141,7 +143,7 @@ void MainWindow::UpdateCurrentObjectName(QString name) {
   if (obj == nullptr) {
     return;
   }
-  obj->name = name;
+  obj->Rename(name);
   UpdateObjList();
 }
 
@@ -159,12 +161,10 @@ void MainWindow::UpdateCurrentObjectCheck(bool value) {
   ui->glwidget->update();
 }
 
-void MainWindow::CreateOctreePressed()
-{
+void MainWindow::CreateOctreePressed() {
   NewOctreeDialog dialog;
   int result = dialog.exec();
-  if(result == QDialog::Accepted){
+  if (result == QDialog::Accepted) {
     dialog.CreateShape(ui->glwidget->GetScene());
   }
-
 }

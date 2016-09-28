@@ -32,8 +32,13 @@ public:
   void CreateShape(Scene *scene);
 private:
   Ui::NewOctreeDialog *ui;
+
+  QRgb face;
+  QRgb line;
 private slots:
   void SelectPrimitiveShape(bool checked);
+  void SelectFaceColor();
+  void SelectLineColor();
 };
 
 #endif // NEWOCTREEDIALOG_H

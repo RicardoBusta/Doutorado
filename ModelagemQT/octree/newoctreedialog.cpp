@@ -6,6 +6,8 @@
 #include "scene.h"
 #include <QDebug>
 
+#include <QColorDialog>
+
 NewOctreeDialog::NewOctreeDialog(QWidget *parent) : QDialog(parent),
                                                     ui(new Ui::NewOctreeDialog),
                                                     shape(Invalid) {
@@ -18,6 +20,9 @@ NewOctreeDialog::NewOctreeDialog(QWidget *parent) : QDialog(parent),
   QObject::connect(ui->cone_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->torus_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->sphere_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
+
+  QObject::connect(ui->lineColor,SIGNAL(clicked(bool)),this,SLOT(SelectLineColor()));
+  QObject::connect(ui->faceColor,SIGNAL(clicked(bool)),this,SLOT(SelectFaceColor()));
 }
 
 NewOctreeDialog::~NewOctreeDialog() {
@@ -29,7 +34,7 @@ void NewOctreeDialog::CreateShape(Scene *scene) {
     return;
   }
 
-  Octree *octree = new Octree(nullptr, 0xffffff, 0xAA0000);
+  Octree *octree = new Octree(nullptr, line, face);
 
   int max_d = ui->tree_depth->value();
 
@@ -38,16 +43,16 @@ void NewOctreeDialog::CreateShape(Scene *scene) {
     octree->GenSphere(ui->sphere_radius->value(), QVector3D(0, 0, 0), max_d);
     break;
   case Cylinder:
-    octree->GenCylinder(0.1f, 1.0f, QVector3D(0, 0, 0), max_d);
+    octree->GenCylinder(ui->cylinder_radius->value(), ui->cylinder_height->value(), QVector3D(0, 0, 0), max_d);
     break;
   case Box:
-    octree->GenBox(1.0f, 4.0f, 2.0f, QVector3D(0, 0, 0), max_d);
+    octree->GenBox(ui->box_w->value(), ui->box_h->value(), ui->box_d->value(), QVector3D(0, 0, 0), max_d);
     break;
   case Torus:
-    octree->GenTorus(1.0f, 2.0f, QVector3D(0, 0, 0), max_d);
+    octree->GenTorus(ui->torus_r1->value(), ui->torus_r2->value(), QVector3D(0, 0, 0), max_d);
     break;
   case Cone:
-    octree->GenCone(1.0f, 2.0f, QVector3D(0, 0, 0), max_d);
+    octree->GenCone(ui->cone_radius->value(), ui->cone_height->value(), QVector3D(0, 0, 0), max_d);
     break;
   default:
     break;
@@ -85,4 +90,14 @@ void NewOctreeDialog::SelectPrimitiveShape(bool checked) {
     }
   }
   qDebug() << shape;
+}
+
+void NewOctreeDialog::SelectFaceColor()
+{
+face = QColorDialog::getRgba();
+}
+
+void NewOctreeDialog::SelectLineColor()
+{
+line = QColorDialog::getRgba();
 }

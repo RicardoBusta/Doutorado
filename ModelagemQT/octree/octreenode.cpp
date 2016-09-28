@@ -4,14 +4,17 @@
 
 #include "commondefs.h"
 
+const QVector3D kP1(-1, 1, 1);
+const QVector3D kP2(1, -1, -1);
+
 void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
   glPushMatrix();
-  if (spread > 0) {
+//  if (spread > 0) {
     QVector3D center = (p1 + p2) / 2;
-    center.normalize();
-    center *= spread;
-    glTranslatef(center.x(), center.y(), center.z());
-  }
+    float scale = qAbs(p1.x()-p2.x())/2*spread;
+    glTranslatef(center.x(),center.y(),center.z());
+    glScalef(scale,scale,scale);
+  //}
   glColor3ub(UB_COLOR(fill));
   DrawBox(true);
 
@@ -47,12 +50,12 @@ void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill
     return;
   }
   glPushMatrix();
-  if (spread > 0) {
-    QVector3D center = (p1 + p2) / 2;
-    center.normalize();
-    center *= spread;
-    glTranslatef(center.x(), center.y(), center.z());
-  }
+
+  QVector3D center = (p1 + p2) / 2;
+  float scale = qAbs(p1.x()-p2.x())/2*spread;
+  glTranslatef(center.x(),center.y(),center.z());
+  glScalef(scale,scale,scale);
+
   GLint polyMode[2];
   GLint cull;
   glGetIntegerv(GL_POLYGON_MODE, polyMode);
@@ -112,26 +115,26 @@ void OctreePartial::DrawRec(const float spread, const QRgb &line, const QRgb &fi
     nodes[i]->DrawRec(spread, line, /*color[i]*/ fill, draw_lines);
   }
 
-  if (!draw_lines) {
-    return;
-  }
+//  if (!draw_lines) {
+//    return;
+//  }
 
-  GLint polyMode[2];
-  GLint cull;
-  glGetIntegerv(GL_POLYGON_MODE, polyMode);
-  glGetIntegerv(GL_CULL_FACE, &cull);
+//  GLint polyMode[2];
+//  GLint cull;
+//  glGetIntegerv(GL_POLYGON_MODE, polyMode);
+//  glGetIntegerv(GL_CULL_FACE, &cull);
 
-  glDisable(GL_CULL_FACE);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//  glDisable(GL_CULL_FACE);
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-  glColor3ub(UB_COLOR(line));
-  DrawBox(false);
+//  glColor3ub(UB_COLOR(line));
+//  DrawBox(false);
 
-  glPolygonMode(GL_FRONT, polyMode[0]);
-  glPolygonMode(GL_BACK, polyMode[1]);
-  if (cull) {
-    glEnable(GL_CULL_FACE);
-  }
+//  glPolygonMode(GL_FRONT, polyMode[0]);
+//  glPolygonMode(GL_BACK, polyMode[1]);
+//  if (cull) {
+//    glEnable(GL_CULL_FACE);
+//  }
 }
 
 void OctreeNode::UpdatePRec(const QVector3D &np1, const QVector3D &np2) {
@@ -145,40 +148,40 @@ void OctreeNode::DrawBox(bool lighting) const {
   }
   glBegin(GL_QUADS);
   glNormal3f(0, 0, 1);
-  glVertex3f(p1.x(), p1.y(), p1.z());
-  glVertex3f(p1.x(), p2.y(), p1.z());
-  glVertex3f(p2.x(), p2.y(), p1.z());
-  glVertex3f(p2.x(), p1.y(), p1.z());
+  glVertex3f(kP1.x(), kP1.y(), kP1.z());
+  glVertex3f(kP1.x(), kP2.y(), kP1.z());
+  glVertex3f(kP2.x(), kP2.y(), kP1.z());
+  glVertex3f(kP2.x(), kP1.y(), kP1.z());
 
   glNormal3f(0, 0, -1);
-  glVertex3f(p2.x(), p2.y(), p2.z());
-  glVertex3f(p1.x(), p2.y(), p2.z());
-  glVertex3f(p1.x(), p1.y(), p2.z());
-  glVertex3f(p2.x(), p1.y(), p2.z());
+  glVertex3f(kP2.x(), kP2.y(), kP2.z());
+  glVertex3f(kP1.x(), kP2.y(), kP2.z());
+  glVertex3f(kP1.x(), kP1.y(), kP2.z());
+  glVertex3f(kP2.x(), kP1.y(), kP2.z());
 
   glNormal3f(0, 1, 0);
-  glVertex3f(p1.x(), p1.y(), p1.z());
-  glVertex3f(p2.x(), p1.y(), p1.z());
-  glVertex3f(p2.x(), p1.y(), p2.z());
-  glVertex3f(p1.x(), p1.y(), p2.z());
+  glVertex3f(kP1.x(), kP1.y(), kP1.z());
+  glVertex3f(kP2.x(), kP1.y(), kP1.z());
+  glVertex3f(kP2.x(), kP1.y(), kP2.z());
+  glVertex3f(kP1.x(), kP1.y(), kP2.z());
 
   glNormal3f(0, -1, 0);
-  glVertex3f(p2.x(), p2.y(), p2.z());
-  glVertex3f(p2.x(), p2.y(), p1.z());
-  glVertex3f(p1.x(), p2.y(), p1.z());
-  glVertex3f(p1.x(), p2.y(), p2.z());
+  glVertex3f(kP2.x(), kP2.y(), kP2.z());
+  glVertex3f(kP2.x(), kP2.y(), kP1.z());
+  glVertex3f(kP1.x(), kP2.y(), kP1.z());
+  glVertex3f(kP1.x(), kP2.y(), kP2.z());
 
   glNormal3f(-1, 0, 0);
-  glVertex3f(p1.x(), p1.y(), p1.z());
-  glVertex3f(p1.x(), p1.y(), p2.z());
-  glVertex3f(p1.x(), p2.y(), p2.z());
-  glVertex3f(p1.x(), p2.y(), p1.z());
+  glVertex3f(kP1.x(), kP1.y(), kP1.z());
+  glVertex3f(kP1.x(), kP1.y(), kP2.z());
+  glVertex3f(kP1.x(), kP2.y(), kP2.z());
+  glVertex3f(kP1.x(), kP2.y(), kP1.z());
 
   glNormal3f(1, 0, 0);
-  glVertex3f(p2.x(), p2.y(), p2.z());
-  glVertex3f(p2.x(), p1.y(), p2.z());
-  glVertex3f(p2.x(), p1.y(), p1.z());
-  glVertex3f(p2.x(), p2.y(), p1.z());
+  glVertex3f(kP2.x(), kP2.y(), kP2.z());
+  glVertex3f(kP2.x(), kP1.y(), kP2.z());
+  glVertex3f(kP2.x(), kP1.y(), kP1.z());
+  glVertex3f(kP2.x(), kP2.y(), kP1.z());
   glEnd();
   if (lighting) {
     glDisable(GL_LIGHTING);

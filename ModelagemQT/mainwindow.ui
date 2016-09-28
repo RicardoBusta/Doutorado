@@ -55,19 +55,19 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QTreeWidget" name="object_tree">
+      <widget class="TreeWidget" name="object_tree">
        <property name="dragDropMode">
         <enum>QAbstractItemView::InternalMove</enum>
        </property>
        <property name="defaultDropAction">
-        <enum>Qt::TargetMoveAction</enum>
+        <enum>Qt::MoveAction</enum>
        </property>
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>
        <column>
         <property name="text">
-         <string notr="true">1</string>
+         <string>1</string>
         </property>
        </column>
       </widget>
@@ -286,10 +286,17 @@
          <item>
           <widget class="QSlider" name="octree_spread_slider">
            <property name="maximum">
-            <number>300</number>
+            <number>1000</number>
            </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="delete_object">
+           <property name="text">
+            <string>Delete Object</string>
            </property>
           </widget>
          </item>
@@ -365,6 +372,11 @@
    <extends>QWidget</extends>
    <header>glwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>treewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

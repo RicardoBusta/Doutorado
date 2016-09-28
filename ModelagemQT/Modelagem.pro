@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     octree/octreecone.cpp \
     octree/octreebox.cpp \
     octree/octreetorus.cpp \
-    octree/newoctreedialog.cpp
+    octree/newoctreedialog.cpp \
+    treewidget.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -45,6 +46,7 @@ HEADERS  += mainwindow.h \
     octree/octreebox.h \
     octree/octreetorus.h \
     octree/newoctreedialog.h\
+    treewidget.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui

@@ -27,6 +27,8 @@ public:
   virtual enum OctreeType GetType() = 0;
   void DrawBox(bool lighting) const;
   QVector3D p1, p2;
+protected:
+  QVector3D dp1, dp2;
 };
 
 class OctreeFull : public OctreeNode {

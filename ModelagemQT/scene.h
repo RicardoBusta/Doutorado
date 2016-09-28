@@ -29,6 +29,7 @@ public slots:
   void CreateObjectGeneric(Object *obj);
 
   void ChangeOctreeSpread(int spread);
+  void Reparent(QString child, QString new_parent);
 };
 
 #endif // SCENE_H
