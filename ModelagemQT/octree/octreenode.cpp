@@ -13,12 +13,12 @@ void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill,
     glTranslatef(center.x(), center.y(), center.z());
   }
   glColor3ub(UB_COLOR(fill));
-  DrawBox();
+  DrawBox(true);
 
-//  if (!draw_lines) {
-//    glPopMatrix();
-//    return;
-//  }
+    if (!draw_lines) {
+      glPopMatrix();
+      return;
+    }
   GLint polyMode[2];
   GLint cull;
   glGetIntegerv(GL_POLYGON_MODE, polyMode);
@@ -28,7 +28,7 @@ void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill,
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glColor3ub(UB_COLOR(line));
-  DrawBox();
+  DrawBox(false);
 
   glPolygonMode(GL_FRONT, polyMode[0]);
   glPolygonMode(GL_BACK, polyMode[1]);
@@ -62,7 +62,7 @@ void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glColor3ub(UB_COLOR(line));
-  DrawBox();
+  DrawBox(false);
 
   glPolygonMode(GL_FRONT, polyMode[0]);
   glPolygonMode(GL_BACK, polyMode[1]);
@@ -125,7 +125,7 @@ void OctreePartial::DrawRec(const float spread, const QRgb &line, const QRgb &fi
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glColor3ub(UB_COLOR(line));
-  DrawBox();
+  DrawBox(false);
 
   glPolygonMode(GL_FRONT, polyMode[0]);
   glPolygonMode(GL_BACK, polyMode[1]);
@@ -139,36 +139,48 @@ void OctreeNode::UpdatePRec(const QVector3D &np1, const QVector3D &np2) {
   p2 = np2;
 }
 
-void OctreeNode::DrawBox() const {
+void OctreeNode::DrawBox(bool lighting) const {
+  if (lighting) {
+    glEnable(GL_LIGHTING);
+  }
   glBegin(GL_QUADS);
+  glNormal3f(0, 0, 1);
   glVertex3f(p1.x(), p1.y(), p1.z());
   glVertex3f(p1.x(), p2.y(), p1.z());
   glVertex3f(p2.x(), p2.y(), p1.z());
   glVertex3f(p2.x(), p1.y(), p1.z());
 
+  glNormal3f(0, 0, -1);
   glVertex3f(p2.x(), p2.y(), p2.z());
   glVertex3f(p1.x(), p2.y(), p2.z());
   glVertex3f(p1.x(), p1.y(), p2.z());
   glVertex3f(p2.x(), p1.y(), p2.z());
 
+  glNormal3f(0, 1, 0);
   glVertex3f(p1.x(), p1.y(), p1.z());
   glVertex3f(p2.x(), p1.y(), p1.z());
   glVertex3f(p2.x(), p1.y(), p2.z());
   glVertex3f(p1.x(), p1.y(), p2.z());
 
+  glNormal3f(0, -1, 0);
   glVertex3f(p2.x(), p2.y(), p2.z());
   glVertex3f(p2.x(), p2.y(), p1.z());
   glVertex3f(p1.x(), p2.y(), p1.z());
   glVertex3f(p1.x(), p2.y(), p2.z());
 
+  glNormal3f(-1, 0, 0);
   glVertex3f(p1.x(), p1.y(), p1.z());
   glVertex3f(p1.x(), p1.y(), p2.z());
   glVertex3f(p1.x(), p2.y(), p2.z());
   glVertex3f(p1.x(), p2.y(), p1.z());
 
+  glNormal3f(1, 0, 0);
   glVertex3f(p2.x(), p2.y(), p2.z());
   glVertex3f(p2.x(), p1.y(), p2.z());
   glVertex3f(p2.x(), p1.y(), p1.z());
   glVertex3f(p2.x(), p2.y(), p1.z());
   glEnd();
+  if (lighting) {
+    glDisable(GL_LIGHTING);
+  }
 }

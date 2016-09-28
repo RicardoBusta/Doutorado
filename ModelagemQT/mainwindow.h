@@ -23,11 +23,12 @@ private slots:
   void UpdateObjList();
   void UpdateDrawing();
   void SelectObject(QTreeWidgetItem*, QTreeWidgetItem*previous);
-  void SelectPrimitiveShape(bool checked);
 
   void UpdateCurrentObjectTransform(double v);
   void UpdateCurrentObjectName(QString name);
   void UpdateCurrentObjectCheck(bool value);
+
+  void CreateOctreePressed();
 };
 
 #endif // MAINWINDOW_H

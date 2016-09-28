@@ -6,15 +6,6 @@ class GlobalOptions
 public:
   static GlobalOptions * Instance();
 
-  enum Shape{
-    Sphere,
-    Cylinder,
-    Box,
-    Cone,
-    Torus
-  };
-
-  enum Shape shape;
 private:
   GlobalOptions();
 };

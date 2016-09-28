@@ -28,29 +28,29 @@ void Scene::CreateObject() {
   CreateObjectGeneric(obj);
 }
 
-void Scene::CreateOctree() {
-  int max_d = 5;
-  Octree * octree = new Octree(nullptr,0xffffff,0xAA0000);
-  switch(GlobalOptions::Instance()->shape){
-  case GlobalOptions::Sphere:
-      octree->GenSphere(3.0f,QVector3D(0,0,0),max_d);
-    break;
-  case GlobalOptions::Cylinder:
-      octree->GenCylinder(0.1f,1.0f,QVector3D(0,0,0),max_d);
-    break;
-  case GlobalOptions::Box:
-      octree->GenBox(1.0f,4.0f,2.0f,QVector3D(0,0,0),max_d);
-    break;
-  case GlobalOptions::Torus:
-      octree->GenTorus(1.0f,2.0f,QVector3D(0,0,0),max_d);
-    break;
-  case GlobalOptions::Cone:
-      octree->GenCone(1.0f,2.0f,QVector3D(0,0,0),max_d);
-    break;
-  }
-  octree->UpdateP();
-  CreateObjectGeneric(octree);
-}
+//void Scene::CreateOctree() {
+//  int max_d = 5;
+//  Octree * octree = new Octree(nullptr,0xffffff,0xAA0000);
+//  switch(GlobalOptions::Instance()->shape){
+//  case GlobalOptions::Sphere:
+//      octree->GenSphere(3.0f,QVector3D(0,0,0),max_d);
+//    break;
+//  case GlobalOptions::Cylinder:
+//      octree->GenCylinder(0.1f,1.0f,QVector3D(0,0,0),max_d);
+//    break;
+//  case GlobalOptions::Box:
+//      octree->GenBox(1.0f,4.0f,2.0f,QVector3D(0,0,0),max_d);
+//    break;
+//  case GlobalOptions::Torus:
+//      octree->GenTorus(1.0f,2.0f,QVector3D(0,0,0),max_d);
+//    break;
+//  case GlobalOptions::Cone:
+//      octree->GenCone(1.0f,2.0f,QVector3D(0,0,0),max_d);
+//    break;
+//  }
+//  octree->UpdateP();
+//  CreateObjectGeneric(octree);
+//}
 
 void Scene::CreateObjectGeneric(Object *obj)
 {

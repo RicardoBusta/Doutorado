@@ -24,7 +24,7 @@ signals:
 public slots:
   void UpdateMakeParent(bool val);
   void CreateObject();
-  void CreateOctree();
+  //void CreateOctree();
 
   void CreateObjectGeneric(Object *obj);
 

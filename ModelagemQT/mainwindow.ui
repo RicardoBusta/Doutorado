@@ -56,6 +56,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QTreeWidget" name="object_tree">
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::InternalMove</enum>
+       </property>
+       <property name="defaultDropAction">
+        <enum>Qt::TargetMoveAction</enum>
+       </property>
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>
@@ -337,66 +343,6 @@
          <string>Octree</string>
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QDoubleSpinBox" name="prop1"/>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="prop2"/>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="prop3"/>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox">
-           <property name="title">
-            <string>Shape</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <item row="0" column="0">
-             <widget class="QRadioButton" name="sphere_radioButton">
-              <property name="text">
-               <string>Sphere</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QRadioButton" name="cylinder_radioButton">
-              <property name="text">
-               <string>Cylinder</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QRadioButton" name="box_radioButton">
-              <property name="text">
-               <string>Box</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QRadioButton" name="cone_radioButton">
-              <property name="text">
-               <string>Cone</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QRadioButton" name="torus_radioButton">
-              <property name="text">
-               <string>Torus</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
          <item>
           <widget class="QPushButton" name="octree_create_button">
            <property name="text">

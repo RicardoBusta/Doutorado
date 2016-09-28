@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>box.png</file>
+        <file>cone.png</file>
+        <file>cylinder.png</file>
+        <file>sphere.png</file>
+        <file>torus.png</file>
+    </qresource>
+</RCC>

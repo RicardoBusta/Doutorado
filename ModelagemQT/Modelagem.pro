@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     octree/octreecylinder.cpp \
     octree/octreecone.cpp \
     octree/octreebox.cpp \
-    octree/octreetorus.cpp
+    octree/octreetorus.cpp \
+    octree/newoctreedialog.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -42,8 +43,13 @@ HEADERS  += mainwindow.h \
     commondefs.h\
     octree/octreecone.h \
     octree/octreebox.h \
-    octree/octreetorus.h
+    octree/octreetorus.h \
+    octree/newoctreedialog.h\
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    octree/newoctreedialog.ui
 
 LIBS += -lopengl32
+
+RESOURCES += \
+    icons/icons.qrc

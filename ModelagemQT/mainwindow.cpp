@@ -3,7 +3,8 @@
 
 #include <QDebug>
 
-#include <globaloptions.h>
+#include "globaloptions.h"
+#include "octree/newoctreedialog.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                                           ui(new Ui::MainWindow) {
@@ -14,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->make_current_parent_checkBox, SIGNAL(toggled(bool)), s, SLOT(UpdateMakeParent(bool)));
 
   QObject::connect(ui->object_create_button, SIGNAL(clicked(bool)), s, SLOT(CreateObject()));
-  QObject::connect(ui->octree_create_button, SIGNAL(clicked(bool)), s, SLOT(CreateOctree()));
+  QObject::connect(ui->octree_create_button, SIGNAL(clicked(bool)), this, SLOT(CreateOctreePressed()));
 
   QObject::connect(ui->object_tree,
                    SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
@@ -26,13 +27,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   QObject::connect(ui->octree_spread_slider, SIGNAL(valueChanged(int)), s, SLOT(ChangeOctreeSpread(int)));
 
-  QObject::connect(ui->sphere_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
-  QObject::connect(ui->cylinder_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
-  QObject::connect(ui->box_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
-  QObject::connect(ui->cone_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
-  QObject::connect(ui->torus_radioButton, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
-
-  QObject::connect(ui->pos_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
+    QObject::connect(ui->pos_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->pos_y, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->pos_z, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->rot_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
@@ -52,27 +47,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 MainWindow::~MainWindow() {
   delete ui;
 }
-
-//void MainWindow::GetCurrentObjectTransform() {
-//  Object *obj = ui->glwidget->GetScene()->current_object;
-//  if (obj == nullptr) {
-//    return;
-//  }
-//  ui->pos_x->setValue(obj->position.x());
-//  ui->pos_y->setValue(obj->position.y());
-//  ui->pos_z->setValue(obj->position.z());
-//  ui->rot_x->setValue(obj->rotation.x());
-//  ui->rot_y->setValue(obj->rotation.y());
-//  ui->rot_z->setValue(obj->rotation.z());
-//  ui->sca_x->setValue(obj->scale.x());
-//  ui->sca_y->setValue(obj->scale.y());
-//  ui->sca_z->setValue(obj->scale.z());
-
-//  ui->hide_checkBox->setChecked(obj->hide);
-//  ui->lines_checkBox->setChecked(obj->line);
-
-//  ui->name_lineEdit->setText(obj->name);
-//}
 
 void AddRecItem(QTreeWidgetItem *item, Object *o) {
   for (Object *co : o->children) {
@@ -134,27 +108,6 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
   }
 }
 
-void MainWindow::SelectPrimitiveShape(bool checked) {
-  if (!checked) {
-    return;
-  }
-  QRadioButton *rb = qobject_cast<QRadioButton *>(QObject::sender());
-  if (rb != nullptr) {
-    if (rb->text() == "Sphere") {
-      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Sphere;
-    } else if (rb->text() == "Cylinder") {
-      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Cylinder;
-    } else if (rb->text() == "Box") {
-      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Box;
-    } else if (rb->text() == "Cone") {
-      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Cone;
-    } else if (rb->text() == "Torus") {
-      GlobalOptions::Instance()->shape = GlobalOptions::Shape::Torus;
-    }
-  }
-  qDebug() << GlobalOptions::Instance()->shape;
-}
-
 void MainWindow::UpdateCurrentObjectTransform(double v) {
   Object *obj = ui->glwidget->GetScene()->current_object;
   if (obj == nullptr) {
@@ -204,4 +157,14 @@ void MainWindow::UpdateCurrentObjectCheck(bool value) {
     obj->line = value;
   }
   ui->glwidget->update();
+}
+
+void MainWindow::CreateOctreePressed()
+{
+  NewOctreeDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.CreateShape(ui->glwidget->GetScene());
+  }
+
 }
