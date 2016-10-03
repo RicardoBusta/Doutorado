@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   Scene *s = ui->glwidget->GetScene();
 
-  QObject::connect(ui->make_current_parent_checkBox, SIGNAL(toggled(bool)), s, SLOT(UpdateMakeParent(bool)));
+  //QObject::connect(ui->make_current_parent_checkBox, SIGNAL(toggled(bool)), s, SLOT(UpdateMakeParent(bool)));
 
   QObject::connect(ui->object_create_button, SIGNAL(clicked(bool)), s, SLOT(CreateObject()));
   QObject::connect(ui->octree_create_button, SIGNAL(clicked(bool)), this, SLOT(CreateOctreePressed()));
@@ -49,6 +49,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->delete_object, SIGNAL(clicked(bool)), s, SLOT(DeleteCurrentObject()));
 
   QObject::connect(ui->operate_octree_button, SIGNAL(clicked(bool)), this, SLOT(OperateOctreePressed()));
+
+  QObject::connect(ui->save_pushButton,SIGNAL(clicked(bool)),this,SLOT(SaveScenePress()));
+  QObject::connect(ui->load_pushButton,SIGNAL(clicked(bool)),this,SLOT(LoadScenePress()));
 }
 
 MainWindow::~MainWindow() {
@@ -104,15 +107,15 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
 
   if (obj != nullptr) {
     ui->obj_content->setEnabled(true);
-    ui->pos_x->setValue(obj->position.x());
-    ui->pos_y->setValue(obj->position.y());
-    ui->pos_z->setValue(obj->position.z());
-    ui->rot_x->setValue(obj->rotation.x());
-    ui->rot_y->setValue(obj->rotation.y());
-    ui->rot_z->setValue(obj->rotation.z());
-    ui->sca_x->setValue(obj->scale.x());
-    ui->sca_y->setValue(obj->scale.y());
-    ui->sca_z->setValue(obj->scale.z());
+    ui->pos_x->setValue(obj->getPosition().x());
+    ui->pos_y->setValue(obj->getPosition().y());
+    ui->pos_z->setValue(obj->getPosition().z());
+    ui->rot_x->setValue(obj->getRotation().x());
+    ui->rot_y->setValue(obj->getRotation().y());
+    ui->rot_z->setValue(obj->getRotation().z());
+    ui->sca_x->setValue(obj->getScale().x());
+    ui->sca_y->setValue(obj->getScale().y());
+    ui->sca_z->setValue(obj->getScale().z());
 
     ui->hide_checkBox->setChecked(obj->hide);
     ui->lines_checkBox->setChecked(obj->line);
@@ -129,24 +132,12 @@ void MainWindow::UpdateCurrentObjectTransform(double v) {
     return;
   }
   const QObject *s = QObject::sender();
-  if (s == ui->pos_x) {
-    obj->position.setX(v);
-  } else if (s == ui->pos_y) {
-    obj->position.setY(v);
-  } else if (s == ui->pos_z) {
-    obj->position.setZ(v);
-  } else if (s == ui->rot_x) {
-    obj->rotation.setX(v);
-  } else if (s == ui->rot_y) {
-    obj->rotation.setY(v);
-  } else if (s == ui->rot_z) {
-    obj->rotation.setZ(v);
-  } else if (s == ui->sca_x) {
-    obj->scale.setX(v);
-  } else if (s == ui->sca_y) {
-    obj->scale.setY(v);
-  } else if (s == ui->sca_z) {
-    obj->scale.setZ(v);
+  if (s == ui->pos_x || s==ui->pos_y || s==ui->pos_z) {
+      obj->setPosition(ui->pos_x->value(),ui->pos_y->value(),ui->pos_z->value());
+  }else if(s == ui->rot_x || s==ui->rot_y || s==ui->rot_z) {
+      obj->setRotation(ui->rot_x->value(),ui->rot_y->value(),ui->rot_z->value());
+  }else if(s == ui->sca_x || s==ui->sca_y || s==ui->sca_z) {
+      obj->setScale(ui->sca_x->value(),ui->sca_y->value(),ui->sca_z->value());
   }
   ui->glwidget->update();
 }
@@ -186,6 +177,17 @@ void MainWindow::OperateOctreePressed() {
   OperateOctreeDialog dialog(ui->glwidget->GetScene());
   int result = dialog.exec();
   if(result == QDialog::Accepted){
-    // Fazer operação.
+    dialog.Operate();
+    UpdateObjList();
   }
+}
+
+void MainWindow::SaveScenePress()
+{
+
+}
+
+void MainWindow::LoadScenePress()
+{
+
 }

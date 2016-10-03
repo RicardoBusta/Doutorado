@@ -59,19 +59,19 @@ void NewOctreeDialog::CreateShape(Scene *scene) {
 
   switch (shape) {
   case Sphere:
-    octree->GenSphere(ui->sphere_radius->value(), QVector3D(0, 0, 0), max_d);
+    octree->GenSphere(ui->sphere_radius->value()/2.0f, QVector3D(0, 0, 0), max_d);
     break;
   case Cylinder:
-    octree->GenCylinder(ui->cylinder_radius->value(), ui->cylinder_height->value(), QVector3D(0, 0, 0), max_d);
+    octree->GenCylinder(ui->cylinder_radius->value()/2.0f, ui->cylinder_height->value(), QVector3D(0, 0, 0), max_d);
     break;
   case Box:
     octree->GenBox(ui->box_w->value(), ui->box_h->value(), ui->box_d->value(), QVector3D(0, 0, 0), max_d);
     break;
   case Torus:
-    octree->GenTorus(ui->torus_r1->value(), ui->torus_r2->value(), QVector3D(0, 0, 0), max_d);
+    octree->GenTorus(ui->torus_r1->value()/2.0f, ui->torus_r2->value()/2.0f, QVector3D(0, 0, 0), max_d);
     break;
   case Cone:
-    octree->GenCone(ui->cone_radius->value(), ui->cone_height->value(), QVector3D(0, 0, 0), max_d);
+    octree->GenCone(ui->cone_radius->value()/2.0f, ui->cone_height->value(), QVector3D(0, 0, 0), max_d);
     break;
   default:
     break;

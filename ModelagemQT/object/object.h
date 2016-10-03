@@ -5,6 +5,8 @@
 #include <QString>
 #include <QVector3D>
 #include <QVector>
+#include <QQuaternion>
+#include <QMatrix4x4>
 
 class Object {
 public:
@@ -17,11 +19,18 @@ public:
   bool line;
   QVector<Object *> children;
 
-  QVector3D position;
-  QVector3D rotation;
-  QVector3D scale;
-
   void Render();
+
+  QVector3D getPosition() const;
+  QVector3D getRotation() const;
+  QVector3D getScale() const;
+
+  void setPosition(float x, float y, float z);
+  void setRotation(float x, float y, float z);
+  void setScale(float x, float y, float z);
+
+  void UpdateTransform();
+  virtual void UpdateSpecific();
 
   static QMap<QString, Object *> obj_map;
 
@@ -29,6 +38,12 @@ public:
 protected:
   virtual void Draw() const;
   QString name;
+
+  QVector3D position;
+  QQuaternion rotation;
+  QVector3D scale;
+
+  QMatrix4x4 transform;
 };
 
 #endif // OBJECT_H

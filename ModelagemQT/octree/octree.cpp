@@ -7,6 +7,7 @@
 #include "octreecylinder.h"
 #include "octreesphere.h"
 #include "octreetorus.h"
+#include "commondefs.h"
 
 const QVector3D kP1(-1, 1, 1);
 const QVector3D kP2(1, -1, -1);
@@ -77,8 +78,15 @@ void Octree::GenTorus(float r1, float r2, const QVector3D &center, int max_depth
 
 void Octree::UpdateP() {
   root->UpdatePRec(p1, p2);
+  UpdateSpecific();
 }
 
 void Octree::SetSpread(float spread) {
-  this->spread = spread;
+    this->spread = spread;
+}
+
+void Octree::UpdateSpecific()
+{
+    bb1 = transform*p1;
+    bb2 = transform*p2;
 }

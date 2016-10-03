@@ -22,6 +22,10 @@ public:
   void UpdateP();
 
   void SetSpread(float spread);
+
+  void UpdateSpecific();
+
+  QVector3D bb1, bb2;
 private:
   float spread;
   QRgb line_color;

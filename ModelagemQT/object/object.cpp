@@ -19,6 +19,7 @@ Object::Object(QString name)
     this->name = name + " " + QString::number(count++);
   }
   obj_map.insert(this->name, this);
+  transform.setToIdentity();
 }
 
 Object::~Object() {
@@ -39,16 +40,60 @@ void Object::Rename(QString new_name) {
 
 void Object::Render() {
   glPushMatrix();
-  glTranslatef(FVECTOR3D(position));
-  glRotatef(rotation.x(), 1, 0, 0);
-  glRotatef(rotation.y(), 0, 1, 0);
-  glRotatef(rotation.z(), 0, 0, 1);
-  glScalef(FVECTOR3D(scale));
+  glMultMatrixf(transform.data());
   Draw();
   foreach (Object *o, children) {
     o->Render();
   }
   glPopMatrix();
+}
+
+QVector3D Object::getPosition() const {
+    return  position;
+}
+
+QVector3D Object::getRotation() const {
+    return rotation.toEulerAngles();
+}
+
+QVector3D Object::getScale() const {
+    return scale;
+}
+
+void Object::setPosition(float x, float y, float z)
+{
+    position.setX(x);
+    position.setY(y);
+    position.setZ(z);
+    UpdateTransform();
+}
+
+void Object::setRotation(float x, float y, float z)
+{
+    rotation = QQuaternion::fromEulerAngles(x,y,z);
+    UpdateTransform();
+}
+
+void Object::setScale(float x, float y, float z)
+{
+    scale.setX(x);
+    scale.setY(y);
+    scale.setZ(z);
+    UpdateTransform();
+}
+
+void Object::UpdateTransform()
+{
+    transform.setToIdentity();
+    transform.translate(position);
+    transform.rotate(rotation);
+    transform.scale(scale);
+    UpdateSpecific();
+}
+
+void Object::UpdateSpecific()
+{
+
 }
 
 void Object::Draw() const {

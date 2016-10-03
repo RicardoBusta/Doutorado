@@ -142,7 +142,7 @@ void OctreeNode::UpdatePRec(const QVector3D &np1, const QVector3D &np2) {
   p2 = np2;
 }
 
-void OctreeNode::DrawBox(bool lighting) const {
+void OctreeNode::DrawBox(bool lighting) {
   if (lighting) {
     glEnable(GL_LIGHTING);
   }

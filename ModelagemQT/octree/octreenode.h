@@ -25,7 +25,7 @@ public:
   virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const = 0;
   virtual void UpdatePRec(const QVector3D &np1, const QVector3D &np2);
   virtual enum OctreeType GetType() = 0;
-  void DrawBox(bool lighting) const;
+  static void DrawBox(bool lighting);
   QVector3D p1, p2;
 protected:
   QVector3D dp1, dp2;

@@ -30,6 +30,9 @@ private slots:
 
   void CreateOctreePressed();
   void OperateOctreePressed();
+
+  void SaveScenePress();
+  void LoadScenePress();
 };
 
 #endif // MAINWINDOW_H
