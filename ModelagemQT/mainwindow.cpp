@@ -5,6 +5,7 @@
 
 #include "globaloptions.h"
 #include "octree/newoctreedialog.h"
+#include "octree/operateoctreedialog.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                                           ui(new Ui::MainWindow) {
@@ -44,6 +45,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   ui->obj_content->setEnabled(false);
 
   QObject::connect(ui->object_tree, SIGNAL(ChangeParent(QString, QString)), s, SLOT(Reparent(QString, QString)));
+
+  QObject::connect(ui->delete_object, SIGNAL(clicked(bool)), s, SLOT(DeleteCurrentObject()));
+
+  QObject::connect(ui->operate_octree_button, SIGNAL(clicked(bool)), this, SLOT(OperateOctreePressed()));
 }
 
 MainWindow::~MainWindow() {
@@ -66,9 +71,14 @@ void MainWindow::UpdateObjList() {
   ui->object_tree->blockSignals(true);
   ui->object_tree->clear();
   Scene *s = ui->glwidget->GetScene();
+  QTreeWidgetItem *currentItem = nullptr;
   for (Object *o : s->objects) {
     QTreeWidgetItem *item = new QTreeWidgetItem();
     item->setText(0, o->getName());
+
+    if (s->current_object != nullptr && o->getName() == s->current_object->getName()) {
+      currentItem = item;
+    }
 
     item->setData(0, Qt::UserRole, (qulonglong)o);
 
@@ -77,6 +87,9 @@ void MainWindow::UpdateObjList() {
     AddRecItem(item, o);
   }
   ui->object_tree->expandAll();
+  if (currentItem != nullptr) {
+    ui->object_tree->setCurrentItem(currentItem);
+  }
   ui->object_tree->blockSignals(false);
   ui->glwidget->update();
 }
@@ -166,5 +179,13 @@ void MainWindow::CreateOctreePressed() {
   int result = dialog.exec();
   if (result == QDialog::Accepted) {
     dialog.CreateShape(ui->glwidget->GetScene());
+  }
+}
+
+void MainWindow::OperateOctreePressed() {
+  OperateOctreeDialog dialog(ui->glwidget->GetScene());
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    // Fazer operação.
   }
 }

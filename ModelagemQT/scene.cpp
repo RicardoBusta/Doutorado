@@ -63,6 +63,14 @@ void Scene::CreateObjectGeneric(Object *obj)
   emit UpdateObjList();
 }
 
+void Scene::DeleteCurrentObject()
+{
+  objects.removeOne(current_object);
+  delete current_object;
+  current_object = nullptr;
+  emit UpdateObjList();
+}
+
 void Scene::ChangeOctreeSpread(int spread)
 {   Octree* octree = dynamic_cast<Octree*>(current_object);
     if(octree!=nullptr){

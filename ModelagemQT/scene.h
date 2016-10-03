@@ -28,6 +28,8 @@ public slots:
 
   void CreateObjectGeneric(Object *obj);
 
+  void DeleteCurrentObject();
+
   void ChangeOctreeSpread(int spread);
   void Reparent(QString child, QString new_parent);
 };

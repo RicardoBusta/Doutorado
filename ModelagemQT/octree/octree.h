@@ -9,7 +9,7 @@
 
 class Octree : public Object {
 public:
-  Octree(OctreeNode *root, QRgb line_color, QRgb fill_color);
+  Octree(QString name, OctreeNode *root, QRgb line_color, QRgb fill_color);
   ~Octree();
 
   void Draw() const;

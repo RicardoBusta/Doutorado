@@ -156,15 +156,40 @@
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="QPushButton" name="faceColor">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="autoFillBackground">
+            <bool>false</bool>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #ffffff;
+color: #fff000;
+border: none;</string>
+           </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="lineColor">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: #ffffff;
+color: #fff000;
+border: none;</string>
+           </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -480,7 +505,6 @@
              <property name="styleSheet">
               <string notr="true">image: url(:/cone.png);</string>
              </property>
-             <zorder>widget_3</zorder>
             </widget>
            </item>
            <item>
@@ -703,7 +727,6 @@
              <property name="styleSheet">
               <string notr="true">image: url(:/box.png);</string>
              </property>
-             <zorder>widget_5</zorder>
             </widget>
            </item>
            <item>

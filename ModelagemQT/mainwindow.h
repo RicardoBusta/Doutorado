@@ -29,6 +29,7 @@ private slots:
   void UpdateCurrentObjectCheck(bool value);
 
   void CreateOctreePressed();
+  void OperateOctreePressed();
 };
 
 #endif // MAINWINDOW_H

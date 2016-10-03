@@ -8,12 +8,31 @@
 
 #include <QColorDialog>
 
+const QString colorButtonStyle = "background-color: %1;\nborder: none;";
+
+const QString shapeName[]={
+  "Invalid",
+  "Sphere",
+  "Cylinder",
+  "Box",
+  "Cone",
+  "Torus"
+};
+
 NewOctreeDialog::NewOctreeDialog(QWidget *parent) : QDialog(parent),
                                                     ui(new Ui::NewOctreeDialog),
                                                     shape(Invalid) {
   ui->setupUi(this);
 
   ui->stackedWidget->setCurrentWidget(ui->invalid_page);
+
+  QColor faceColor = QColor(150,0,0);
+  QColor lineColor = QColor(255,255,255);
+  face = faceColor.rgba();
+  line = lineColor.rgba();
+
+  ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
+  ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
 
   QObject::connect(ui->box_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->cylinder_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
@@ -34,7 +53,7 @@ void NewOctreeDialog::CreateShape(Scene *scene) {
     return;
   }
 
-  Octree *octree = new Octree(nullptr, line, face);
+  Octree *octree = new Octree(shapeName[shape],nullptr, line, face);
 
   int max_d = ui->tree_depth->value();
 
