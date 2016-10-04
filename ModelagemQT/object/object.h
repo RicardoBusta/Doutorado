@@ -37,7 +37,7 @@ public:
   Object * parent;
 
   QString Save();
-  QString SaveSpecific();
+  virtual QString SaveSpecific();
 protected:
   virtual void Draw() const;
   QString name;

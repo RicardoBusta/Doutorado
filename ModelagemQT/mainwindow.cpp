@@ -188,7 +188,10 @@ void MainWindow::SaveScenePress()
 {
     QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Scene (*.scene)");
     if(filename){
+        Scene *s = ui->glwidget->GetScene();
+        foreach(Object * o , s->children()){
 
+        }
     }
 }
 
