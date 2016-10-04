@@ -35,6 +35,9 @@ public:
   static QMap<QString, Object *> obj_map;
 
   Object * parent;
+
+  QString Save();
+  QString SaveSpecific();
 protected:
   virtual void Draw() const;
   QString name;

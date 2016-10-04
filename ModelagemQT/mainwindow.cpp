@@ -3,6 +3,8 @@
 
 #include <QDebug>
 
+#include <QFileDialog>
+
 #include "globaloptions.h"
 #include "octree/newoctreedialog.h"
 #include "octree/operateoctreedialog.h"
@@ -184,10 +186,17 @@ void MainWindow::OperateOctreePressed() {
 
 void MainWindow::SaveScenePress()
 {
+    QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Scene (*.scene)");
+    if(filename){
 
+    }
 }
 
 void MainWindow::LoadScenePress()
 {
+    QString filename = QFileDialog::getOpenFileName(this,"Load Scene",".","Scene (*.scene)");
+    if(filename){
 
+    }
 }
+
