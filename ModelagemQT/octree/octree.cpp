@@ -26,7 +26,7 @@ void Octree::Draw() const {
   if(hide){
     return;
   }
-  bool draw_lines = !line;
+  bool draw_lines = line;
   if (root != nullptr) {
     root->DrawRec(spread, line_color, fill_color, draw_lines);
   }
@@ -89,4 +89,14 @@ void Octree::UpdateSpecific()
 {
     bb1 = transform*p1;
     bb2 = transform*p2;
+}
+
+QString Octree::SaveSpecific()
+{
+    return root->Save();
+}
+
+QString Octree::ObjectType()
+{
+    return "oct";
 }

@@ -307,7 +307,7 @@
      <item>
       <widget class="QCheckBox" name="lines_checkBox">
        <property name="text">
-        <string>Hide Lines</string>
+        <string>Show Lines</string>
        </property>
       </widget>
      </item>

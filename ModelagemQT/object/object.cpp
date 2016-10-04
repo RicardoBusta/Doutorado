@@ -98,12 +98,32 @@ void Object::UpdateSpecific()
 
 QString Object::Save()
 {
-    //return "obj " + QString("%1 %2 %3 %4 %5 %6 %7 %8 %9") + SaveSpecific();
+    QString parent_name = parent!=nullptr?parent->getName():"none";
+    return QString("%1 %2 %3 %4 %5").arg(ObjectType(),parent_name,getName(),TransformText(),SaveSpecific());
 }
 
 QString Object::SaveSpecific()
 {
+    return "";
+}
 
+QString Object::ObjectType()
+{
+    return "obj";
+}
+
+QString Object::TransformText()
+{
+    return QString("%1 %2 %3 %4 %5 %6 %7 %8 %9")
+            .arg(position.x())
+            .arg(position.y())
+            .arg(position.z())
+            .arg(rotation.x())
+            .arg(rotation.y())
+            .arg(rotation.z())
+            .arg(scale.x())
+            .arg(scale.y())
+            .arg(scale.z());
 }
 
 void Object::Draw() const {

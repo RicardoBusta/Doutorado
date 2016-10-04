@@ -4,6 +4,8 @@
 #include "scene.h"
 #include "octree.h"
 #include "object/object.h"
+#include "octree/octreeunion.h"
+#include "octree/octreetorus.h"
 
 OperateOctreeDialog::OperateOctreeDialog(Scene *scene, QWidget *parent) :
   QDialog(parent),
@@ -42,12 +44,15 @@ void OperateOctreeDialog::Operate() {
     QVector3D center = QVector3D(max_x+min_x,max_y+min_y,max_z+min_z);
     center = center/2.0f;
 
+    QVector3D p1 = center + QVector3D(-side,side,side)/2;
+    QVector3D p2 = center + QVector3D(side,-side,-side)/2;
+    OctreeUnion oper(oct1,oct2,p1,p2);
+    //OctreeTorus oper(1,1,QVector3D(0,0,0));
+    OctreeNode * op = oper.GenRecur(5,0);
 
-    OctreeEmpty * root = new OctreeEmpty();
-    root->p1 = center + QVector3D(-side,side,side)/2;
-    root->p2 = center + QVector3D(side,-side,-side)/2;
-    Octree * newoct = new Octree("Operated",root,0x00ff00,0xffff00);
-    scene->objects.push_back(newoct);
+    Octree * newoct = new Octree("Operated",op,0x00ff00,0xffff00);
+    //newoct->UpdateP();
+    scene->CreateObjectGeneric(newoct);
 }
 
 void OperateOctreeDialog::GetOctreesRec(Object *obj)
@@ -58,7 +63,7 @@ void OperateOctreeDialog::GetOctreesRec(Object *obj)
     ui->operand_2_comboBox->addItem(oct->getName());
     objects_ref.push_back(oct);
   }
-  foreach(Object *o, oct->children){
+  foreach(Object *o, obj->children){
     GetOctreesRec(o);
   }
 }

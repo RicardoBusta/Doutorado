@@ -27,6 +27,8 @@ public:
   virtual enum OctreeType GetType() = 0;
   static void DrawBox(bool lighting);
   QVector3D p1, p2;
+
+  virtual QString Save()=0;
 protected:
   QVector3D dp1, dp2;
 };
@@ -35,12 +37,14 @@ class OctreeFull : public OctreeNode {
 public:
   virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const;
   enum OctreeType GetType();
+  virtual QString Save();
 };
 
 class OctreeEmpty : public OctreeNode {
 public:
   virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const;
   enum OctreeType GetType();
+  virtual QString Save();
 };
 
 class OctreePartial : public OctreeNode {
@@ -50,7 +54,7 @@ public:
   virtual void DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const;
   virtual void UpdatePRec(const QVector3D &np1, const QVector3D &np2);
   enum OctreeType GetType();
-
+  virtual QString Save();
 public:
   OctreeNode *nodes[8];
 };

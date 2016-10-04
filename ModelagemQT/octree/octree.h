@@ -25,6 +25,10 @@ public:
 
   void UpdateSpecific();
 
+  QString SaveSpecific();
+  QString SaveRec();
+  QString ObjectType();
+
   QVector3D bb1, bb2;
 private:
   float spread;

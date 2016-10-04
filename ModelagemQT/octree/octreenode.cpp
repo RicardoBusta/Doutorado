@@ -42,7 +42,12 @@ void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill,
 }
 
 OctreeType OctreeFull::GetType() {
-  return OctreeType::Full;
+    return OctreeType::Full;
+}
+
+QString OctreeFull::Save()
+{
+    return "w";
 }
 
 void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
@@ -76,7 +81,12 @@ void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill
 }
 
 OctreeType OctreeEmpty::GetType() {
-  return OctreeType::Empty;
+    return OctreeType::Empty;
+}
+
+QString OctreeEmpty::Save()
+{
+    return "b";
 }
 
 OctreePartial::OctreePartial() {
@@ -106,7 +116,16 @@ void OctreePartial::UpdatePRec(const QVector3D &np1, const QVector3D &np2) {
 }
 
 OctreeType OctreePartial::GetType() {
-  return OctreeType::Partial;
+    return OctreeType::Partial;
+}
+
+QString OctreePartial::Save()
+{
+ QString out = "(";
+ for(int i=0;i<8;i++){
+     out += nodes[i]->Save();
+ }
+ return out;
 }
 
 void OctreePartial::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {

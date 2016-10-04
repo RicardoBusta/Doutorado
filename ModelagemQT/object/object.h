@@ -38,6 +38,8 @@ public:
 
   QString Save();
   virtual QString SaveSpecific();
+  virtual QString ObjectType();
+  QString TransformText();
 protected:
   virtual void Draw() const;
   QString name;

@@ -187,19 +187,38 @@ void MainWindow::OperateOctreePressed() {
 void MainWindow::SaveScenePress()
 {
     QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Scene (*.scene)");
-    if(filename){
-        Scene *s = ui->glwidget->GetScene();
-        foreach(Object * o , s->children()){
-
-        }
+    if(filename.isEmpty()){
+        return;
     }
+    QFile file(filename);
+    if(!file.open(QFile::WriteOnly|QFile::Text)){
+        return;
+    }
+
+    QTextStream out(&file);
+
+    Scene *s = ui->glwidget->GetScene();
+    foreach(Object * o , s->objects){
+        out << o->Save() << "\n";
+    }
+
 }
 
 void MainWindow::LoadScenePress()
 {
     QString filename = QFileDialog::getOpenFileName(this,"Load Scene",".","Scene (*.scene)");
-    if(filename){
+    if(filename.isEmpty()){
+        return;
+    }
+    QFile file(filename);
+    if(!file.open(QFile::ReadOnly|QFile::Text)){
+        return;
+    }
+    QTextStream in(&file);
 
+    while(!in.atEnd()){
+        QString line = in.readLine();
+        qDebug() << line;
     }
 }
 

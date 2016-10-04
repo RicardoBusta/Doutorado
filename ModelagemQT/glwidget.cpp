@@ -91,7 +91,7 @@ void GLWidget::mouseReleaseEvent(QMouseEvent *e) {
 }
 
 void GLWidget::wheelEvent(QWheelEvent *e) {
-  zoom += (float)e->delta() / 100.0f;
+  zoom += (float)e->delta() / 1000.0f;
   update();
 }
 
