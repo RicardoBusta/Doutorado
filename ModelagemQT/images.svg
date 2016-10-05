@@ -173,9 +173,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="-483.1744"
-     inkscape:cy="551.38258"
+     inkscape:zoom="1"
+     inkscape:cx="-608.48721"
+     inkscape:cy="391.74958"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -192,7 +192,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -287,6 +287,65 @@
          id="path4292"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="scscs" />
+    </g>
+    <g
+       id="g3387"
+       transform="matrix(0.51844898,0,0,0.51844898,-450.462,168.5525)"
+       inkscape:export-filename="D:\Projects\Doutorado\ModelagemQT\icons\pyramid.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         id="g3391">
+        <path
+           style="fill:#c8beb7;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m -940.4826,493.11034 -83.2137,147.8711 68.36445,25.72361 z"
+           id="path3381"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:#917c6f;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m -940.4826,493.11034 81.67083,158.39192 -96.52008,15.20279 z"
+           id="path3383"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc" />
+      </g>
+    </g>
+    <g
+       id="g3410"
+       transform="matrix(0.7372564,0,0,0.7372564,-107.92332,151.30846)"
+       inkscape:export-filename="D:\Projects\Doutorado\ModelagemQT\icons\prism.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         sodipodi:nodetypes="cccccccc"
+         inkscape:connector-curvature="0"
+         id="path3397"
+         d="m -796.41211,682.16406 -33.00195,26.71875 0,72.42969 44.16601,22.92578 60.29883,-12.54883 0,-72.42968 -6.90039,-30.68165 z"
+         style="fill:#abc837;stroke:none" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path3405"
+         d="m -785.24805,804.23828 60.29883,-12.54883 0,-72.42968 -60.29883,12.54882 z"
+         style="fill:#677821;stroke:none" />
+      <path
+         transform="matrix(1,0,0,0.46740537,0,389.75736)"
+         inkscape:transform-center-y="0.84768732"
+         inkscape:transform-center-x="3.6073544"
+         d="m -724.94999,704.96205 -60.29848,26.84661 -44.1659,-49.0512 33.00245,-57.16192 64.56254,13.72319 z"
+         inkscape:randomized="0"
+         inkscape:rounded="0"
+         inkscape:flatsided="true"
+         sodipodi:arg2="1.1519173"
+         sodipodi:arg1="0.52359878"
+         sodipodi:r2="45.423981"
+         sodipodi:r1="56.147125"
+         sodipodi:cy="676.88849"
+         sodipodi:cx="-773.57483"
+         sodipodi:sides="5"
+         id="path3395"
+         style="fill:#bcd35f;stroke:none"
+         sodipodi:type="star" />
     </g>
   </g>
 </svg>

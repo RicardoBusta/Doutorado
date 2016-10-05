@@ -23,7 +23,9 @@ public:
     Cylinder,
     Box,
     Cone,
-    Torus
+    Torus,
+    Pyramid,
+    Prism
   };
 
   Shape shape;

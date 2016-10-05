@@ -19,6 +19,8 @@ public:
   void GenCone(float radius, float height, const QVector3D &center, int max_depth);
   void GenBox(float w, float h, float d, const QVector3D &center, int max_depth);
   void GenTorus(float r1, float r2, const QVector3D &center, int max_depth);
+  void GenPrism(float r, float h, float s,QVector3D &center, int max_depth);
+  void GenPyramid(float r, float h, float s,QVector3D &center, int max_depth);
   void UpdateP();
 
   void SetSpread(float spread);

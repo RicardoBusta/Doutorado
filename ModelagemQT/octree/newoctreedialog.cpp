@@ -16,7 +16,9 @@ const QString shapeName[]={
   "Cylinder",
   "Box",
   "Cone",
-  "Torus"
+  "Torus",
+  "Pyramid",
+  "Prism"
 };
 
 NewOctreeDialog::NewOctreeDialog(QWidget *parent) : QDialog(parent),
@@ -39,6 +41,8 @@ NewOctreeDialog::NewOctreeDialog(QWidget *parent) : QDialog(parent),
   QObject::connect(ui->cone_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->torus_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->sphere_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
+  QObject::connect(ui->prism_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
+  QObject::connect(ui->pyramid_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
 
   QObject::connect(ui->lineColor,SIGNAL(clicked(bool)),this,SLOT(SelectLineColor()));
   QObject::connect(ui->faceColor,SIGNAL(clicked(bool)),this,SLOT(SelectFaceColor()));
@@ -73,6 +77,12 @@ void NewOctreeDialog::CreateShape(Scene *scene) {
   case Cone:
     octree->GenCone(ui->cone_radius->value()/2.0f, ui->cone_height->value(), QVector3D(0, 0, 0), max_d);
     break;
+  case Pyramid:
+    octree->GenPyramid(ui->pyramid_diameter->value()/2.0f,ui->pyramid_height->value(),ui->pyramid_sides->value(), QVector3D(0, 0, 0), max_d);
+    break;
+  case Prism:
+    octree->GenPrism(ui->prism_diameter->value()/2.0f,ui->prism_height->value(),ui->prism_sides->value(), QVector3D(0, 0, 0), max_d);
+    break;
   default:
     break;
   }
@@ -103,6 +113,12 @@ void NewOctreeDialog::SelectPrimitiveShape(bool checked) {
     } else if (rb->text() == "Torus") {
       ui->stackedWidget->setCurrentWidget(ui->torus_page);
       shape = Torus;
+    } else if (rb->text() == "Pyramid") {
+      ui->stackedWidget->setCurrentWidget(ui->pyramid_page);
+      shape = Pyramid;
+    } else if (rb->text() == "Prism") {
+      ui->stackedWidget->setCurrentWidget(ui->prism_page);
+      shape = Prism;
     } else {
       ui->stackedWidget->setCurrentWidget(ui->invalid_page);
       shape = Invalid;

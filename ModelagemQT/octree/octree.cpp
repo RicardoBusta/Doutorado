@@ -8,6 +8,8 @@
 #include "octreesphere.h"
 #include "octreetorus.h"
 #include "commondefs.h"
+#include "octreepyramid.h"
+#include "octreeprism.h"
 
 const QVector3D kP1(-1, 1, 1);
 const QVector3D kP2(1, -1, -1);
@@ -15,7 +17,7 @@ const QVector3D kP2(1, -1, -1);
 static int count = 0;
 
 Octree::Octree(QString name, OctreeNode *root, QRgb line_color, QRgb fill_color)
-    : Object(name), root(root), line_color(line_color), fill_color(fill_color),spread(1) {
+  : Object(name), root(root), line_color(line_color), fill_color(fill_color),spread(1) {
 }
 
 Octree::~Octree() {
@@ -69,7 +71,27 @@ void Octree::GenBox(float w, float h, float d, const QVector3D &center, int max_
 
 void Octree::GenTorus(float r1, float r2, const QVector3D &center, int max_depth) {
   OctreeTorus gen(r1, r2, center);
-  float bb = qMax(r1, r2 / 2.0f);
+  float bb = r1+r2;
+  p1 = kP1 * bb;
+  p2 = kP2 * bb;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = gen.GenRec(max_depth, 0, size, p1, p2);
+}
+
+void Octree::GenPrism(float r, float h, float s, QVector3D &center, int max_depth)
+{
+  OctreePrism gen(r,h,s);
+  float bb = qMax(r,h/2.0f);
+  p1 = kP1 * bb;
+  p2 = kP2 * bb;
+  float size = qAbs(p1.x() - p2.x())/2;
+  root = gen.GenRec(max_depth, 0, size, p1, p2);
+}
+
+void Octree::GenPyramid(float r, float h, float s, QVector3D &center, int max_depth)
+{
+  OctreePyramid gen(r,h,s);
+  float bb = qMax(r,h/2.0f);
   p1 = kP1 * bb;
   p2 = kP2 * bb;
   float size = qAbs(p1.x() - p2.x())/2;
@@ -82,21 +104,21 @@ void Octree::UpdateP() {
 }
 
 void Octree::SetSpread(float spread) {
-    this->spread = spread;
+  this->spread = spread;
 }
 
 void Octree::UpdateSpecific()
 {
-    bb1 = transform*p1;
-    bb2 = transform*p2;
+  bb1 = transform*p1;
+  bb2 = transform*p2;
 }
 
 QString Octree::SaveSpecific()
 {
-    return root->Save();
+  return root->Save();
 }
 
 QString Octree::ObjectType()
 {
-    return "oct";
+  return "oct";
 }

@@ -5,5 +5,7 @@
         <file>cylinder.png</file>
         <file>sphere.png</file>
         <file>torus.png</file>
+        <file>prism.png</file>
+        <file>pyramid.png</file>
     </qresource>
 </RCC>
