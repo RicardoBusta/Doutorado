@@ -16,9 +16,6 @@ OctreePrism::OctreePrism(float r, float h, int s)
     a = a*angle;
     points.push_back(QVector3D(r*cos(a),0,r*sin(a)));
   }
-  qDebug() << points;
-  normal = QVector3D::crossProduct(points[1]-points[0],points[2]-points[0]);
-  normal.normalize();
 }
 
 bool OctreePrism::ConditionInside(const QVector3D &p)

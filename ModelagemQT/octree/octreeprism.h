@@ -16,7 +16,6 @@ private:
   float r, h;
   int s;
   QVector<QVector3D> points;
-  QVector3D normal;
 };
 
 #endif // OCTREEPRISM_H
