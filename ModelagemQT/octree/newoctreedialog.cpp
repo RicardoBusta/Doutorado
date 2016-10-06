@@ -130,10 +130,12 @@ void NewOctreeDialog::SelectPrimitiveShape(bool checked) {
 
 void NewOctreeDialog::SelectFaceColor()
 {
-face = QColorDialog::getRgba();
+face = QColorDialog::getRgba(face);
+ui->faceColor->setStyleSheet(colorButtonStyle.arg(QColor(face).name()));
 }
 
 void NewOctreeDialog::SelectLineColor()
 {
-line = QColorDialog::getRgba();
+line = QColorDialog::getRgba(line);
+ui->lineColor->setStyleSheet(colorButtonStyle.arg(QColor(line).name()));
 }

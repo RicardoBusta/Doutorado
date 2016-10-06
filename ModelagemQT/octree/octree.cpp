@@ -130,7 +130,7 @@ QString Octree::ObjectType()
   return "oct";
 }
 
-Octree *Octree::Duplicate()
+Object *Octree::Duplicate()
 {
   Octree * out = new Octree(name+" copy",root->Copy(),line_color,fill_color);
   out->SetP(p1,p2);

@@ -5,6 +5,10 @@
 
 #include "globaloptions.h"
 
+#include <QRegularExpression>
+
+QRegularExpression obj = QRegularExpression("obj (\\s+) (\\s+) (\\d+(?:\\.\\d+)?){8} .*");
+
 Scene::Scene(QObject *parent)
     : QObject(parent),
       current_object(nullptr),
@@ -45,6 +49,14 @@ void Scene::DeleteCurrentObject()
   delete current_object;
   current_object = nullptr;
   emit UpdateObjList();
+}
+
+void Scene::AddObjectFromString(const QString &objcode)
+{
+  qDebug() << obj.isValid();
+  QRegularExpressionMatch m = obj.match(objcode);
+  qDebug() << objcode;
+  qDebug() << m.capturedTexts();
 }
 
 void Scene::ChangeOctreeSpread(int spread)

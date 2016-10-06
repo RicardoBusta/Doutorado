@@ -144,5 +144,10 @@ bool Object::IsInside(const QVector3D) const
   return false;
 }
 
+Object *Object::Duplicate()
+{
+  return new Object(name+" copy");
+}
+
 void Object::Draw() const {
 }

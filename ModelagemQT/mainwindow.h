@@ -31,8 +31,13 @@ private slots:
   void CreateOctreePressed();
   void OperateOctreePressed();
 
+  void DuplicateObjectPressed();
+
   void SaveScenePress();
   void LoadScenePress();
+
+  void SetMainColor();
+  void SetAltColor();
 };
 
 #endif // MAINWINDOW_H

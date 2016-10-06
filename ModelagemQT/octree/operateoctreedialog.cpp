@@ -7,6 +7,10 @@
 #include "octree/octreeunion.h"
 #include "octree/octreetorus.h"
 
+#include <QColorDialog>
+
+const QString colorButtonStyle = "background-color: %1;\nborder: none;";
+
 OperateOctreeDialog::OperateOctreeDialog(Scene *scene, QWidget *parent) :
   QDialog(parent),
   ui(new Ui::OperateOctreeDialog),
@@ -18,8 +22,14 @@ OperateOctreeDialog::OperateOctreeDialog(Scene *scene, QWidget *parent) :
     GetOctreesRec(o);
   }
 
-  c1 = QColor(150,0,0);
-  c2 = QColor(255,100,100);
+  faceColor = QColor(150,0,0);
+  lineColor = QColor(255,100,100);
+
+  ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
+  ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
+
+  QObject::connect(ui->faceColor,SIGNAL(clicked(bool)),this,SLOT(SelectFaceColor()));
+  QObject::connect(ui->lineColor,SIGNAL(clicked(bool)),this,SLOT(SelectLineColor()));
 }
 
 OperateOctreeDialog::~OperateOctreeDialog()
@@ -61,7 +71,7 @@ void OperateOctreeDialog::Operate() {
     OctreeNode * op = oper.GenRec(ui->depth_spinBox->value(),0,side/2,p1,p2);
     //op->UpdatePRec(p1,p2);
 
-    Octree * newoct = new Octree("Operated",op,c1.rgba(),c2.rgba());
+    Octree * newoct = new Octree("Operated",op,faceColor.rgba(),lineColor.rgba());
     newoct->SetP(p1,p2);
     scene->CreateObjectGeneric(newoct);
 }
@@ -77,4 +87,16 @@ void OperateOctreeDialog::GetOctreesRec(Object *obj)
   foreach(Object *o, obj->children){
     GetOctreesRec(o);
   }
+}
+
+void OperateOctreeDialog::SelectFaceColor()
+{
+  faceColor = QColorDialog::getRgba(faceColor.rgba());
+  ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
+}
+
+void OperateOctreeDialog::SelectLineColor()
+{
+  lineColor = QColorDialog::getRgba(lineColor.rgba());
+  ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
 }

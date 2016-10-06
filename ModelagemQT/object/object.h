@@ -45,6 +45,8 @@ public:
   QMatrix4x4 InvTransform() const;
 
   virtual bool IsInside(const QVector3D) const;
+
+  virtual Object * Duplicate();
 protected:
   virtual void Draw() const;
   QString name;

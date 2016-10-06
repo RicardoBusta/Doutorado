@@ -9,8 +9,10 @@
 #include "octree/newoctreedialog.h"
 #include "octree/operateoctreedialog.h"
 
+const QString colorButtonStyle = "background-color: %1;\nborder: none;";
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
-                                          ui(new Ui::MainWindow) {
+  ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
   Scene *s = ui->glwidget->GetScene();
@@ -54,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   QObject::connect(ui->save_pushButton,SIGNAL(clicked(bool)),this,SLOT(SaveScenePress()));
   QObject::connect(ui->load_pushButton,SIGNAL(clicked(bool)),this,SLOT(LoadScenePress()));
+
+  QObject::connect(ui->duplicate_button,SIGNAL(clicked(bool)),this,SLOT(DuplicateObjectPressed()));
 }
 
 MainWindow::~MainWindow() {
@@ -150,11 +154,11 @@ void MainWindow::UpdateCurrentObjectTransform(double v) {
   }
   const QObject *s = QObject::sender();
   if (s == ui->pos_x || s==ui->pos_y || s==ui->pos_z) {
-      obj->setPosition(ui->pos_x->value(),ui->pos_y->value(),ui->pos_z->value());
+    obj->setPosition(ui->pos_x->value(),ui->pos_y->value(),ui->pos_z->value());
   }else if(s == ui->rot_x || s==ui->rot_y || s==ui->rot_z) {
-      obj->setRotation(ui->rot_x->value(),ui->rot_y->value(),ui->rot_z->value());
+    obj->setRotation(ui->rot_x->value(),ui->rot_y->value(),ui->rot_z->value());
   }else if(s == ui->sca_x || s==ui->sca_y || s==ui->sca_z) {
-      obj->setScale(ui->sca_x->value(),ui->sca_y->value(),ui->sca_z->value());
+    obj->setScale(ui->sca_x->value(),ui->sca_y->value(),ui->sca_z->value());
   }
   ui->glwidget->update();
 }
@@ -199,41 +203,60 @@ void MainWindow::OperateOctreePressed() {
   }
 }
 
+void MainWindow::DuplicateObjectPressed()
+{
+  Scene * s =  ui->glwidget->GetScene();
+  Object * obj = s->current_object->Duplicate();
+  s->CreateObjectGeneric(obj);
+}
+
 void MainWindow::SaveScenePress()
 {
-    QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Scene (*.scene)");
-    if(filename.isEmpty()){
-        return;
-    }
-    QFile file(filename);
-    if(!file.open(QFile::WriteOnly|QFile::Text)){
-        return;
-    }
+  QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Scene (*.scene)");
+  if(filename.isEmpty()){
+    return;
+  }
+  QFile file(filename);
+  if(!file.open(QFile::WriteOnly|QFile::Text)){
+    return;
+  }
 
-    QTextStream out(&file);
+  QTextStream out(&file);
 
-    Scene *s = ui->glwidget->GetScene();
-    foreach(Object * o , s->objects){
-        out << o->Save() << "\n";
-    }
+  Scene *s = ui->glwidget->GetScene();
+  foreach(Object * o , s->objects){
+    out << o->Save() << "\n";
+  }
 
 }
 
 void MainWindow::LoadScenePress()
 {
-    QString filename = QFileDialog::getOpenFileName(this,"Load Scene",".","Scene (*.scene)");
-    if(filename.isEmpty()){
-        return;
-    }
-    QFile file(filename);
-    if(!file.open(QFile::ReadOnly|QFile::Text)){
-        return;
-    }
-    QTextStream in(&file);
+  QString filename = QFileDialog::getOpenFileName(this,"Load Scene",".","Scene (*.scene)");
+  if(filename.isEmpty()){
+    return;
+  }
+  QFile file(filename);
+  if(!file.open(QFile::ReadOnly|QFile::Text)){
+    return;
+  }
+  QTextStream in(&file);
 
-    while(!in.atEnd()){
-        QString line = in.readLine();
-        qDebug() << line;
-    }
+  Scene * s = ui->glwidget->GetScene();
+
+  while(!in.atEnd()){
+    QString line = in.readLine();
+    s->AddObjectFromString(line);
+  }
+}
+
+void MainWindow::SetMainColor()
+{
+
+}
+
+void MainWindow::SetAltColor()
+{
+
 }
 

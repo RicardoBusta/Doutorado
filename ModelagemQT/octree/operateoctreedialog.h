@@ -28,9 +28,13 @@ private:
 
   QVector<Octree*>objects_ref;
 
-  QColor c1,c2;
+  QColor faceColor,lineColor;
 
   void GetOctreesRec(Object *obj);
+
+private slots:
+  void SelectFaceColor();
+  void SelectLineColor();
 };
 
 #endif // OPERATEOCTREEDIALOG_H

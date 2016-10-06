@@ -30,6 +30,8 @@ public slots:
 
   void DeleteCurrentObject();
 
+  void AddObjectFromString(const QString &objcode);
+
   void ChangeOctreeSpread(int spread);
   void Reparent(QString child, QString new_parent);
 };
