@@ -87,6 +87,7 @@ void NewOctreeDialog::CreateShape(Scene *scene) {
     break;
   }
   octree->UpdateP();
+  octree->IsInside(QVector3D());
   if (octree != nullptr) {
     scene->CreateObjectGeneric(octree);
   }

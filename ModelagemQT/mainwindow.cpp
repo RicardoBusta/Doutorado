@@ -107,8 +107,19 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
   Object *obj = (Object *)current->data(0, Qt::UserRole).toULongLong();
   ui->glwidget->GetScene()->current_object = obj;
 
+  QVector<QWidget*> value_widgets = {
+    ui->pos_x,ui->pos_y,ui->pos_z,
+    ui->rot_x,ui->rot_y,ui->rot_z,
+    ui->sca_x,ui->sca_y,ui->sca_z,
+    ui->hide_checkBox,ui->lines_checkBox,
+    ui->name_lineEdit
+  };
+
   if (obj != nullptr) {
     ui->obj_content->setEnabled(true);
+    foreach (QWidget*w, value_widgets) {
+      w->blockSignals(true);
+    }
     ui->pos_x->setValue(obj->getPosition().x());
     ui->pos_y->setValue(obj->getPosition().y());
     ui->pos_z->setValue(obj->getPosition().z());
@@ -123,6 +134,10 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
     ui->lines_checkBox->setChecked(obj->line);
 
     ui->name_lineEdit->setText(obj->getName());
+
+    foreach (QWidget*w, value_widgets) {
+      w->blockSignals(false);
+    }
   } else {
     ui->obj_content->setEnabled(false);
   }

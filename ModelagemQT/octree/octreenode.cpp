@@ -9,19 +9,19 @@ const QVector3D kP2(1, -1, -1);
 
 void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
   glPushMatrix();
-//  if (spread > 0) {
-    QVector3D center = (p1 + p2) / 2;
-    float scale = qAbs(p1.x()-p2.x())/2*spread;
-    glTranslatef(center.x(),center.y(),center.z());
-    glScalef(scale,scale,scale);
+  //  if (spread > 0) {
+  QVector3D center = (p1 + p2) / 2;
+  float scale = qAbs(p1.x()-p2.x())/2*spread;
+  glTranslatef(center.x(),center.y(),center.z());
+  glScalef(scale,scale,scale);
   //}
   glColor3ub(UB_COLOR(fill));
   DrawBox(true);
 
-    if (!draw_lines) {
-      glPopMatrix();
-      return;
-    }
+  if (!draw_lines) {
+    glPopMatrix();
+    return;
+  }
   GLint polyMode[2];
   GLint cull;
   glGetIntegerv(GL_POLYGON_MODE, polyMode);
@@ -42,12 +42,17 @@ void OctreeFull::DrawRec(const float spread, const QRgb &line, const QRgb &fill,
 }
 
 OctreeType OctreeFull::GetType() {
-    return OctreeType::Full;
+  return OctreeType::Full;
 }
 
 QString OctreeFull::Save()
 {
-    return "w";
+  return "w";
+}
+
+bool OctreeFull::IsInside(const QVector3D &p, int depth) const
+{
+  return true;
 }
 
 void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
@@ -81,12 +86,17 @@ void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill
 }
 
 OctreeType OctreeEmpty::GetType() {
-    return OctreeType::Empty;
+  return OctreeType::Empty;
 }
 
 QString OctreeEmpty::Save()
 {
-    return "b";
+  return "b";
+}
+
+bool OctreeEmpty::IsInside(const QVector3D &p, int depth) const
+{
+  return false;
 }
 
 OctreePartial::OctreePartial() {
@@ -106,59 +116,87 @@ OctreePartial::~OctreePartial() {
 void OctreePartial::UpdatePRec(const QVector3D &np1, const QVector3D &np2) {
   p1 = np1;
   p2 = np2;
-  QVector3D p3 = (np1 + np2) / 2;
-  float shift = p3.x() - p1.x();
+  pc = (np1 + np2) / 2;
+  float shift = pc.x() - p1.x();
 
   for (int i = 0; i < 8; i++) {
     QVector3D slide = shift * kOctreeCoords[i];
-    nodes[i]->UpdatePRec(p1 + slide, p3 + slide);
+    nodes[i]->UpdatePRec(p1 + slide, pc + slide);
   }
 }
 
 OctreeType OctreePartial::GetType() {
-    return OctreeType::Partial;
+  return OctreeType::Partial;
 }
 
 QString OctreePartial::Save()
 {
- QString out = "(";
- for(int i=0;i<8;i++){
-     out += nodes[i]->Save();
- }
- return out;
+  QString out = "(";
+  for(int i=0;i<8;i++){
+    out += nodes[i]->Save();
+  }
+  return out;
+}
+
+/*
+  2---1
+ /|  /|
+3-+-0 |
+| 6-+-5   y
+|/  |/    |_x
+7---4   z/
+*/
+bool OctreePartial::IsInside(const QVector3D &p,int depth) const
+{
+  //ebug() << depth << pc << p1 << p2;
+  if(p.x() > pc.x()){
+    //0,1,4,5
+    if(p.y()<pc.y()){
+      //0,1
+      if(p.z()>pc.z()){
+        return nodes[0]->IsInside(p,depth+1);
+      }else{
+        return nodes[1]->IsInside(p,depth+1);
+      }
+    }else{
+      //4,5
+      if(p.z()>pc.z()){
+        return nodes[4]->IsInside(p,depth+1);
+      }else{
+        return nodes[5]->IsInside(p,depth+1);
+      }
+    }
+  }else{
+    //2,3,6,7
+    if(p.y()<pc.y()){
+      //2,3
+      if(p.z()>pc.z()){
+        return nodes[3]->IsInside(p,depth+1);
+      }else{
+        return nodes[2]->IsInside(p,depth+1);
+      }
+    }else{
+      //6,7
+      if(p.z()>pc.z()){
+        return nodes[7]->IsInside(p,depth+1);
+      }else{
+        return nodes[6]->IsInside(p,depth+1);
+      }
+    }
+  }
+  return false;
 }
 
 void OctreePartial::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
-  //QRgb color[] = {0xff0000, 0xffff00, 0xffffff, 0x00ff00, 0x00ffff, 0x0000ff, 0xff00ff, 0x000000};
   for (int i = 0; i < 8; i++) {
     nodes[i]->DrawRec(spread, line, /*color[i]*/ fill, draw_lines);
   }
-
-//  if (!draw_lines) {
-//    return;
-//  }
-
-//  GLint polyMode[2];
-//  GLint cull;
-//  glGetIntegerv(GL_POLYGON_MODE, polyMode);
-//  glGetIntegerv(GL_CULL_FACE, &cull);
-
-//  glDisable(GL_CULL_FACE);
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-//  glColor3ub(UB_COLOR(line));
-//  DrawBox(false);
-
-//  glPolygonMode(GL_FRONT, polyMode[0]);
-//  glPolygonMode(GL_BACK, polyMode[1]);
-//  if (cull) {
-//    glEnable(GL_CULL_FACE);
-//  }
 }
 
 void OctreeNode::UpdatePRec(const QVector3D &np1, const QVector3D &np2) {
   p1 = np1;
   p2 = np2;
+  pc = (p1+p2)/2.0f;
 }
 
 void OctreeNode::DrawBox(bool lighting) {

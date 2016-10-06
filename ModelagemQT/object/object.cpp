@@ -88,6 +88,9 @@ void Object::UpdateTransform()
     transform.translate(position);
     transform.rotate(rotation);
     transform.scale(scale);
+
+    inv_transform = transform.inverted();
+
     UpdateSpecific();
 }
 
@@ -123,7 +126,22 @@ QString Object::TransformText()
             .arg(rotation.z())
             .arg(scale.x())
             .arg(scale.y())
-            .arg(scale.z());
+        .arg(scale.z());
+}
+
+QMatrix4x4 Object::Transform() const
+{
+  return transform;
+}
+
+QMatrix4x4 Object::InvTransform() const
+{
+  return inv_transform;
+}
+
+bool Object::IsInside(const QVector3D) const
+{
+  return false;
 }
 
 void Object::Draw() const {

@@ -40,6 +40,11 @@ public:
   virtual QString SaveSpecific();
   virtual QString ObjectType();
   QString TransformText();
+
+  QMatrix4x4 Transform() const;
+  QMatrix4x4 InvTransform() const;
+
+  virtual bool IsInside(const QVector3D) const;
 protected:
   virtual void Draw() const;
   QString name;
@@ -49,6 +54,7 @@ protected:
   QVector3D scale;
 
   QMatrix4x4 transform;
+  QMatrix4x4 inv_transform;
 };
 
 #endif // OBJECT_H

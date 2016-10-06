@@ -23,6 +23,8 @@ public:
   void GenPyramid(float r, float h, float s,QVector3D &center, int max_depth);
   void UpdateP();
 
+  void SetP(const QVector3D &p1, const QVector3D &p2);
+
   void SetSpread(float spread);
 
   void UpdateSpecific();
@@ -32,6 +34,8 @@ public:
   QString ObjectType();
 
   QVector3D bb1, bb2;
+
+  bool IsInside(const QVector3D &p) const;
 private:
   float spread;
   QRgb line_color;

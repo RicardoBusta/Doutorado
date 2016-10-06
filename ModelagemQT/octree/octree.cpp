@@ -103,6 +103,13 @@ void Octree::UpdateP() {
   UpdateSpecific();
 }
 
+void Octree::SetP(const QVector3D &p1, const QVector3D &p2)
+{
+  this->p1 = p1;
+  this->p2 = p2;
+  UpdateP();
+}
+
 void Octree::SetSpread(float spread) {
   this->spread = spread;
 }
@@ -121,4 +128,17 @@ QString Octree::SaveSpecific()
 QString Octree::ObjectType()
 {
   return "oct";
+}
+
+bool Octree::IsInside(const QVector3D &p) const
+{
+  if(p.x() >= p1.x() && p.x() <= p2.x() ){
+    if(p.y() <= p1.y() && p.y() >= p2.y() ){
+      if(p.z() <= p1.z() && p.z() >= p2.z() ){
+        return root->IsInside(p,0);
+        //return true;
+      }
+    }
+  }
+  return false;
 }

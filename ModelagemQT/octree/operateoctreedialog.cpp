@@ -48,10 +48,12 @@ void OperateOctreeDialog::Operate() {
     QVector3D p2 = center + QVector3D(side,-side,-side)/2;
     OctreeUnion oper(oct1,oct2,p1,p2);
     //OctreeTorus oper(1,1,QVector3D(0,0,0));
-    OctreeNode * op = oper.GenRecur(5,0);
+    //OctreeNode * op = oper.GenRecur(5,0);
+    OctreeNode * op = oper.GenRec(6,0,side/2,p1,p2);
+    //op->UpdatePRec(p1,p2);
 
     Octree * newoct = new Octree("Operated",op,0x00ff00,0xffff00);
-    //newoct->UpdateP();
+    newoct->SetP(p1,p2);
     scene->CreateObjectGeneric(newoct);
 }
 
