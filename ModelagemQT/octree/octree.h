@@ -35,6 +35,8 @@ public:
 
   QVector3D bb1, bb2;
 
+  Octree * Duplicate();
+
   bool IsInside(const QVector3D &p) const;
 private:
   float spread;

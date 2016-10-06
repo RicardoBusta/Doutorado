@@ -28,6 +28,8 @@ private:
 
   QVector<Octree*>objects_ref;
 
+  QColor c1,c2;
+
   void GetOctreesRec(Object *obj);
 };
 

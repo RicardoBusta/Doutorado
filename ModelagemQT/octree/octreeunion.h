@@ -8,7 +8,7 @@ class Octree;
 class OctreeUnion : public OctreeShape
 {
 public:
-    OctreeUnion(Octree *oc1, Octree *oc2, const QVector3D &p1, const QVector3D &p2);
+    OctreeUnion(Octree *oc1, Octree *oc2, const QVector3D &p1, const QVector3D &p2, int op);
 
     virtual bool ConditionInside(const QVector3D &p);
 
@@ -18,6 +18,7 @@ private:
     Octree *oc2;
     QVector3D p1;
     QVector3D p2;
+    int op;
 };
 
 #endif // OCTREEUNION_H

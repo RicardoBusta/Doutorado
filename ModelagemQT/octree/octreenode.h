@@ -31,6 +31,8 @@ public:
   virtual QString Save()=0;
 
   virtual bool IsInside(const QVector3D &p, int depth) const=0;
+
+  virtual OctreeNode * Copy()=0;
 protected:
   QVector3D dp1, dp2;
 };
@@ -41,6 +43,7 @@ public:
   enum OctreeType GetType();
   virtual QString Save();
   virtual bool IsInside(const QVector3D &p, int depth) const;
+  virtual OctreeNode * Copy();
 };
 
 class OctreeEmpty : public OctreeNode {
@@ -49,6 +52,7 @@ public:
   enum OctreeType GetType();
   virtual QString Save();
   virtual bool IsInside(const QVector3D &p, int depth) const;
+  virtual OctreeNode * Copy();
 };
 
 class OctreePartial : public OctreeNode {
@@ -60,6 +64,7 @@ public:
   enum OctreeType GetType();
   virtual QString Save();
   virtual bool IsInside(const QVector3D &p, int depth) const;
+  virtual OctreeNode * Copy();
 public:
   OctreeNode *nodes[8];
 };

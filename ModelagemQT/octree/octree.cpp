@@ -130,6 +130,13 @@ QString Octree::ObjectType()
   return "oct";
 }
 
+Octree *Octree::Duplicate()
+{
+  Octree * out = new Octree(name+" copy",root->Copy(),line_color,fill_color);
+  out->SetP(p1,p2);
+  return out;
+}
+
 bool Octree::IsInside(const QVector3D &p) const
 {
   if(p.x() >= p1.x() && p.x() <= p2.x() ){

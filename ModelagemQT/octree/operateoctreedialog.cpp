@@ -17,6 +17,9 @@ OperateOctreeDialog::OperateOctreeDialog(Scene *scene, QWidget *parent) :
   foreach(Object *o ,scene->objects){
     GetOctreesRec(o);
   }
+
+  c1 = QColor(150,0,0);
+  c2 = QColor(255,100,100);
 }
 
 OperateOctreeDialog::~OperateOctreeDialog()
@@ -29,6 +32,12 @@ void OperateOctreeDialog::Operate() {
     Octree * oct2 = objects_ref[ui->operand_2_comboBox->currentIndex()];
     if(oct1==oct2){
         return;
+    }
+
+    int ope = ui->operation_comboBox->currentIndex()-1;
+
+    if(ope<0){
+      return;
     }
 
     // Both objects are octrees. Get the limits of both of them.
@@ -46,13 +55,13 @@ void OperateOctreeDialog::Operate() {
 
     QVector3D p1 = center + QVector3D(-side,side,side)/2;
     QVector3D p2 = center + QVector3D(side,-side,-side)/2;
-    OctreeUnion oper(oct1,oct2,p1,p2);
+    OctreeUnion oper(oct1,oct2,p1,p2,ope);
     //OctreeTorus oper(1,1,QVector3D(0,0,0));
     //OctreeNode * op = oper.GenRecur(5,0);
-    OctreeNode * op = oper.GenRec(6,0,side/2,p1,p2);
+    OctreeNode * op = oper.GenRec(ui->depth_spinBox->value(),0,side/2,p1,p2);
     //op->UpdatePRec(p1,p2);
 
-    Octree * newoct = new Octree("Operated",op,0x00ff00,0xffff00);
+    Octree * newoct = new Octree("Operated",op,c1.rgba(),c2.rgba());
     newoct->SetP(p1,p2);
     scene->CreateObjectGeneric(newoct);
 }

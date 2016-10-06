@@ -55,6 +55,11 @@ bool OctreeFull::IsInside(const QVector3D &p, int depth) const
   return true;
 }
 
+OctreeNode *OctreeFull::Copy()
+{
+  return new OctreeFull();
+}
+
 void OctreeEmpty::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
   if (!draw_lines) {
     return;
@@ -97,6 +102,11 @@ QString OctreeEmpty::Save()
 bool OctreeEmpty::IsInside(const QVector3D &p, int depth) const
 {
   return false;
+}
+
+OctreeNode *OctreeEmpty::Copy()
+{
+  return new OctreeEmpty();
 }
 
 OctreePartial::OctreePartial() {
@@ -185,6 +195,17 @@ bool OctreePartial::IsInside(const QVector3D &p,int depth) const
     }
   }
   return false;
+}
+
+OctreeNode *OctreePartial::Copy()
+{
+  OctreePartial *out = new OctreePartial();
+
+  for(int i=0;i<8;i++){
+    out->nodes[i] = nodes[i]->Copy();
+  }
+
+  return out;
 }
 
 void OctreePartial::DrawRec(const float spread, const QRgb &line, const QRgb &fill, bool draw_lines) const {
