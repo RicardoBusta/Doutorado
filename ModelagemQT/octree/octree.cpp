@@ -199,8 +199,11 @@ QString Octree::ObjectType()
 
 Object *Octree::Duplicate()
 {
-  Octree * out = new Octree(name+" copy",root->Copy(),line_color,fill_color);
+  Octree * out = new Octree(name+"_copy",root->Copy(),line_color,fill_color);
   out->SetP(p1,p2);
+  out->position;
+  out->rotation = rotation;
+  out->scale = scale;
   return out;
 }
 

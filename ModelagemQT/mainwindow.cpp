@@ -68,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   lineColor = QColor(255,255,255);
   ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
+
+  QObject::connect(ui->clear_pushButton,SIGNAL(clicked(bool)),this,SLOT(ClearScene()));
 }
 
 MainWindow::~MainWindow() {
@@ -292,5 +294,15 @@ void MainWindow::SetLineColor()
   ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
   obj->setLineColor(lineColor);
   UpdateDrawing();
+}
+
+void MainWindow::ClearScene()
+{
+  Scene * s =  ui->glwidget->GetScene();
+  foreach(Object *s, s->objects){
+    delete s;
+  }
+  s->objects.clear();
+  UpdateObjList();
 }
 

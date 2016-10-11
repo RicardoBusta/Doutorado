@@ -122,13 +122,14 @@ QString Object::ObjectType()
 
 QString Object::TransformText()
 {
+  QVector3D rot = rotation.toEulerAngles();
     return QString("%1 %2 %3 %4 %5 %6 %7 %8 %9")
             .arg(position.x())
             .arg(position.y())
             .arg(position.z())
-            .arg(rotation.x())
-            .arg(rotation.y())
-            .arg(rotation.z())
+            .arg(rot.x())
+            .arg(rot.y())
+            .arg(rot.z())
             .arg(scale.x())
             .arg(scale.y())
         .arg(scale.z());

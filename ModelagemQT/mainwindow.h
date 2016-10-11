@@ -40,6 +40,8 @@ private slots:
 
   void SetFaceColor();
   void SetLineColor();
+
+  void ClearScene();
 };
 
 #endif // MAINWINDOW_H

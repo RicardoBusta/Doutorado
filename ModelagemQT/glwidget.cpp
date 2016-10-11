@@ -20,7 +20,7 @@ GLWidget::~GLWidget() {
 void GLWidget::initializeGL() {
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
-  glClearColor(0.15f, 0.15f, 0.15f, 1.0f);
+  glClearColor(0.15f, 0.35f, 0.55f, 1.0f);
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_NORMALIZE);
   //glEnable(GL_LIGHTING);
