@@ -100,6 +100,61 @@ void Octree::GenPyramid(float r, float h, float s, QVector3D &center, int max_de
   root = gen.GenRec(max_depth, 0, size, p1, p2);
 }
 
+void Octree::GenText(const QString &text)
+{
+  //  int index = 0;
+  //  root = GenTextRec(text,index,&index);
+  int index = text.size()-1;
+  QVector<OctreeNode*> nodes;
+  while(index >= 0){
+    switch(text[index].toLatin1()){
+    case 'w':
+      nodes.push_back(new OctreeEmpty());
+      break;
+    case 'b':
+      nodes.push_back(new OctreeFull());
+      break;
+    default:
+      if(nodes.size()<8){
+        qDebug() << "ERROR!";
+        foreach(OctreeNode *n, nodes){
+          delete n;
+        }
+        return;
+      }
+      OctreePartial * node = new OctreePartial();
+      for(int i=0;i<8;i++){
+        node->nodes[i] = nodes.takeLast();
+      }
+      nodes.push_back(node);
+      break;
+    }
+    index --;
+  }
+  //p1 = kP1;
+  //p2 = kP2;
+  root = nodes.first();
+  UpdateP();
+}
+
+//OctreeNode *Octree::GenTextRec(const QString &text, const int index_start, int *index_end)
+//{
+//  if(text[index_start]=='b'){
+//    *index_end = index_start+1;
+//    return new OctreeFull();
+//  }else if(text[index_start]=='w'){
+//    *index_end = index_start+1;
+//    return new OctreeEmpty();
+//  }else{
+//    OctreePartial * node = new OctreePartial();
+//    int index = index_start+1;
+//    for(int i=0;i<8;i++){
+//      node->nodes[i] = GenTextRec(text,index,&index);
+//    }
+//    return node;
+//  }
+//}
+
 void Octree::UpdateP() {
   root->UpdatePRec(p1, p2);
   UpdateSpecific();
@@ -124,7 +179,17 @@ void Octree::UpdateSpecific()
 
 QString Octree::SaveSpecific()
 {
-  return root->Save();
+  QString save = QString("%1 %2 %3 %4 %5 %6 %7 %8 %9")
+      .arg(p1.x())
+      .arg(p1.y())
+      .arg(p1.z())
+      .arg(p2.x())
+      .arg(p2.y())
+      .arg(p2.z())
+      .arg(QColor(fill_color).name())
+      .arg(QColor(line_color).name())
+      .arg(root->Save());
+  return save;
 }
 
 QString Octree::ObjectType()

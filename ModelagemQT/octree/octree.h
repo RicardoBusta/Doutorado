@@ -21,6 +21,9 @@ public:
   void GenTorus(float r1, float r2, const QVector3D &center, int max_depth);
   void GenPrism(float r, float h, float s,QVector3D &center, int max_depth);
   void GenPyramid(float r, float h, float s,QVector3D &center, int max_depth);
+  void GenText(const QString &text);
+//  OctreeNode * GenTextRec(const QString &text, const int index_start, int *index_end);
+
   void UpdateP();
 
   void SetP(const QVector3D &p1, const QVector3D &p2);
@@ -30,7 +33,6 @@ public:
   void UpdateSpecific();
 
   QString SaveSpecific();
-  QString SaveRec();
   QString ObjectType();
 
   QVector3D bb1, bb2;

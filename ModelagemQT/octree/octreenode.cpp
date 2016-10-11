@@ -47,7 +47,7 @@ OctreeType OctreeFull::GetType() {
 
 QString OctreeFull::Save()
 {
-  return "w";
+  return "b";
 }
 
 bool OctreeFull::IsInside(const QVector3D &p, int depth) const
@@ -96,7 +96,7 @@ OctreeType OctreeEmpty::GetType() {
 
 QString OctreeEmpty::Save()
 {
-  return "b";
+  return "w";
 }
 
 bool OctreeEmpty::IsInside(const QVector3D &p, int depth) const

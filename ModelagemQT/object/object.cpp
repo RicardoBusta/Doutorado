@@ -7,15 +7,14 @@
 
 QMap<QString, Object *> Object::obj_map = QMap<QString, Object *>();
 
-static int count = 0;
-
 Object::Object(QString name)
     : scale(QVector3D(1, 1, 1)),
       hide(false),
       line(false),
       parent(nullptr) {
-  this->name = name + "_" + QString::number(count++);
-  while (obj_map.contains(name)) {
+  this->name = name;
+  int count=0;
+  while (obj_map.contains(this->name)) {
     this->name = name + "_" + QString::number(count++);
   }
   obj_map.insert(this->name, this);
@@ -33,6 +32,7 @@ void Object::Rename(QString new_name) {
   obj_map.remove(name);
   new_name.replace(' ','_');
   name = new_name;
+  int count =0;
   while (obj_map.contains(name)) {
     name = new_name + " " + QString::number(count++);
   }
@@ -103,7 +103,11 @@ void Object::UpdateSpecific()
 QString Object::Save()
 {
     QString parent_name = parent!=nullptr?parent->getName():"none";
-    return QString("%1 %2 %3 %4 %5").arg(ObjectType(),parent_name,getName(),TransformText(),SaveSpecific());
+    QString result = QString("%1 %2 %3 %4 %5").arg(ObjectType(),parent_name,getName(),TransformText(),SaveSpecific())+"\n";
+    foreach(Object *child, children){
+      result += child->Save();
+    }
+    return result;
 }
 
 QString Object::SaveSpecific()

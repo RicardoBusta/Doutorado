@@ -2,17 +2,45 @@
 
 #include "octree/octree.h"
 #include <QDebug>
+#include <QColor>
 
 #include "globaloptions.h"
 
 #include <QRegularExpression>
 
-QRegularExpression obj = QRegularExpression("obj (\\s+) (\\s+) (\\d+(?:\\.\\d+)?){8} .*");
+QRegularExpression obj;
+QRegularExpression octexp;
 
 Scene::Scene(QObject *parent)
-    : QObject(parent),
-      current_object(nullptr),
-      make_parent(false) {
+  : QObject(parent),
+    current_object(nullptr),
+    make_parent(false) {
+  QString obj_reg = "\\s(\\w+)\\s(\\w+)\\s";
+  QString float_reg = "(-?\\d+(?:\\.\\d+)?)";
+  QString color_reg = "(#[\\dA-Fa-f]{6})";
+  for(int i=0;i<9;i++){
+    obj_reg += float_reg+"\\s";
+  }
+
+  QString oct_reg = "oct"+obj_reg;
+  for(int i=0;i<6;i++)
+  {
+    oct_reg += float_reg+"\\s";
+  }
+
+  oct_reg+=color_reg+"\\s";
+  oct_reg+=color_reg+"\\s";
+  oct_reg+="([\\(wb]+)";
+
+  obj_reg = "obj"+obj_reg;
+
+//  qDebug() << obj_reg;
+//  qDebug() << oct_reg;
+
+  obj = QRegularExpression(obj_reg);
+  octexp = QRegularExpression(oct_reg);
+
+  qDebug() << "Valid strings?" << obj.isValid() << octexp.isValid();
 }
 
 void Scene::Render()
@@ -53,18 +81,73 @@ void Scene::DeleteCurrentObject()
 
 void Scene::AddObjectFromString(const QString &objcode)
 {
-  qDebug() << obj.isValid();
-  QRegularExpressionMatch m = obj.match(objcode);
-  qDebug() << objcode;
-  qDebug() << m.capturedTexts();
+  //qDebug() << obj.isValid();
+  if(objcode.startsWith("obj")){
+    QRegularExpressionMatch m = obj.match(objcode);
+    qDebug() << m.capturedTexts();
+
+    int cap_count = m.capturedTexts().size();
+
+    if(cap_count!=12){
+      qDebug () << "Cap fail" << cap_count;
+      return;
+    }
+
+    QString parent = m.captured(1);
+    QString name = m.captured(2);
+
+    Object * o = new Object(name);
+    o->setPosition(m.captured(3).toFloat(),m.captured(4).toFloat(),m.captured(5).toFloat());
+    o->setRotation(m.captured(6).toFloat(),m.captured(7).toFloat(),m.captured(8).toFloat());
+    o->setScale(m.captured(9).toFloat(),m.captured(10).toFloat(),m.captured(11).toFloat());
+    CreateObjectGeneric(o);
+    if(parent!="none"){
+      Reparent(name,parent);
+    }
+  }else if(objcode.startsWith("oct")){
+    QRegularExpressionMatch m = octexp.match(objcode);
+
+//    int i=0;
+//    foreach(QString s, m.capturedTexts()){
+//      qDebug() << s << i++;
+//    }
+
+    int cap_count = m.capturedTexts().size();
+
+    //qDebug() << cap_count;
+
+    if(cap_count!=21){
+      qDebug () << "Cap fail";
+      return;
+    }
+
+    QString parent = m.captured(1);
+    QString name = m.captured(2);
+
+    Octree * o = new Octree(name,nullptr,0xff0000,0xffffff);
+    o->setPosition(m.captured(3).toFloat(),m.captured(4).toFloat(),m.captured(5).toFloat());
+    o->setRotation(m.captured(6).toFloat(),m.captured(7).toFloat(),m.captured(8).toFloat());
+    o->setScale(m.captured(9).toFloat(),m.captured(10).toFloat(),m.captured(11).toFloat());
+    o->setFaceColor(QColor(m.captured(18)));
+    o->setLineColor(QColor(m.captured(19)));
+    o->GenText(m.captured(20));
+    o->SetP(
+          QVector3D(m.captured(12).toFloat(),m.captured(13).toFloat(),m.captured(14).toFloat()),
+          QVector3D(m.captured(15).toFloat(),m.captured(16).toFloat(),m.captured(17).toFloat()));
+    o->UpdateP();
+    CreateObjectGeneric(o);
+    if(parent!="none"){
+      Reparent(name,parent);
+    }
+  }
 }
 
 void Scene::ChangeOctreeSpread(int spread)
 {   Octree* octree = dynamic_cast<Octree*>(current_object);
     if(octree!=nullptr){
-        float s = float(spread) / 1000.0f;
-        octree->SetSpread(1-s);
-        emit UpdateDrawing();
+      float s = float(spread) / 1000.0f;
+      octree->SetSpread(1-s);
+      emit UpdateDrawing();
     }
 }
 

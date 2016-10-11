@@ -232,7 +232,7 @@ void MainWindow::DuplicateObjectPressed()
 
 void MainWindow::SaveScenePress()
 {
-  QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Scene (*.scene)");
+  QString filename = QFileDialog::getSaveFileName(this,"Save Scene",".","Text (*.txt)");
   if(filename.isEmpty()){
     return;
   }
@@ -245,14 +245,14 @@ void MainWindow::SaveScenePress()
 
   Scene *s = ui->glwidget->GetScene();
   foreach(Object * o , s->objects){
-    out << o->Save() << "\n";
+    out << o->Save();
   }
 
 }
 
 void MainWindow::LoadScenePress()
 {
-  QString filename = QFileDialog::getOpenFileName(this,"Load Scene",".","Scene (*.scene)");
+  QString filename = QFileDialog::getOpenFileName(this,"Load Scene",".","Text (*.txt)");
   if(filename.isEmpty()){
     return;
   }
