@@ -17,7 +17,9 @@ const QVector3D kP2(1, -1, -1);
 static int count = 0;
 
 Octree::Octree(QString name, OctreeNode *root, QRgb line_color, QRgb fill_color)
-  : Object(name), root(root), line_color(line_color), fill_color(fill_color),spread(1) {
+  : Object(name), root(root), spread(1) {
+  this->line_color = line_color;
+  this->fill_color = fill_color;
 }
 
 Octree::~Octree() {

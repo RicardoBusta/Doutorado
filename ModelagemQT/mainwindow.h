@@ -18,6 +18,8 @@ public:
 private:
   Ui::MainWindow *ui;
 
+  QColor faceColor;
+  QColor lineColor;
   //void GetCurrentObjectTransform();
 private slots:
   void UpdateObjList();
@@ -36,8 +38,8 @@ private slots:
   void SaveScenePress();
   void LoadScenePress();
 
-  void SetMainColor();
-  void SetAltColor();
+  void SetFaceColor();
+  void SetLineColor();
 };
 
 #endif // MAINWINDOW_H

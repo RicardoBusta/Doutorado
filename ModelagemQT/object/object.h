@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QQuaternion>
 #include <QMatrix4x4>
+#include <QRgb>
 
 class Object {
 public:
@@ -47,6 +48,12 @@ public:
   virtual bool IsInside(const QVector3D) const;
 
   virtual Object * Duplicate();
+
+  QColor getFaceColor() const;
+  QColor getLineColor() const;
+
+  void setFaceColor(const QColor &color);
+  void setLineColor(const QColor &color);
 protected:
   virtual void Draw() const;
   QString name;
@@ -57,6 +64,9 @@ protected:
 
   QMatrix4x4 transform;
   QMatrix4x4 inv_transform;
+
+  QRgb line_color;
+  QRgb fill_color;
 };
 
 #endif // OBJECT_H

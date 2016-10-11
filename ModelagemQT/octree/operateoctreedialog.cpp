@@ -23,7 +23,7 @@ OperateOctreeDialog::OperateOctreeDialog(Scene *scene, QWidget *parent) :
   }
 
   faceColor = QColor(150,0,0);
-  lineColor = QColor(255,100,100);
+  lineColor = QColor(255,255,255);
 
   ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
   ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));

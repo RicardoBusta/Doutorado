@@ -14,9 +14,9 @@ Object::Object(QString name)
       hide(false),
       line(false),
       parent(nullptr) {
-  this->name = name + " " + QString::number(count++);
+  this->name = name + "_" + QString::number(count++);
   while (obj_map.contains(name)) {
-    this->name = name + " " + QString::number(count++);
+    this->name = name + "_" + QString::number(count++);
   }
   obj_map.insert(this->name, this);
   transform.setToIdentity();
@@ -31,6 +31,7 @@ QString Object::getName() const {
 
 void Object::Rename(QString new_name) {
   obj_map.remove(name);
+  new_name.replace(' ','_');
   name = new_name;
   while (obj_map.contains(name)) {
     name = new_name + " " + QString::number(count++);
@@ -147,6 +148,26 @@ bool Object::IsInside(const QVector3D) const
 Object *Object::Duplicate()
 {
   return new Object(name+" copy");
+}
+
+QColor Object::getFaceColor() const
+{
+  return fill_color;
+}
+
+QColor Object::getLineColor() const
+{
+  return line_color;
+}
+
+void Object::setFaceColor(const QColor &color)
+{
+  fill_color = color.rgba();
+}
+
+void Object::setLineColor(const QColor &color)
+{
+  line_color = color.rgba();
 }
 
 void Object::Draw() const {

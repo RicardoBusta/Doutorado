@@ -40,8 +40,6 @@ public:
   bool IsInside(const QVector3D &p) const;
 private:
   float spread;
-  QRgb line_color;
-  QRgb fill_color;
   QVector3D p1, p2;
   OctreeNode *root;
 };

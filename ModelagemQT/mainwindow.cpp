@@ -4,6 +4,7 @@
 #include <QDebug>
 
 #include <QFileDialog>
+#include <QColorDialog>
 
 #include "globaloptions.h"
 #include "octree/newoctreedialog.h"
@@ -58,6 +59,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->load_pushButton,SIGNAL(clicked(bool)),this,SLOT(LoadScenePress()));
 
   QObject::connect(ui->duplicate_button,SIGNAL(clicked(bool)),this,SLOT(DuplicateObjectPressed()));
+
+  QObject::connect(ui->faceColor,SIGNAL(clicked(bool)),this,SLOT(SetFaceColor()));
+  QObject::connect(ui->lineColor,SIGNAL(clicked(bool)),this,SLOT(SetLineColor()));
+
+  faceColor = QColor(0,0,0);
+  ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
+
+  lineColor = QColor(255,255,255);
+  ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
 }
 
 MainWindow::~MainWindow() {
@@ -101,6 +111,10 @@ void MainWindow::UpdateObjList() {
   }
   ui->object_tree->blockSignals(false);
   ui->glwidget->update();
+
+  if(s->current_object==nullptr){
+    ui->obj_content->setEnabled(false);
+  }
 }
 
 void MainWindow::UpdateDrawing() {
@@ -116,7 +130,7 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
     ui->rot_x,ui->rot_y,ui->rot_z,
     ui->sca_x,ui->sca_y,ui->sca_z,
     ui->hide_checkBox,ui->lines_checkBox,
-    ui->name_lineEdit
+    ui->name_lineEdit,ui->faceColor,ui->lineColor
   };
 
   if (obj != nullptr) {
@@ -138,6 +152,12 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
     ui->lines_checkBox->setChecked(obj->line);
 
     ui->name_lineEdit->setText(obj->getName());
+
+    faceColor = obj->getFaceColor();
+    ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
+
+    lineColor = obj->getLineColor();
+    ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
 
     foreach (QWidget*w, value_widgets) {
       w->blockSignals(false);
@@ -250,13 +270,27 @@ void MainWindow::LoadScenePress()
   }
 }
 
-void MainWindow::SetMainColor()
+void MainWindow::SetFaceColor()
 {
-
+  Object *obj = ui->glwidget->GetScene()->current_object;
+  if(obj==nullptr){
+    return;
+  }
+  faceColor = QColorDialog::getRgba(faceColor.rgba());
+  ui->faceColor->setStyleSheet(colorButtonStyle.arg(faceColor.name()));
+  obj->setFaceColor(faceColor);
+  UpdateDrawing();
 }
 
-void MainWindow::SetAltColor()
+void MainWindow::SetLineColor()
 {
-
+  Object *obj = ui->glwidget->GetScene()->current_object;
+  if(obj==nullptr){
+    return;
+  }
+  lineColor = QColorDialog::getRgba(lineColor.rgba());
+  ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
+  obj->setLineColor(lineColor);
+  UpdateDrawing();
 }
 
