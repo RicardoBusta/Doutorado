@@ -15,6 +15,8 @@ public:
 
 
   void Render();
+
+  QRgb RayCast(const Ray &ray);
 private:
   bool make_parent;
 

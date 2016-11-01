@@ -8,6 +8,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class Scene;
+
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
@@ -21,6 +23,8 @@ private:
   QColor faceColor;
   QColor lineColor;
   //void GetCurrentObjectTransform();
+
+  Scene *scene;
 private slots:
   void UpdateObjList();
   void UpdateDrawing();

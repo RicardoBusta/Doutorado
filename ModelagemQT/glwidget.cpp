@@ -7,14 +7,17 @@
 const int kFPS = 60;
 
 GLWidget::GLWidget(QWidget *parent) : rotX(0), rotY(0), zoom(0),
-                                      QOpenGLWidget(parent) {
+  QOpenGLWidget(parent), s(nullptr) {
   autoTimer.setInterval(1000 / kFPS);
-  scene = new Scene(this);
   connect(&autoTimer, SIGNAL(timeout()), this, SLOT(AutoRotate()));
 }
 
 GLWidget::~GLWidget() {
-  delete (scene);
+}
+
+void GLWidget::SetScene(Scene *s)
+{
+  this->s = s;
 }
 
 void GLWidget::initializeGL() {
@@ -65,7 +68,9 @@ void GLWidget::paintGL() {
   glVertex3f(0,0,1);
   glEnd();
 
-  scene->Render();
+  if(s!=nullptr){
+    s->Render();
+  }
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *e) {
@@ -83,6 +88,7 @@ void GLWidget::mouseMoveEvent(QMouseEvent *e) {
 }
 
 void GLWidget::mouseReleaseEvent(QMouseEvent *e) {
+  Q_UNUSED(e);
   if (delta.manhattanLength() > 5) {
     autoTimer.start();
   } else {
@@ -93,10 +99,6 @@ void GLWidget::mouseReleaseEvent(QMouseEvent *e) {
 void GLWidget::wheelEvent(QWheelEvent *e) {
   zoom += (float)e->delta() / 1000.0f;
   update();
-}
-
-Scene *GLWidget::GetScene() const {
-  return scene;
 }
 
 void GLWidget::AutoRotate() {

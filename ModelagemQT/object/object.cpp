@@ -175,5 +175,10 @@ void Object::setLineColor(const QColor &color)
   line_color = color.rgba();
 }
 
+HitInfo Object::RayCast(const Ray &r)
+{
+  return HitInfo();
+}
+
 void Object::Draw() const {
 }

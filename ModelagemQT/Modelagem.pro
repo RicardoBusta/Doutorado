@@ -32,7 +32,10 @@ SOURCES += main.cpp\
     octree/operateoctreedialog.cpp \
     octree/octreeunion.cpp \
     octree/octreeprism.cpp \
-    octree/octreepyramid.cpp
+    octree/octreepyramid.cpp \
+    raycastwidget.cpp \
+    csg/csgobject.cpp \
+    ray.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -54,7 +57,10 @@ HEADERS  += mainwindow.h \
     octree/operateoctreedialog.h \
     octree/octreeunion.h \
     octree/octreeprism.h \
-    octree/octreepyramid.h
+    octree/octreepyramid.h \
+    raycastwidget.h \
+    csg/csgobject.h \
+    ray.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui \

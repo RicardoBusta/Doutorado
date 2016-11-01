@@ -219,3 +219,21 @@ bool Octree::IsInside(const QVector3D &p) const
   }
   return false;
 }
+
+HitInfo Octree::RayCast(const Ray &ray)
+{
+  //Test
+  if( (position*transform).distanceToLine(ray.p,ray.d) < 3){
+    HitInfo hit;
+    hit.hit= true;
+    hit.t = 0;
+    hit.color = 0xffffffff;
+  }else{
+    return HitInfo();
+  }
+  if(root!=nullptr){
+    //return root->RayCast();
+  }else{
+    return HitInfo();
+  }
+}

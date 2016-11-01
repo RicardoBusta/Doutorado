@@ -9,6 +9,8 @@
 #include <QMatrix4x4>
 #include <QRgb>
 
+#include "ray.h"
+
 class Object {
 public:
   Object(QString name = "Object");
@@ -54,6 +56,8 @@ public:
 
   void setFaceColor(const QColor &color);
   void setLineColor(const QColor &color);
+
+  virtual HitInfo RayCast(const Ray &r);
 protected:
   virtual void Draw() const;
   QString name;

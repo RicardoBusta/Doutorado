@@ -50,6 +50,18 @@ void Scene::Render()
   }
 }
 
+QRgb Scene::RayCast(const Ray &ray)
+{
+  HitInfo currenthit = HitInfo();
+  foreach (Object *o, objects) {
+    HitInfo hitinfo = o->RayCast(ray);
+    if(hitinfo.hit && (hitinfo.t < currenthit.t)){
+      currenthit = hitinfo;
+    }
+  }
+  return currenthit.color;
+}
+
 void Scene::UpdateMakeParent(bool val)
 {
   make_parent = val;

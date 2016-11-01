@@ -40,6 +40,8 @@ public:
   Object *Duplicate();
 
   bool IsInside(const QVector3D &p) const;
+
+  HitInfo RayCast(const Ray &ray);
 private:
   float spread;
   QVector3D p1, p2;

@@ -16,11 +16,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   ui(new Ui::MainWindow) {
   ui->setupUi(this);
 
-  Scene *s = ui->glwidget->GetScene();
+  scene = new Scene(this);
+  ui->glwidget->SetScene(scene);
+  ui->raycastwidget->s = scene;
 
-  //QObject::connect(ui->make_current_parent_checkBox, SIGNAL(toggled(bool)), s, SLOT(UpdateMakeParent(bool)));
-
-  QObject::connect(ui->object_create_button, SIGNAL(clicked(bool)), s, SLOT(CreateObject()));
+  QObject::connect(ui->object_create_button, SIGNAL(clicked(bool)), scene, SLOT(CreateObject()));
   QObject::connect(ui->octree_create_button, SIGNAL(clicked(bool)), this, SLOT(CreateOctreePressed()));
 
   QObject::connect(ui->object_tree,
@@ -28,10 +28,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
                    this,
                    SLOT(SelectObject(QTreeWidgetItem *, QTreeWidgetItem *)));
 
-  QObject::connect(s, SIGNAL(UpdateObjList()), this, SLOT(UpdateObjList()));
-  QObject::connect(s, SIGNAL(UpdateDrawing()), this, SLOT(UpdateDrawing()));
+  QObject::connect(scene, SIGNAL(UpdateObjList()), this, SLOT(UpdateObjList()));
+  QObject::connect(scene, SIGNAL(UpdateDrawing()), this, SLOT(UpdateDrawing()));
 
-  QObject::connect(ui->octree_spread_slider, SIGNAL(valueChanged(int)), s, SLOT(ChangeOctreeSpread(int)));
+  QObject::connect(ui->octree_spread_slider, SIGNAL(valueChanged(int)), scene, SLOT(ChangeOctreeSpread(int)));
 
   QObject::connect(ui->pos_x, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
   QObject::connect(ui->pos_y, SIGNAL(valueChanged(double)), this, SLOT(UpdateCurrentObjectTransform(double)));
@@ -49,9 +49,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   ui->obj_content->setEnabled(false);
 
-  QObject::connect(ui->object_tree, SIGNAL(ChangeParent(QString, QString)), s, SLOT(Reparent(QString, QString)));
+  QObject::connect(ui->object_tree, SIGNAL(ChangeParent(QString, QString)), scene, SLOT(Reparent(QString, QString)));
 
-  QObject::connect(ui->delete_object, SIGNAL(clicked(bool)), s, SLOT(DeleteCurrentObject()));
+  QObject::connect(ui->delete_object, SIGNAL(clicked(bool)), scene, SLOT(DeleteCurrentObject()));
 
   QObject::connect(ui->operate_octree_button, SIGNAL(clicked(bool)), this, SLOT(OperateOctreePressed()));
 
@@ -73,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 }
 
 MainWindow::~MainWindow() {
+  delete scene;
   delete ui;
 }
 
@@ -91,13 +92,12 @@ void AddRecItem(QTreeWidgetItem *item, Object *o) {
 void MainWindow::UpdateObjList() {
   ui->object_tree->blockSignals(true);
   ui->object_tree->clear();
-  Scene *s = ui->glwidget->GetScene();
   QTreeWidgetItem *currentItem = nullptr;
-  for (Object *o : s->objects) {
+  for (Object *o : scene->objects) {
     QTreeWidgetItem *item = new QTreeWidgetItem();
     item->setText(0, o->getName());
 
-    if (s->current_object != nullptr && o->getName() == s->current_object->getName()) {
+    if (scene->current_object != nullptr && o->getName() == scene->current_object->getName()) {
       currentItem = item;
     }
 
@@ -114,7 +114,7 @@ void MainWindow::UpdateObjList() {
   ui->object_tree->blockSignals(false);
   ui->glwidget->update();
 
-  if(s->current_object==nullptr){
+  if(scene->current_object==nullptr){
     ui->obj_content->setEnabled(false);
   }
 }
@@ -125,7 +125,7 @@ void MainWindow::UpdateDrawing() {
 
 void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previous) {
   Object *obj = (Object *)current->data(0, Qt::UserRole).toULongLong();
-  ui->glwidget->GetScene()->current_object = obj;
+  scene->current_object = obj;
 
   QVector<QWidget*> value_widgets = {
     ui->pos_x,ui->pos_y,ui->pos_z,
@@ -170,7 +170,7 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
 }
 
 void MainWindow::UpdateCurrentObjectTransform(double v) {
-  Object *obj = ui->glwidget->GetScene()->current_object;
+  Object *obj = scene->current_object;
   if (obj == nullptr) {
     return;
   }
@@ -186,7 +186,7 @@ void MainWindow::UpdateCurrentObjectTransform(double v) {
 }
 
 void MainWindow::UpdateCurrentObjectName(QString name) {
-  Object *obj = ui->glwidget->GetScene()->current_object;
+  Object *obj = scene->current_object;
   if (obj == nullptr) {
     return;
   }
@@ -195,7 +195,7 @@ void MainWindow::UpdateCurrentObjectName(QString name) {
 }
 
 void MainWindow::UpdateCurrentObjectCheck(bool value) {
-  Object *obj = ui->glwidget->GetScene()->current_object;
+  Object *obj = scene->current_object;
   if (obj == nullptr) {
     return;
   }
@@ -212,12 +212,12 @@ void MainWindow::CreateOctreePressed() {
   NewOctreeDialog dialog;
   int result = dialog.exec();
   if (result == QDialog::Accepted) {
-    dialog.CreateShape(ui->glwidget->GetScene());
+    dialog.CreateShape(scene);
   }
 }
 
 void MainWindow::OperateOctreePressed() {
-  OperateOctreeDialog dialog(ui->glwidget->GetScene());
+  OperateOctreeDialog dialog(scene);
   int result = dialog.exec();
   if(result == QDialog::Accepted){
     dialog.Operate();
@@ -227,7 +227,7 @@ void MainWindow::OperateOctreePressed() {
 
 void MainWindow::DuplicateObjectPressed()
 {
-  Scene * s =  ui->glwidget->GetScene();
+  Scene * s =  scene;
   Object * obj = s->current_object->Duplicate();
   s->CreateObjectGeneric(obj);
 }
@@ -245,7 +245,7 @@ void MainWindow::SaveScenePress()
 
   QTextStream out(&file);
 
-  Scene *s = ui->glwidget->GetScene();
+  Scene *s = scene;
   foreach(Object * o , s->objects){
     out << o->Save();
   }
@@ -264,7 +264,7 @@ void MainWindow::LoadScenePress()
   }
   QTextStream in(&file);
 
-  Scene * s = ui->glwidget->GetScene();
+  Scene * s = scene;
 
   while(!in.atEnd()){
     QString line = in.readLine();
@@ -274,7 +274,7 @@ void MainWindow::LoadScenePress()
 
 void MainWindow::SetFaceColor()
 {
-  Object *obj = ui->glwidget->GetScene()->current_object;
+  Object *obj = scene->current_object;
   if(obj==nullptr){
     return;
   }
@@ -286,7 +286,7 @@ void MainWindow::SetFaceColor()
 
 void MainWindow::SetLineColor()
 {
-  Object *obj = ui->glwidget->GetScene()->current_object;
+  Object *obj = scene->current_object;
   if(obj==nullptr){
     return;
   }
@@ -298,7 +298,7 @@ void MainWindow::SetLineColor()
 
 void MainWindow::ClearScene()
 {
-  Scene * s =  ui->glwidget->GetScene();
+  Scene * s =  scene;
   foreach(Object *s, s->objects){
     delete s;
   }
