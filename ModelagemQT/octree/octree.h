@@ -41,7 +41,7 @@ public:
 
   bool IsInside(const QVector3D &p) const;
 
-  HitInfo RayCast(const Ray &ray);
+  HitInfo RayCast(const Ray &ray, const HitInfo &hitinfo);
 private:
   float spread;
   QVector3D p1, p2;

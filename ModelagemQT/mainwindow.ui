@@ -94,7 +94,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="RaycastWidget" name="raycastwidget" native="true"/>
+         <widget class="RaycastWidget" name="raycastwidget" native="true">
+          <property name="styleSheet">
+           <string notr="true">background-color: #369;</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -492,7 +496,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget_2">
        <property name="currentIndex">
-        <number>1</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -533,6 +537,15 @@
         <attribute name="title">
          <string>CSG</string>
         </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_10">
+         <item>
+          <widget class="QPushButton" name="create_csg_pushButton">
+           <property name="text">
+            <string>Create</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </item>

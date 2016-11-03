@@ -37,6 +37,8 @@ private slots:
   void CreateOctreePressed();
   void OperateOctreePressed();
 
+  void CreateCSGPressed();
+
   void DuplicateObjectPressed();
 
   void SaveScenePress();

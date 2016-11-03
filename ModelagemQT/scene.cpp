@@ -39,8 +39,6 @@ Scene::Scene(QObject *parent)
 
   obj = QRegularExpression(obj_reg);
   octexp = QRegularExpression(oct_reg);
-
-  qDebug() << "Valid strings?" << obj.isValid() << octexp.isValid();
 }
 
 void Scene::Render()
@@ -54,7 +52,7 @@ QRgb Scene::RayCast(const Ray &ray)
 {
   HitInfo currenthit = HitInfo();
   foreach (Object *o, objects) {
-    HitInfo hitinfo = o->RayCast(ray);
+    HitInfo hitinfo = o->RayCast(ray,currenthit);
     if(hitinfo.hit && (hitinfo.t < currenthit.t)){
       currenthit = hitinfo;
     }
@@ -76,6 +74,7 @@ void Scene::CreateObjectGeneric(Object *obj)
 {
   if (make_parent && current_object != nullptr) {
     current_object->children.push_back(obj);
+    current_object->Recalculate();
     obj->parent = current_object;
   } else {
     objects.push_back(obj);
@@ -178,6 +177,7 @@ void Scene::Reparent(QString child, QString new_parent)
   if(moving != parent){
     moving->parent = parent;
     parent->children.push_back(moving);
+    parent->Recalculate();
   }else{
     moving->parent = nullptr;
     objects.push_back(moving);

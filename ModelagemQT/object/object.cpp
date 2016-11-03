@@ -8,10 +8,12 @@
 QMap<QString, Object *> Object::obj_map = QMap<QString, Object *>();
 
 Object::Object(QString name)
-    : scale(QVector3D(1, 1, 1)),
-      hide(false),
-      line(false),
-      parent(nullptr) {
+  : scale(QVector3D(1, 1, 1)),
+    hide(false),
+    line(false),
+    parent(nullptr),
+    drawRec(true)
+{
   this->name = name;
   int count=0;
   while (obj_map.contains(this->name)) {
@@ -43,56 +45,62 @@ void Object::Render() {
   glPushMatrix();
   glMultMatrixf(transform.data());
   Draw();
-  foreach (Object *o, children) {
-    o->Render();
+  if(drawRec){
+    foreach (Object *o, children) {
+      o->Render();
+    }
   }
   glPopMatrix();
 }
 
 QVector3D Object::getPosition() const {
-    return  position;
+  return  position;
 }
 
 QVector3D Object::getRotation() const {
-    return rotation.toEulerAngles();
+  return rotation.toEulerAngles();
 }
 
 QVector3D Object::getScale() const {
-    return scale;
+  return scale;
 }
 
 void Object::setPosition(float x, float y, float z)
 {
-    position.setX(x);
-    position.setY(y);
-    position.setZ(z);
-    UpdateTransform();
+  position.setX(x);
+  position.setY(y);
+  position.setZ(z);
+  UpdateTransform();
 }
 
 void Object::setRotation(float x, float y, float z)
 {
-    rotation = QQuaternion::fromEulerAngles(x,y,z);
-    UpdateTransform();
+  rotation = QQuaternion::fromEulerAngles(x,y,z);
+  UpdateTransform();
 }
 
 void Object::setScale(float x, float y, float z)
 {
-    scale.setX(x);
-    scale.setY(y);
-    scale.setZ(z);
-    UpdateTransform();
+  scale.setX(x);
+  scale.setY(y);
+  scale.setZ(z);
+  UpdateTransform();
 }
 
 void Object::UpdateTransform()
 {
-    transform.setToIdentity();
-    transform.translate(position);
-    transform.rotate(rotation);
-    transform.scale(scale);
+  transform.setToIdentity();
+  transform.translate(position);
+  transform.rotate(rotation);
+  transform.scale(scale);
 
-    inv_transform = transform.inverted();
+  inv_transform = transform.inverted();
 
-    UpdateSpecific();
+  if(parent!=nullptr){
+  parent->Recalculate();
+  }
+
+  UpdateSpecific();
 }
 
 void Object::UpdateSpecific()
@@ -102,37 +110,37 @@ void Object::UpdateSpecific()
 
 QString Object::Save()
 {
-    QString parent_name = parent!=nullptr?parent->getName():"none";
-    QString result = QString("%1 %2 %3 %4 %5").arg(ObjectType(),parent_name,getName(),TransformText(),SaveSpecific())+"\n";
-    foreach(Object *child, children){
-      result += child->Save();
-    }
-    return result;
+  QString parent_name = parent!=nullptr?parent->getName():"none";
+  QString result = QString("%1 %2 %3 %4 %5").arg(ObjectType(),parent_name,getName(),TransformText(),SaveSpecific())+"\n";
+  foreach(Object *child, children){
+    result += child->Save();
+  }
+  return result;
 }
 
 QString Object::SaveSpecific()
 {
-    return "";
+  return "";
 }
 
 QString Object::ObjectType()
 {
-    return "obj";
+  return "obj";
 }
 
 QString Object::TransformText()
 {
   QVector3D rot = rotation.toEulerAngles();
-    return QString("%1 %2 %3 %4 %5 %6 %7 %8 %9")
-            .arg(position.x())
-            .arg(position.y())
-            .arg(position.z())
-            .arg(rot.x())
-            .arg(rot.y())
-            .arg(rot.z())
-            .arg(scale.x())
-            .arg(scale.y())
-        .arg(scale.z());
+  return QString("%1 %2 %3 %4 %5 %6 %7 %8 %9")
+      .arg(position.x())
+      .arg(position.y())
+      .arg(position.z())
+      .arg(rot.x())
+      .arg(rot.y())
+      .arg(rot.z())
+      .arg(scale.x())
+      .arg(scale.y())
+      .arg(scale.z());
 }
 
 QMatrix4x4 Object::Transform() const
@@ -175,9 +183,13 @@ void Object::setLineColor(const QColor &color)
   line_color = color.rgba();
 }
 
-HitInfo Object::RayCast(const Ray &r)
+HitInfo Object::RayCast(const Ray &r, const HitInfo &hitinfo)
 {
-  return HitInfo();
+  return hitinfo;
+}
+
+void Object::Recalculate()
+{
 }
 
 void Object::Draw() const {

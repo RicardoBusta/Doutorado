@@ -35,7 +35,16 @@ SOURCES += main.cpp\
     octree/octreepyramid.cpp \
     raycastwidget.cpp \
     csg/csgobject.cpp \
-    ray.cpp
+    ray.cpp \
+    csg/newcsgdialog.cpp \
+    csg/csgsphere.cpp\
+    csg/csgcone.cpp \
+    csg/csgbox.cpp \
+    csg/csgcylinder.cpp \
+    csg/csgprism.cpp \
+    csg/csgpyramid.cpp \
+    csg/csgtorus.cpp \
+    csg/csgoperation.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -60,11 +69,21 @@ HEADERS  += mainwindow.h \
     octree/octreepyramid.h \
     raycastwidget.h \
     csg/csgobject.h \
-    ray.h
+    ray.h \
+    csg/newcsgdialog.h \
+    csg/csgsphere.h \
+    csg/csgcone.h \
+    csg/csgbox.h \
+    csg/csgcylinder.h \
+    csg/csgprism.h \
+    csg/csgpyramid.h \
+    csg/csgtorus.h \
+    csg/csgoperation.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui \
-    octree/operateoctreedialog.ui
+    octree/operateoctreedialog.ui \
+    csg/newcsgdialog.ui
 
 LIBS += -lopengl32
 

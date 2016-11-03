@@ -2,7 +2,7 @@
 #define RAYCASTWIDGET_H
 
 #include <QWidget>
-
+#include <QMatrix4x4>
 #include <QImage>
 
 class Scene;
@@ -19,6 +19,7 @@ public:
 private:
   QImage image;
 
+  QMatrix4x4 camera_transform;
 signals:
 
 public slots:

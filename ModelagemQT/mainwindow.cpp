@@ -9,6 +9,7 @@
 #include "globaloptions.h"
 #include "octree/newoctreedialog.h"
 #include "octree/operateoctreedialog.h"
+#include "csg/newcsgdialog.h"
 
 const QString colorButtonStyle = "background-color: %1;\nborder: none;";
 
@@ -70,6 +71,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
 
   QObject::connect(ui->clear_pushButton,SIGNAL(clicked(bool)),this,SLOT(ClearScene()));
+
+  QObject::connect(ui->create_csg_pushButton,SIGNAL(clicked(bool)),this,SLOT(CreateCSGPressed()));
 }
 
 MainWindow::~MainWindow() {
@@ -121,6 +124,7 @@ void MainWindow::UpdateObjList() {
 
 void MainWindow::UpdateDrawing() {
   ui->glwidget->update();
+  ui->raycastwidget->repaint();
 }
 
 void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previous) {
@@ -225,11 +229,19 @@ void MainWindow::OperateOctreePressed() {
   }
 }
 
+void MainWindow::CreateCSGPressed()
+{
+  NewCSGDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.CreateShape(scene);
+  }
+}
+
 void MainWindow::DuplicateObjectPressed()
 {
-  Scene * s =  scene;
-  Object * obj = s->current_object->Duplicate();
-  s->CreateObjectGeneric(obj);
+  Object * obj = scene->current_object->Duplicate();
+  scene->CreateObjectGeneric(obj);
 }
 
 void MainWindow::SaveScenePress()
@@ -264,11 +276,9 @@ void MainWindow::LoadScenePress()
   }
   QTextStream in(&file);
 
-  Scene * s = scene;
-
   while(!in.atEnd()){
     QString line = in.readLine();
-    s->AddObjectFromString(line);
+    scene->AddObjectFromString(line);
   }
 }
 
@@ -298,11 +308,10 @@ void MainWindow::SetLineColor()
 
 void MainWindow::ClearScene()
 {
-  Scene * s =  scene;
-  foreach(Object *s, s->objects){
+  foreach(Object *s, scene->objects){
     delete s;
   }
-  s->objects.clear();
+  scene->objects.clear();
   UpdateObjList();
 }
 

@@ -15,10 +15,12 @@ public:
 class Ray
 {
 public:
-  Ray(const QVector3D &p, const QVector3D &d);
+  Ray(const QVector3D &o, const QVector3D &d);
 
-  QVector3D p;
+  QVector3D o;
   QVector3D d;
+
+  Ray Transformed(const QMatrix4x4 &transform) const;
 };
 
 #endif // RAY_H

@@ -22,7 +22,8 @@ public:
   bool line;
   QVector<Object *> children;
 
-  void Render();
+  bool drawRec;
+  virtual void Render();
 
   QVector3D getPosition() const;
   QVector3D getRotation() const;
@@ -57,7 +58,9 @@ public:
   void setFaceColor(const QColor &color);
   void setLineColor(const QColor &color);
 
-  virtual HitInfo RayCast(const Ray &r);
+  virtual HitInfo RayCast(const Ray &r, const HitInfo &hitinfo);
+
+  virtual void Recalculate();
 protected:
   virtual void Draw() const;
   QString name;
