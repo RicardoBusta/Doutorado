@@ -17,7 +17,7 @@ CSGOPeration::CSGOPeration(int op)
     Rename("CSG Difference");
     break;
   }
-  drawRec = false;
+  //drawRec = false;
 }
 
 HitInfo CSGOPeration::RayCast(const Ray &r, const HitInfo &hitinfo)

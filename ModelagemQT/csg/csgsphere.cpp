@@ -16,7 +16,7 @@ HitInfo CSGSphere::RayCast(const Ray &r, const HitInfo &hitinfo)
 {
   QVector3D center = Transform()*QVector3D(0,0,0);
   float dist = center.distanceToLine(r.o,r.d.normalized());
-  qDebug() << dist << radius << r.o << r.d << center;
+  //qDebug() << dist << radius << r.o << r.d << center;
   if(dist < radius){
     HitInfo hit;
     hit.color = 0xffffffff;
