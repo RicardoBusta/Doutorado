@@ -349,7 +349,7 @@ HitInfo OctreeNode::CollideBB(const Ray &ray)
       if(new_t < hit.t /*&& new_t > 1*/){
         hit.hit=true;
         hit.t = new_t;
-        qDebug() << new_t;
+        //qDebug() << new_t;
         hit.color = 0xffffffff;
         return hit;
         //qDebug()<< "face_v0" << face_v0 << v[f[i][0]] << f[i][0];

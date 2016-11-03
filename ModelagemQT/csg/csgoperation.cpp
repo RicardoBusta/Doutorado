@@ -27,11 +27,40 @@ HitInfo CSGOPeration::RayCast(const Ray &r, const HitInfo &hitinfo)
 
 bool CSGOPeration::ConditionInside(const QVector3D &p) const
 {
+  if(children.size()<=1){
+    return false;
+  }
+  CSGObject *o1 = dynamic_cast<CSGObject*>(children[0]);
+  CSGObject *o2 = dynamic_cast<CSGObject*>(children[1]);
+  QVector3D p1_p = o1->InvTransform()*p;
+  QVector3D p2_p = o2->InvTransform()*p;
+
+  switch(op){
+  case 0:
+    //União
+    if(o1->ConditionInside(p1_p) || o2->ConditionInside(p2_p)){
+      return true;
+    }
+    break;
+  case 1:
+    //Interseção
+    if(o1->ConditionInside(p1_p) && o2->ConditionInside(p2_p)){
+      return true;
+    }
+    break;
+  case 2:
+    //Diferença
+    if(o1->ConditionInside(p1_p) && !o2->ConditionInside(p2_p)){
+      return true;
+    }
+    break;
+  }
   return false;
 }
 
 void CSGOPeration::Recalculate()
 {
+
   qDebug() << "recalculate";
 
 
@@ -79,5 +108,8 @@ void CSGOPeration::Recalculate()
       }
     }
     break;
+  }
+  if(parent!=nullptr){
+    parent->Recalculate();
   }
 }
