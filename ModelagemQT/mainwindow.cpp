@@ -10,6 +10,7 @@
 #include "octree/newoctreedialog.h"
 #include "octree/operateoctreedialog.h"
 #include "csg/newcsgdialog.h"
+#include "halfedge/halfedgeobject.h"
 
 const QString colorButtonStyle = "background-color: %1;\nborder: none;";
 
@@ -19,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 
   scene = new Scene(this);
   ui->glwidget->SetScene(scene);
-  ui->raycastwidget->s = scene;
+  //ui->raycastwidget->s = scene;
 
   QObject::connect(ui->object_create_button, SIGNAL(clicked(bool)), scene, SLOT(CreateObject()));
   QObject::connect(ui->octree_create_button, SIGNAL(clicked(bool)), this, SLOT(CreateOctreePressed()));
@@ -73,6 +74,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->clear_pushButton,SIGNAL(clicked(bool)),this,SLOT(ClearScene()));
 
   QObject::connect(ui->create_csg_pushButton,SIGNAL(clicked(bool)),this,SLOT(CreateCSGPressed()));
+
+  ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
 }
 
 MainWindow::~MainWindow() {
@@ -124,7 +127,7 @@ void MainWindow::UpdateObjList() {
 
 void MainWindow::UpdateDrawing() {
   ui->glwidget->update();
-  ui->raycastwidget->repaint();
+  //ui->raycastwidget->repaint();
 }
 
 void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previous) {
@@ -164,6 +167,19 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
 
     lineColor = obj->getLineColor();
     ui->lineColor->setStyleSheet(colorButtonStyle.arg(lineColor.name()));
+
+    Octree * octree = dynamic_cast<Octree*>(obj);
+    if(octree!=nullptr){
+      ui->specific_stackedWidget->setCurrentWidget(ui->octree_page);
+      goto ok;
+    }
+    HalfEdgeObject * halfedge = dynamic_cast<HalfEdgeObject*>(obj);
+    if(halfedge!=nullptr){
+      goto ok;
+    }
+    ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
+
+    ok:
 
     foreach (QWidget*w, value_widgets) {
       w->blockSignals(false);

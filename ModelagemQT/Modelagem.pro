@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     csg/csgprism.cpp \
     csg/csgpyramid.cpp \
     csg/csgtorus.cpp \
-    csg/csgoperation.cpp
+    csg/csgoperation.cpp \
+    halfedge/halfedgeobject.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -78,7 +79,8 @@ HEADERS  += mainwindow.h \
     csg/csgprism.h \
     csg/csgpyramid.h \
     csg/csgtorus.h \
-    csg/csgoperation.h
+    csg/csgoperation.h \
+    halfedge/halfedgeobject.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui \
