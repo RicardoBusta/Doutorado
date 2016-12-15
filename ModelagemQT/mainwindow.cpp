@@ -10,6 +10,7 @@
 #include "octree/newoctreedialog.h"
 #include "octree/operateoctreedialog.h"
 #include "csg/newcsgdialog.h"
+#include "halfedge/newhedialog.h"
 #include "halfedge/halfedgeobject.h"
 
 const QString colorButtonStyle = "background-color: %1;\nborder: none;";
@@ -74,6 +75,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->clear_pushButton,SIGNAL(clicked(bool)),this,SLOT(ClearScene()));
 
   QObject::connect(ui->create_csg_pushButton,SIGNAL(clicked(bool)),this,SLOT(CreateCSGPressed()));
+
+  QObject::connect(ui->create_he_button,SIGNAL(clicked(bool)),this,SLOT(CreateHEPressed()));
+
+  QObject::connect(ui->edge_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateCurrentObjectHE()));
+  QObject::connect(ui->face_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateCurrentObjectHE()));
+
+  QObject::connect(ui->face_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetEdgeFace()));
+  QObject::connect(ui->next_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetNextEdge()));
+  QObject::connect(ui->mate_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetMateEdge()));
 
   ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
 }
@@ -175,6 +185,7 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
     }
     HalfEdgeObject * halfedge = dynamic_cast<HalfEdgeObject*>(obj);
     if(halfedge!=nullptr){
+      ui->specific_stackedWidget->setCurrentWidget(ui->halfedge_page);
       goto ok;
     }
     ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
@@ -228,6 +239,50 @@ void MainWindow::UpdateCurrentObjectCheck(bool value) {
   ui->glwidget->update();
 }
 
+void MainWindow::UpdateCurrentObjectHE()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  obj->selected_edge = ui->edge_spinBox->value();
+  obj->selected_face = ui->face_spinBox->value();
+  ui->glwidget->update();
+}
+
+void MainWindow::GetNextEdge()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
+    ui->edge_spinBox->setValue(obj->edges[obj->selected_edge].next);
+  }
+}
+
+void MainWindow::GetMateEdge()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
+    ui->edge_spinBox->setValue(obj->edges[obj->selected_edge].mate);
+  }
+}
+
+void MainWindow::GetEdgeFace()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
+    ui->face_spinBox->setValue(obj->edges[obj->selected_edge].face);
+  }
+}
+
 void MainWindow::CreateOctreePressed() {
   NewOctreeDialog dialog;
   int result = dialog.exec();
@@ -242,6 +297,15 @@ void MainWindow::OperateOctreePressed() {
   if(result == QDialog::Accepted){
     dialog.Operate();
     UpdateObjList();
+  }
+}
+
+void MainWindow::CreateHEPressed()
+{
+  NewHEDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.CreateHE(scene);
   }
 }
 

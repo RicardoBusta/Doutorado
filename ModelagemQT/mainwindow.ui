@@ -356,9 +356,70 @@
          <item>
           <widget class="QLabel" name="label_9">
            <property name="text">
-            <string>Half-Edge</string>
+            <string>Current Edge</string>
            </property>
           </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="edge_spinBox">
+           <property name="minimum">
+            <number>-1</number>
+           </property>
+           <property name="value">
+            <number>-1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="next_pushButton">
+           <property name="text">
+            <string>Get Next</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="mate_pushButton">
+           <property name="text">
+            <string>Get Mate</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="face_pushButton">
+           <property name="text">
+            <string>Get Face</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Current Face</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="face_spinBox">
+           <property name="minimum">
+            <number>-1</number>
+           </property>
+           <property name="value">
+            <number>-1</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -473,7 +534,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget_2">
        <property name="currentIndex">
-        <number>2</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="tab">
         <attribute name="title">
@@ -526,6 +587,20 @@
           <widget class="QPushButton" name="pushButton">
            <property name="text">
             <string>Render</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_3">
+        <attribute name="title">
+         <string>HE</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <item>
+          <widget class="QPushButton" name="create_he_button">
+           <property name="text">
+            <string>Create</string>
            </property>
           </widget>
          </item>

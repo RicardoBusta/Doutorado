@@ -34,8 +34,16 @@ private slots:
   void UpdateCurrentObjectName(QString name);
   void UpdateCurrentObjectCheck(bool value);
 
+  void UpdateCurrentObjectHE();
+
+  void GetNextEdge();
+  void GetMateEdge();
+  void GetEdgeFace();
+
   void CreateOctreePressed();
   void OperateOctreePressed();
+
+  void CreateHEPressed();
 
   void CreateCSGPressed();
 
