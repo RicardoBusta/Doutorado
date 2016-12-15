@@ -329,6 +329,7 @@ void MainWindow::Extrude()
   ExtrudeDialog dialog;
   int result = dialog.exec();
   if(result == QDialog::Accepted){
+    qDebug() << "Extrude";
     dialog.Apply(obj);
   }
 }

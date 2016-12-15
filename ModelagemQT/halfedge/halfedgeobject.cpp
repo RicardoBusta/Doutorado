@@ -256,7 +256,7 @@ void HalfEdgeObject::MEF(int e1, int e2) {
 
 void HalfEdgeObject::ExtrudeFace(int face, const QVector3D &direction)
 {
-  if(!faces.contains(face)){
+  if(face<0 || face>=faceCount){
     return;
   }
   int e0 = faces[face];
