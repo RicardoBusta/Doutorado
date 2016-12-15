@@ -38,18 +38,18 @@ void BezierObject::Draw() const
   }
   glEnd();
 
-  //  glLineWidth(2);
+    glLineWidth(2);
 
-  //  for(int i=0;i<slices-1;i++){
-  //    for(int j=0;j<slices-1;j++){
-  //      glBegin(GL_LINE_LOOP);
-  //      GLVERTEX3D(points[i][j]);
-  //      GLVERTEX3D(points[i+1][j]);
-  //      GLVERTEX3D(points[i+1][j+1]);
-  //      GLVERTEX3D(points[i][j+1]);
-  //      glEnd();
-  //    }
-  //  }
+    for(int i=0;i<slices-1;i++){
+      for(int j=0;j<slices-1;j++){
+        glBegin(GL_LINE_LOOP);
+        GLVERTEX3D(points[i][j]);
+        GLVERTEX3D(points[i+1][j]);
+        GLVERTEX3D(points[i+1][j+1]);
+        GLVERTEX3D(points[i][j+1]);
+        glEnd();
+      }
+    }
 
 //  glEnable(GL_LIGHTING);
   glBegin(GL_QUADS);
