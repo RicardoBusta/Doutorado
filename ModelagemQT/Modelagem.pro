@@ -51,7 +51,8 @@ SOURCES += main.cpp\
     halfedge/mefdialog.cpp \
     halfedge/extrudedialog.cpp \
     halfedge/translatedialog.cpp \
-    newbezierdialog.cpp \
+    bezier/newbezierdialog.cpp \
+    bezier/bezierobject.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -92,7 +93,8 @@ HEADERS  += mainwindow.h \
     halfedge/mefdialog.h \
     halfedge/extrudedialog.h \
     halfedge/translatedialog.h \
-    newbezierdialog.h
+    bezier/newbezierdialog.h \
+    bezier/bezierobject.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui \
@@ -103,7 +105,7 @@ FORMS    += mainwindow.ui \
     halfedge/mefdialog.ui \
     halfedge/extrudedialog.ui \
     halfedge/translatedialog.ui \
-    newbezierdialog.ui
+    bezier/newbezierdialog.ui
 
 LIBS += -lopengl32
 

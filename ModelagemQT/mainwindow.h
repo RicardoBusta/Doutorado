@@ -47,7 +47,9 @@ private slots:
   void CreateOctreePressed();
   void OperateOctreePressed();
 
-
+  void CreateBezierPressed();
+  void SelectBezierControl();
+  void SelectBezierPosition();
 
   void CreateCSGPressed();
 

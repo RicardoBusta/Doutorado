@@ -70,6 +70,9 @@ void HalfEdgeObject::Draw() const
     }
     DrawFace(i);
   }
+
+  glPointSize(1);
+  glLineWidth(1);
 }
 
 void HalfEdgeObject::CreateBox(float w, float h, float d)
@@ -267,11 +270,11 @@ void HalfEdgeObject::ExtrudeFace(int face, const QVector3D &direction)
   int endEC = startEC;
   while(edges[edges[e].next].next!=e0){
     MEV(e,vertices[edges[e].Sv]+direction);
-    qDebug() <<  edgeCount-4 << edgeCount-2;
+//    qDebug() <<  edgeCount-4 << edgeCount-2;
     endEC = edgeCount-2;
     e = edges[e].next;
   }
-  qDebug() << startEC << endEC;
+//  qDebug() << startEC << endEC;
 
   for(int i=startEC;i<endEC;i+=2){
     MEF(i,i+2);

@@ -16,6 +16,8 @@
 #include "halfedge/mefdialog.h"
 #include "halfedge/mevdialog.h"
 #include "halfedge/translatedialog.h"
+#include "bezier/newbezierdialog.h"
+#include "bezier/bezierobject.h"
 
 const QString colorButtonStyle = "background-color: %1;\nborder: none;";
 
@@ -93,6 +95,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->mev,SIGNAL(clicked(bool)),this,SLOT(MEV()));
   QObject::connect(ui->translate,SIGNAL(clicked(bool)),this,SLOT(Translate()));
   QObject::connect(ui->extrude,SIGNAL(clicked(bool)),this,SLOT(Extrude()));
+
+  QObject::connect(ui->create_bezier_button,SIGNAL(clicked(bool)),this,SLOT(CreateBezierPressed()));
+
+  QObject::connect(ui->bezi,SIGNAL(valueChanged(int)),this,SLOT(SelectBezierControl()));
+  QObject::connect(ui->bezj,SIGNAL(valueChanged(int)),this,SLOT(SelectBezierControl()));
+  QObject::connect(ui->bezx,SIGNAL(valueChanged(double)),this,SLOT(SelectBezierPosition()));
+  QObject::connect(ui->bezy,SIGNAL(valueChanged(double)),this,SLOT(SelectBezierPosition()));
+  QObject::connect(ui->bezz,SIGNAL(valueChanged(double)),this,SLOT(SelectBezierPosition()));
 
   ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
 }
@@ -195,6 +205,11 @@ void MainWindow::SelectObject(QTreeWidgetItem *current, QTreeWidgetItem *previou
     HalfEdgeObject * halfedge = dynamic_cast<HalfEdgeObject*>(obj);
     if(halfedge!=nullptr){
       ui->specific_stackedWidget->setCurrentWidget(ui->halfedge_page);
+      goto ok;
+    }
+    BezierObject *bezier = dynamic_cast<BezierObject*>(obj);
+    if(bezier!=nullptr){
+      ui->specific_stackedWidget->setCurrentWidget(ui->bezier_page);
       goto ok;
     }
     ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
@@ -309,6 +324,69 @@ void MainWindow::OperateOctreePressed() {
     dialog.Operate();
     UpdateObjList();
   }
+}
+
+void MainWindow::CreateBezierPressed()
+{
+  NewBezierDialog dialog;
+  int result = dialog.exec();
+  if (result == QDialog::Accepted) {
+    dialog.Create(scene);
+  }
+}
+
+void MainWindow::SelectBezierControl()
+{
+  BezierObject *obj = dynamic_cast<BezierObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+
+  int i = ui->bezi->value();
+  int j = ui->bezj->value();
+
+  if(i<0 || i>=obj->control_points.size() ||
+     j<0 || j>=obj->control_points[0].size()){
+    return;
+  }
+
+  obj->current_cp_x = i;
+  obj->current_cp_y = j;
+
+  ui->bezx->blockSignals(true);
+  ui->bezy->blockSignals(true);
+  ui->bezz->blockSignals(true);
+
+  ui->bezx->setValue(obj->control_points[i][j].x());
+  ui->bezy->setValue(obj->control_points[i][j].y());
+  ui->bezz->setValue(obj->control_points[i][j].z());
+
+  ui->bezx->blockSignals(false);
+  ui->bezy->blockSignals(false);
+  ui->bezz->blockSignals(false);
+
+  UpdateDrawing();
+}
+
+void MainWindow::SelectBezierPosition()
+{
+  qDebug() << "pos";
+  BezierObject *obj = dynamic_cast<BezierObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+
+  int i = ui->bezi->value();
+  int j = ui->bezj->value();
+
+  if(i<0 || i>=obj->control_points.size() ||
+     j<0 || j>=obj->control_points[0].size()){
+    return;
+  }
+
+  obj->control_points[i][j] = QVector3D(ui->bezx->value(),ui->bezy->value(),ui->bezz->value());
+  obj->Calc();
+  UpdateDrawing();
 }
 
 void MainWindow::CreateHEPressed()
