@@ -19,7 +19,6 @@ NewHEDialog::NewHEDialog(QWidget *parent) :
   QObject::connect(ui->sphere_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->prism_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
   QObject::connect(ui->pyramid_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
-  QObject::connect(ui->operation_radio, SIGNAL(toggled(bool)), this, SLOT(SelectPrimitiveShape(bool)));
 }
 
 NewHEDialog::~NewHEDialog()
@@ -32,28 +31,25 @@ void NewHEDialog::CreateHE(Scene *scene)
   HalfEdgeObject * object = new HalfEdgeObject();
   switch (shape) {
   case Sphere:
-    //object = new CSGSphere(ui->sphere_radius->value()/2.0f);
+    object->CreateSphere(ui->sphere_radius->value()/2.0f);
     break;
   case Cylinder:
-    //object = new CSGCylinder(ui->cylinder_radius->value()/2.0f, ui->cylinder_height->value());
+    object->CreatePrysm(ui->cylinder_radius->value()/2.0f,ui->cylinder_height->value(),20);
     break;
   case Box:
-    object->CreateBox();
+    object->CreateBox(ui->box_w->value(),ui->box_h->value(),ui->box_d->value());
     break;
   case Torus:
-//    object = new CSGTorus(ui->torus_r1->value()/2.0f, ui->torus_r2->value()/2.0f);
+    object->CreateTorus(ui->torus_r1->value()/2.0f, ui->torus_r2->value()/2.0f);
     break;
   case Cone:
-//    object = new CSGCone(ui->cone_radius->value()/2.0f, ui->cone_height->value());
+    object->CreatePyramid(ui->cone_radius->value()/2.0f, ui->cone_height->value(),20);
     break;
   case Pyramid:
-//    object = new CSGPyramid(ui->pyramid_diameter->value()/2.0f,ui->pyramid_height->value(),ui->pyramid_sides->value());
+    object->CreatePyramid(ui->pyramid_diameter->value()/2.0f,ui->pyramid_height->value(),ui->pyramid_sides->value());
     break;
   case Prism:
-//    object = new CSGPrism(ui->prism_diameter->value()/2.0f,ui->prism_height->value(),ui->prism_sides->value());
-    break;
-  case Operation:
-//    object = new CSGOPeration(ui->union_radioButton->isChecked()?0:(ui->intersection_radioButton->isChecked()?1:2));
+    object->CreatePrysm(ui->prism_diameter->value()/2.0f,ui->prism_height->value(),ui->prism_sides->value());
     break;
   default:
     delete object;
@@ -93,9 +89,6 @@ void NewHEDialog::SelectPrimitiveShape(bool checked)
     } else if (rb->text() == "Prism") {
       ui->stackedWidget->setCurrentWidget(ui->prism_page);
       shape = Prism;
-    } else if (rb->text() == "Operation") {
-      ui->stackedWidget->setCurrentWidget(ui->operation_page);
-      shape = Operation;
     } else {
       ui->stackedWidget->setCurrentWidget(ui->invalid_page);
       shape = Invalid;

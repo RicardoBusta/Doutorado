@@ -15,9 +15,9 @@ HalfEdgeObject::HalfEdgeObject()
   edgeCount = 0;
   faceCount = 0;
   verticeCount = 0;
-  edges.resize(200);
-  faces.resize(200);
-  vertices.resize(200);
+  edges.resize(600);
+  faces.resize(600);
+  vertices.resize(600);
 }
 
 void HalfEdgeObject::Draw() const
@@ -62,7 +62,7 @@ void HalfEdgeObject::Draw() const
   }
 
   for(int i=0; i<faceCount;i++){
-    qDebug() << "face" << i;
+    //qDebug() << "face" << i;
     if(selected_edge>=0 && selected_edge<edgeCount && i==edges[selected_edge].face){
       glColor3f(0,0.8f,1);
     }else{
@@ -72,29 +72,64 @@ void HalfEdgeObject::Draw() const
   }
 }
 
-void HalfEdgeObject::CreateBox()
+void HalfEdgeObject::CreateBox(float w, float h, float d)
 {
-  MVFS_MEV(QVector3D(-1,-1,-1),QVector3D(-1,-1,1));
-  MEV(1,QVector3D(1,-1,1));
-  MEV(2,QVector3D(1,-1,-1));
-  qDebug() << "FINISH?";
-  MEF(0,4);
+  MVFS_MEV(QVector3D(-w/2,-h/2,-d/2),QVector3D(-w/2,-h/2,d/2));
+  MEV(0,QVector3D(w/2,-h/2,d/2));
+  MEV(2,QVector3D(w/2,-h/2,-d/2));
+  MEF(1,4);
+
+  //qDebug() << "FINISH?";
+
   //MEV(1,QVector3D(-1,1,-1));
-  ExtrudeFace(0,QVector3D(0,2,0));
+  ExtrudeFace(0,QVector3D(0,d,0));
+}
+
+void HalfEdgeObject::CreatePyramid(float r, float h, int s) {
+
+}
+
+void HalfEdgeObject::CreateSphere(float r) {
+
+}
+
+void HalfEdgeObject::CreatePrysm(float r, float h, int s) {
+  Rename("HE Prysm");
+  CreatePolyBase(r,-h/2,s);
+
+  // Make extrusion
+  ExtrudeFace(1,QVector3D(0,h,0));
+}
+
+void HalfEdgeObject::CreateTorus(float r1, float r2)
+{
+
+}
+
+void HalfEdgeObject::CreatePolyBase(float r, float y, int s)
+{
+  float angle = 2*M_PI;
+  float a0 = 0/float(s);
+  float a1 = angle/float(s);
+  MVFS_MEV(QVector3D(r*cos(a0),y,r*sin(a0)),QVector3D(r*cos(a1),y,r*sin(a1)));
+  for(int i=2;i<s;i++){
+    float a = float(i)/float(s);
+    a = a*angle;
+    MEV(edgeCount-2,QVector3D(r*cos(a),y,r*sin(a)));
+  }
+  MEF(1,edgeCount-2);
 }
 
 // MVFS + MEV
 void HalfEdgeObject::MVFS_MEV(const QVector3D &nv1, const QVector3D &nv2)
 {
-  qDebug() << "MVFS";
-  qDebug() << "MEV";
   int v1 = verticeCount++;
   vertices[v1] = nv1;
   int v2 = verticeCount++;
   vertices[v2] = nv2;
 
-  int e1 = edgeCount++;
   int e2 = edgeCount++;
+  int e1 = edgeCount++;
 
   int f = faceCount++;
   faces[f] = e1;
@@ -114,7 +149,6 @@ void HalfEdgeObject::MVFS_MEV(const QVector3D &nv1, const QVector3D &nv2)
 
 void HalfEdgeObject::MEV(int e1, int e2, const QVector3D &p)
 {
-  qDebug() << "MEV";
   // Achar o começo
   int v = edges[e1].Sv;
   int nv = verticeCount++;
@@ -177,6 +211,7 @@ void HalfEdgeObject::MEF(int e1, int e2) {
   int v2 = edges[e2].Sv;
 
   int f = edges[e1].face;
+  faces[f] = e1;
 
   int nf = faceCount++;
   faces[nf] = ne2;
@@ -197,13 +232,14 @@ void HalfEdgeObject::MEF(int e1, int e2) {
   //update face2 loop
   int e = e2;
   while(edges[e].next!=e1){
-    edges[e].face = nf;
+    edges[e].face = edges[ne2].face;
     e = edges[e].next;
   }
   edges[e].next = ne2;
   edges[e].face = nf;
   e = e1;
   while(edges[e].next!=e2){
+    edges[e].face = edges[ne1].face;
     e = edges[e].next;
   }
   edges[e].next = ne1;
@@ -212,27 +248,44 @@ void HalfEdgeObject::MEF(int e1, int e2) {
 void HalfEdgeObject::ExtrudeFace(int face, const QVector3D &direction)
 {
   int e0 = faces[face];
+
+  MEV(e0,vertices[edges[e0].Sv]+direction);
   int e = edges[e0].next;
-  QList<int> mefs;
-  while(e!=e0){
+  int startEC = edgeCount-2;
+  int endEC = startEC;
+  while(edges[edges[e].next].next!=e0){
     MEV(e,vertices[edges[e].Sv]+direction);
-    mefs << edgeCount-2;
+    qDebug() <<  edgeCount-4 << edgeCount-2;
+    endEC = edgeCount-2;
     e = edges[e].next;
   }
-  MEV(e0,vertices[edges[e0].Sv]+direction);
-  MEF(14,8);
-  MEF(10,8);
-  MEF(12,10);
-  MEF(17,12);
+  qDebug() << startEC << endEC;
+
+  for(int i=startEC;i<endEC;i+=2){
+    MEF(i,i+2);
+  }
+
+  MEF(endEC,endEC+3);
+  //  MEF(40,42);
+  //  MEF(42,44);
+  //  MEF(44,46);
+  //  MEF(78,80);
+
+  //  for(int i=0;i<faceCount;i++){
+  //    qDebug() << i << faces[i];
+  //  }
+  //  MEF(10,8);
+  //  MEF(12,10);
+  //  MEF(17,12);
 }
 
 void HalfEdgeObject::DrawFace(int face) const{
   int edge = edges[faces[face]].next;
   glBegin(GL_TRIANGLE_FAN);
-  qDebug() << faces[face];
+  //qDebug() << faces[face];
   GLVERTEX3D( vertices[edges[faces[face]].Ev]);
   while(edge!=faces[face]){
-    qDebug() << edge << edges[edge].face;
+    //qDebug() << edge << edges[edge].face;
     GLVERTEX3D(vertices[edges[edge].Ev]);
     edge = edges[edge].next;
   }

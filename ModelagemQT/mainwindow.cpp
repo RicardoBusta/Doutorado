@@ -246,6 +246,7 @@ void MainWindow::UpdateCurrentObjectHE()
     return;
   }
   obj->selected_edge = ui->edge_spinBox->value();
+  ui->face_spinBox->setValue(obj->edges[obj->selected_edge].face);
   ui->glwidget->update();
 }
 
@@ -257,6 +258,7 @@ void MainWindow::GetNextEdge()
   }
   if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
     ui->edge_spinBox->setValue(obj->edges[obj->selected_edge].next);
+    ui->face_spinBox->setValue(obj->edges[obj->selected_edge].face);
   }
 }
 

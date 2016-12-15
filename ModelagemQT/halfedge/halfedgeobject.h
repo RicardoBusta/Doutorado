@@ -28,7 +28,14 @@ public:
 
   void Draw() const;
 
-  void CreateBox();
+  void CreateBox(float w, float h, float d);
+  void CreatePyramid(float r, float h, int s);
+  void CreateSphere(float r);
+  void CreatePrysm(float r, float h, int s);
+  void CreateTorus(float r1, float r2);
+
+  void CreatePolyBase(float r, float y, int s);
+
 
   int selected_edge;
 

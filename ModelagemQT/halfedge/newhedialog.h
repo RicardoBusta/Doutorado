@@ -29,8 +29,7 @@ private:
     Cone,
     Torus,
     Pyramid,
-    Prism,
-    Operation
+    Prism
   };
 
   Shape shape;
