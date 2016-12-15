@@ -340,27 +340,8 @@
        </property>
        <widget class="QWidget" name="default_page"/>
        <widget class="QWidget" name="halfedge_page">
-        <layout class="QVBoxLayout" name="verticalLayout_8">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Current Edge</string>
-           </property>
-          </widget>
-         </item>
-         <item>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="1" column="0">
           <widget class="QSpinBox" name="edge_spinBox">
            <property name="minimum">
             <number>-1</number>
@@ -373,28 +354,41 @@
            </property>
           </widget>
          </item>
-         <item>
+         <item row="2" column="0">
           <widget class="QPushButton" name="next_pushButton">
            <property name="text">
             <string>Get Next</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="mate_pushButton">
+         <item row="6" column="0">
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_9">
            <property name="text">
-            <string>Get Mate</string>
+            <string>Current Edge</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="1">
           <widget class="QLabel" name="label_10">
            <property name="text">
             <string>Current Face</string>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="1" column="1">
           <widget class="QSpinBox" name="face_spinBox">
            <property name="readOnly">
             <bool>true</bool>
@@ -410,18 +404,40 @@
            </property>
           </widget>
          </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="mate_pushButton">
+           <property name="text">
+            <string>Get Mate</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QPushButton" name="mef">
+           <property name="text">
+            <string>MEF</string>
            </property>
-          </spacer>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPushButton" name="mev">
+           <property name="text">
+            <string>MEV</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QPushButton" name="translate">
+           <property name="text">
+            <string>Translate</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QPushButton" name="extrude">
+           <property name="text">
+            <string>Extrude</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -607,6 +623,11 @@
           </widget>
          </item>
         </layout>
+       </widget>
+       <widget class="QWidget" name="Bezier">
+        <attribute name="title">
+         <string>Bezier</string>
+        </attribute>
        </widget>
       </widget>
      </item>

@@ -74,6 +74,7 @@ void HalfEdgeObject::Draw() const
 
 void HalfEdgeObject::CreateBox(float w, float h, float d)
 {
+  Rename("HE Box");
   MVFS_MEV(QVector3D(-w/2,-h/2,-d/2),QVector3D(-w/2,-h/2,d/2));
   MEV(0,QVector3D(w/2,-h/2,d/2));
   MEV(2,QVector3D(w/2,-h/2,-d/2));
@@ -86,11 +87,19 @@ void HalfEdgeObject::CreateBox(float w, float h, float d)
 }
 
 void HalfEdgeObject::CreatePyramid(float r, float h, int s) {
+  Rename("HE Pyramid");
 
+  CreatePolyBase(r,-h/2,s);
+
+  int edg = edgeCount-1;
+  qDebug() << edg;
+
+  //MEV(0,QVector3D(0,h/2,0));
+  //MEF(40,39);
 }
 
 void HalfEdgeObject::CreateSphere(float r) {
-
+  Rename("HE Sphere");
 }
 
 void HalfEdgeObject::CreatePrysm(float r, float h, int s) {
@@ -103,7 +112,7 @@ void HalfEdgeObject::CreatePrysm(float r, float h, int s) {
 
 void HalfEdgeObject::CreateTorus(float r1, float r2)
 {
-
+  Rename("HE Torus");
 }
 
 void HalfEdgeObject::CreatePolyBase(float r, float y, int s)
@@ -204,8 +213,8 @@ void HalfEdgeObject::MEV(int e, const QVector3D &p)
 }
 
 void HalfEdgeObject::MEF(int e1, int e2) {
-  int ne1 = edgeCount++;
   int ne2 = edgeCount++;
+  int ne1 = edgeCount++;
 
   int v1 = edges[e1].Sv;
   int v2 = edges[e2].Sv;
@@ -247,6 +256,9 @@ void HalfEdgeObject::MEF(int e1, int e2) {
 
 void HalfEdgeObject::ExtrudeFace(int face, const QVector3D &direction)
 {
+  if(!faces.contains(face)){
+    return;
+  }
   int e0 = faces[face];
 
   MEV(e0,vertices[edges[e0].Sv]+direction);
@@ -265,18 +277,7 @@ void HalfEdgeObject::ExtrudeFace(int face, const QVector3D &direction)
     MEF(i,i+2);
   }
 
-  MEF(endEC,endEC+3);
-  //  MEF(40,42);
-  //  MEF(42,44);
-  //  MEF(44,46);
-  //  MEF(78,80);
-
-  //  for(int i=0;i<faceCount;i++){
-  //    qDebug() << i << faces[i];
-  //  }
-  //  MEF(10,8);
-  //  MEF(12,10);
-  //  MEF(17,12);
+  MEF(endEC,endEC+2);
 }
 
 void HalfEdgeObject::DrawFace(int face) const{

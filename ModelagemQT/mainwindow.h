@@ -34,16 +34,20 @@ private slots:
   void UpdateCurrentObjectName(QString name);
   void UpdateCurrentObjectCheck(bool value);
 
+  // HALF EDGE STUFF
   void UpdateCurrentObjectHE();
-
   void GetNextEdge();
   void GetMateEdge();
-//  void GetEdgeFace();
+  void CreateHEPressed();
+  void Extrude();
+  void MEF();
+  void MEV();
+  void Translate();
 
   void CreateOctreePressed();
   void OperateOctreePressed();
 
-  void CreateHEPressed();
+
 
   void CreateCSGPressed();
 

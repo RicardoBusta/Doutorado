@@ -12,6 +12,10 @@
 #include "csg/newcsgdialog.h"
 #include "halfedge/newhedialog.h"
 #include "halfedge/halfedgeobject.h"
+#include "halfedge/extrudedialog.h"
+#include "halfedge/mefdialog.h"
+#include "halfedge/mevdialog.h"
+#include "halfedge/translatedialog.h"
 
 const QString colorButtonStyle = "background-color: %1;\nborder: none;";
 
@@ -84,6 +88,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
 //  QObject::connect(ui->face_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetEdgeFace()));
   QObject::connect(ui->next_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetNextEdge()));
   QObject::connect(ui->mate_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetMateEdge()));
+
+  QObject::connect(ui->mef,SIGNAL(clicked(bool)),this,SLOT(MEF()));
+  QObject::connect(ui->mev,SIGNAL(clicked(bool)),this,SLOT(MEV()));
+  QObject::connect(ui->translate,SIGNAL(clicked(bool)),this,SLOT(Translate()));
+  QObject::connect(ui->extrude,SIGNAL(clicked(bool)),this,SLOT(Extrude()));
 
   ui->specific_stackedWidget->setCurrentWidget(ui->default_page);
 }
@@ -308,6 +317,58 @@ void MainWindow::CreateHEPressed()
   int result = dialog.exec();
   if(result == QDialog::Accepted){
     dialog.CreateHE(scene);
+  }
+}
+
+void MainWindow::Extrude()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  ExtrudeDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.Apply(obj);
+  }
+}
+
+void MainWindow::MEF()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  MEFDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.Apply(obj);
+  }
+}
+
+void MainWindow::MEV()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  MEVDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.Apply(obj);
+  }
+}
+
+void MainWindow::Translate()
+{
+  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+  if (obj == nullptr) {
+    return;
+  }
+  TranslateDialog dialog;
+  int result = dialog.exec();
+  if(result == QDialog::Accepted){
+    dialog.Apply(obj);
   }
 }
 

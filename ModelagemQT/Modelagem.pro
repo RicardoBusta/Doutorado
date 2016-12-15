@@ -47,6 +47,10 @@ SOURCES += main.cpp\
     csg/csgoperation.cpp \
     halfedge/halfedgeobject.cpp \
     halfedge/newhedialog.cpp \
+    halfedge/mevdialog.cpp \
+    halfedge/mefdialog.cpp \
+    halfedge/extrudedialog.cpp \
+    halfedge/translatedialog.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -82,13 +86,21 @@ HEADERS  += mainwindow.h \
     csg/csgtorus.h \
     csg/csgoperation.h \
     halfedge/halfedgeobject.h \
-    halfedge/newhedialog.h
+    halfedge/newhedialog.h \
+    halfedge/mevdialog.h \
+    halfedge/mefdialog.h \
+    halfedge/extrudedialog.h \
+    halfedge/translatedialog.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui \
     octree/operateoctreedialog.ui \
     csg/newcsgdialog.ui \
-    halfedge/newhedialog.ui
+    halfedge/newhedialog.ui \
+    halfedge/mevdialog.ui \
+    halfedge/mefdialog.ui \
+    halfedge/extrudedialog.ui \
+    halfedge/translatedialog.ui
 
 LIBS += -lopengl32
 
