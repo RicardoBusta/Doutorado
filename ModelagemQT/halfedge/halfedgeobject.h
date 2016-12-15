@@ -28,9 +28,8 @@ public:
 
   void Draw() const;
 
-  void CreateCube();
+  void CreateBox();
 
-  int selected_face;
   int selected_edge;
 
 private:
@@ -40,6 +39,8 @@ private:
   void MEV(int e1, int e2, const QVector3D &p);
   void MEV(int e, const QVector3D &p);
   void MEF(int e1, int e2);
+
+  void ExtrudeFace(int face, const QVector3D &direction);
 
   void DrawFace(int face) const;
   //void

@@ -38,7 +38,7 @@ void NewHEDialog::CreateHE(Scene *scene)
     //object = new CSGCylinder(ui->cylinder_radius->value()/2.0f, ui->cylinder_height->value());
     break;
   case Box:
-    object->CreateCube();
+    object->CreateBox();
     break;
   case Torus:
 //    object = new CSGTorus(ui->torus_r1->value()/2.0f, ui->torus_r2->value()/2.0f);

@@ -38,7 +38,7 @@ private slots:
 
   void GetNextEdge();
   void GetMateEdge();
-  void GetEdgeFace();
+//  void GetEdgeFace();
 
   void CreateOctreePressed();
   void OperateOctreePressed();

@@ -79,9 +79,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
   QObject::connect(ui->create_he_button,SIGNAL(clicked(bool)),this,SLOT(CreateHEPressed()));
 
   QObject::connect(ui->edge_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateCurrentObjectHE()));
-  QObject::connect(ui->face_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateCurrentObjectHE()));
+  //QObject::connect(ui->face_spinBox,SIGNAL(valueChanged(int)),this,SLOT(UpdateCurrentObjectHE()));
 
-  QObject::connect(ui->face_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetEdgeFace()));
+//  QObject::connect(ui->face_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetEdgeFace()));
   QObject::connect(ui->next_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetNextEdge()));
   QObject::connect(ui->mate_pushButton,SIGNAL(clicked(bool)),this,SLOT(GetMateEdge()));
 
@@ -246,7 +246,6 @@ void MainWindow::UpdateCurrentObjectHE()
     return;
   }
   obj->selected_edge = ui->edge_spinBox->value();
-  obj->selected_face = ui->face_spinBox->value();
   ui->glwidget->update();
 }
 
@@ -269,19 +268,20 @@ void MainWindow::GetMateEdge()
   }
   if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
     ui->edge_spinBox->setValue(obj->edges[obj->selected_edge].mate);
-  }
-}
-
-void MainWindow::GetEdgeFace()
-{
-  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
-  if (obj == nullptr) {
-    return;
-  }
-  if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
     ui->face_spinBox->setValue(obj->edges[obj->selected_edge].face);
   }
 }
+
+//void MainWindow::GetEdgeFace()
+//{
+//  HalfEdgeObject *obj = dynamic_cast<HalfEdgeObject*>(scene->current_object);
+//  if (obj == nullptr) {
+//    return;
+//  }
+//  if(obj->selected_edge>=0 && obj->selected_edge < obj->edges.size()){
+//    ui->face_spinBox->setValue(obj->edges[obj->selected_edge].face);
+//  }
+//}
 
 void MainWindow::CreateOctreePressed() {
   NewOctreeDialog dialog;
