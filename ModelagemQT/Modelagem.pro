@@ -50,7 +50,8 @@ SOURCES += main.cpp\
     halfedge/mevdialog.cpp \
     halfedge/mefdialog.cpp \
     halfedge/extrudedialog.cpp \
-    halfedge/translatedialog.cpp
+    halfedge/translatedialog.cpp \
+    newbezierdialog.cpp \
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -90,7 +91,8 @@ HEADERS  += mainwindow.h \
     halfedge/mevdialog.h \
     halfedge/mefdialog.h \
     halfedge/extrudedialog.h \
-    halfedge/translatedialog.h
+    halfedge/translatedialog.h \
+    newbezierdialog.h
 
 FORMS    += mainwindow.ui \
     octree/newoctreedialog.ui \
@@ -100,7 +102,8 @@ FORMS    += mainwindow.ui \
     halfedge/mevdialog.ui \
     halfedge/mefdialog.ui \
     halfedge/extrudedialog.ui \
-    halfedge/translatedialog.ui
+    halfedge/translatedialog.ui \
+    newbezierdialog.ui
 
 LIBS += -lopengl32
 
